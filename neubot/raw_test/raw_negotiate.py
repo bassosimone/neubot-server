@@ -34,6 +34,7 @@
 #
 
 import getopt
+import json
 import logging
 import sys
 
@@ -42,16 +43,15 @@ if __name__ == '__main__':
 
 from neubot.backend import BACKEND
 from neubot.config import CONFIG
-from neubot.compat import json
-from neubot.defer import Deferred
-from neubot.http_clnt import HttpClient
+from .defer import Deferred
+from .http_clnt import HttpClient
 from neubot.notify import NOTIFIER
 from neubot.poller import POLLER
-from neubot.raw_clnt import RawClient
+from .raw_clnt import RawClient
 from neubot.state import STATE
 
-from neubot import http_utils
-from neubot import raw_analyze
+from . import http_utils
+from . import raw_analyze
 from neubot import six
 from neubot import utils_net
 from neubot import utils_version

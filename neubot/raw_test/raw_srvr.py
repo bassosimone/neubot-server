@@ -36,19 +36,19 @@ import sys
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from neubot.brigade import Brigade
-from neubot.defer import Deferred
-from neubot.handler import Handler
+from .brigade import Brigade
+from .defer import Deferred
+from .handler import Handler
 from neubot.poller import POLLER
-from neubot.raw_defs import AUTH_LEN
-from neubot.raw_defs import EMPTY_MESSAGE
-from neubot.raw_defs import FAKEAUTH
-from neubot.raw_defs import RAWTEST
-from neubot.raw_defs import RAWTEST_CODE
-from neubot.raw_defs import PIECE_CODE
-from neubot.raw_defs import PING_CODE
-from neubot.raw_defs import PINGBACK
-from neubot.stream import Stream
+from .raw_defs import AUTH_LEN
+from .raw_defs import EMPTY_MESSAGE
+from .raw_defs import FAKEAUTH
+from .raw_defs import RAWTEST
+from .raw_defs import RAWTEST_CODE
+from .raw_defs import PIECE_CODE
+from .raw_defs import PING_CODE
+from .raw_defs import PINGBACK
+from .stream import Stream
 
 from neubot import six
 from neubot import utils
