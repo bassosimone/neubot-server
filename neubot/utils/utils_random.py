@@ -31,7 +31,7 @@ import collections
 import os.path
 import random
 
-from neubot import utils_hier
+from . import utils_hier
 
 # Maximum depth
 MAXDEPTH = 16

@@ -34,7 +34,7 @@ import sys
 if __name__ == "__main__":
     sys.path.insert(0, ".")
 
-from neubot import utils_hier
+from . import utils_hier
 
 def modprobe(filter, context, message):
     """ Probe all modules """

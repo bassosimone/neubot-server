@@ -40,7 +40,7 @@ from .stream import Stream
 from neubot.poller import POLLER
 
 from neubot import six
-from neubot import utils_version
+from neubot.utils import utils_version
 
 MAXLINE = 512
 MAXPIECE = 524288

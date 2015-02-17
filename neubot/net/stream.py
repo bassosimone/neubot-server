@@ -45,7 +45,7 @@ from neubot.log import oops
 from neubot.net.poller import Pollable
 
 from neubot import utils
-from neubot import utils_net
+from neubot.utils import utils_net
 
 # States returned by the socket model
 STATES = [SUCCESS, ERROR, WANT_READ, WANT_WRITE, CONNRESET] = range(5)

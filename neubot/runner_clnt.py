@@ -36,7 +36,7 @@ import sys
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from neubot import utils_version
+from neubot.utils import utils_version
 
 def runner_client(address, port, verbosity, test):
     ''' Run the specified test in the context of the Neubot

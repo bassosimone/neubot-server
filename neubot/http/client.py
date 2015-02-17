@@ -33,7 +33,7 @@ from neubot.http.stream import ERROR
 from neubot.http.stream import nextstate
 from neubot.http.message import Message
 from neubot import utils
-from neubot import utils_net
+from neubot.utils import utils_net
 
 class ClientStream(StreamHTTP):
 
