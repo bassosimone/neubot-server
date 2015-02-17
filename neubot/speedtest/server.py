@@ -26,7 +26,7 @@ from neubot.utils_random import RandomBody
 from neubot.http.message import Message
 from neubot.http.server import ServerHTTP
 
-from neubot.bytegen_speedtest import BytegenSpeedtest
+from .bytegen import BytegenSpeedtest
 
 TARGET = 5
 
