@@ -31,7 +31,7 @@
 import re
 import types
 
-from neubot.simplejson.ordered_dict import OrderedDict
+from neubot.six import OrderedDict
 
 from neubot import utils
 
