@@ -35,7 +35,7 @@ if __name__ == '__main__':
 
 from neubot.backend import BACKEND
 from neubot.config import CONFIG
-from neubot.poller import POLLER
+from neubot.net.poller import POLLER
 from .raw_negotiate import RawNegotiate
 
 from neubot import log

@@ -44,7 +44,7 @@ from neubot.negotiate.server import NegotiateServer
 
 from neubot.backend import BACKEND
 from neubot.config import CONFIG
-from neubot.poller import POLLER
+from neubot.net.poller import POLLER
 
 from neubot import log
 from neubot import runner_clnt

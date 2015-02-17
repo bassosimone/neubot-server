@@ -31,13 +31,13 @@ import socket
 import sys
 
 from .defer import Deferred
-from neubot.pollable import Pollable
-from neubot.poller import POLLER
+from neubot.net.pollable import Pollable
+from neubot.net.poller import POLLER
 
-from neubot.pollable import CONNRST
-from neubot.pollable import SUCCESS
-from neubot.pollable import WANT_READ
-from neubot.pollable import WANT_WRITE
+from neubot.net.pollable import CONNRST
+from neubot.net.pollable import SUCCESS
+from neubot.net.pollable import WANT_READ
+from neubot.net.pollable import WANT_WRITE
 
 from neubot.utils import utils_net
 from neubot import six

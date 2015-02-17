@@ -40,7 +40,7 @@ if __name__ == '__main__':
 from .brigade import Brigade
 from .defer import Deferred
 from .handler import Handler
-from neubot.poller import POLLER
+from neubot.net.poller import POLLER
 from .raw_defs import FAKEAUTH
 from .raw_defs import PING
 from .raw_defs import PINGBACK

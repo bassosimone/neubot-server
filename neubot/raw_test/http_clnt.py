@@ -37,7 +37,7 @@ from .brigade import Brigade
 from .handler import Handler
 from .stream import Stream
 
-from neubot.poller import POLLER
+from neubot.net.poller import POLLER
 
 from neubot import six
 from neubot.utils import utils_version

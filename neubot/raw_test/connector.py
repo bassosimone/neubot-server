@@ -30,8 +30,8 @@ import logging
 
 from .defer import Deferred
 
-from neubot.pollable import Pollable
-from neubot.poller import POLLER
+from neubot.net.pollable import Pollable
+from neubot.net.poller import POLLER
 
 from neubot.utils import utils_net
 from neubot import utils

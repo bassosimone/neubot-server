@@ -32,7 +32,7 @@
 
 import random
 
-from neubot.net.poller import WATCHDOG
+from neubot.net.pollable import WATCHDOG
 
 from neubot.config import CONFIG
 from neubot.bittorrent import estimate

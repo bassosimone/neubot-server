@@ -46,7 +46,7 @@ from neubot.config import CONFIG
 from .defer import Deferred
 from .http_clnt import HttpClient
 from neubot.notify import NOTIFIER
-from neubot.poller import POLLER
+from neubot.net.poller import POLLER
 from .raw_clnt import RawClient
 from neubot.state import STATE
 

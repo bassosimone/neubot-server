@@ -42,7 +42,7 @@ except ImportError:
 
 from neubot.config import CONFIG
 from neubot.log import oops
-from neubot.net.poller import Pollable
+from .pollable import Pollable
 
 from neubot import utils
 from neubot.utils import utils_net
