@@ -25,8 +25,8 @@
 # Adapted from neubot/net/stream.py
 # Python3-ready: yes
 
-from neubot.connector import Connector
-from neubot.listener import Listener
+from .connector import Connector
+from .listener import Listener
 
 from neubot import utils_net
 

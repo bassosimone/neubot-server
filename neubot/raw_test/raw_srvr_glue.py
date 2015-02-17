@@ -26,7 +26,7 @@
 '''
 
 from neubot.negotiate.server_raw import NEGOTIATE_SERVER_RAW
-from neubot.raw_srvr import RawServer
+from .raw_srvr import RawServer
 
 class RawServerEx(RawServer):
     ''' Negotiation-enabled RAW test server '''

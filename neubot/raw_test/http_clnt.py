@@ -33,10 +33,11 @@ import sys
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from neubot.brigade import Brigade
-from neubot.handler import Handler
+from .brigade import Brigade
+from .handler import Handler
+from .stream import Stream
+
 from neubot.poller import POLLER
-from neubot.stream import Stream
 
 from neubot import six
 from neubot import utils_version
