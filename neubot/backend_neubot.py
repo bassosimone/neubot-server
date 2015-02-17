@@ -37,11 +37,6 @@ try:
 except ImportError:
     import pickle
 
-from neubot.database import DATABASE
-from neubot.database import table_bittorrent
-from neubot.database import table_speedtest
-from neubot.database import table_raw
-
 from neubot.backend_null import BackendNull
 
 from neubot import utils_path
@@ -58,27 +53,15 @@ class BackendNeubot(BackendNull):
 
     def bittorrent_store(self, message):
         ''' Saves the results of a bittorrent test '''
-        DATABASE.connect()
-        if DATABASE.readonly:
-            logging.warning('backend_neubot: readonly database')
-            return
-        table_bittorrent.insert(DATABASE.connection(), message)
+        self.store_generic("bittorrent", message)
 
     def store_raw(self, message):
         ''' Saves the results of a raw test '''
-        DATABASE.connect()
-        if DATABASE.readonly:
-            logging.warning('backend_neubot: readonly database')
-            return
-        table_raw.insert(DATABASE.connection(), message)
+        self.store_generic("raw", message)
 
     def speedtest_store(self, message):
         ''' Saves the results of a speedtest test '''
-        DATABASE.connect()
-        if DATABASE.readonly:
-            logging.warning('backend_neubot: readonly database')
-            return
-        table_speedtest.insert(DATABASE.connection(), message)
+        self.store_generic("speedtest", message)
 
     #
     # 'Generic' load/store functions. We append test results into a vector,
