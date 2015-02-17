@@ -34,7 +34,6 @@ import sys
 if __name__ == "__main__":
     sys.path.insert(0, ".")
 
-from neubot.bittorrent.client import BitTorrentClient
 from neubot.bittorrent.peer import PeerNeubot
 from neubot.bittorrent.server import ServerPeer
 from neubot.http.server import HTTP_SERVER
@@ -91,19 +90,7 @@ def run(poller, conf):
             log.oops("The 'testdone' event is not subscribed")
 
         if conf["bittorrent.negotiate"]:
-            client = BitTorrentClient(poller)
-            client.configure(conf)
-
-            #
-            # The rendezvous client uses this hidden variable
-            # to pass us the URI to connect() to (the rendezvous
-            # returns an URI, not address and port).
-            #
-            uri = None
-            if "bittorrent._uri" in conf:
-                uri = conf["bittorrent._uri"]
-
-            client.connect_uri(uri)
+            raise RuntimeError("BitTorrent client not implemented")
 
         else:
             client = PeerNeubot(poller)
