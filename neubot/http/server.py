@@ -29,10 +29,6 @@ import sys
 import time
 import logging
 
-if __name__ == "__main__":
-    sys.path.insert(0, ".")
-
-from neubot.config import CONFIG
 from neubot.http.stream import ERROR
 from neubot.http.message import Message
 from neubot.http.ssi import ssi_replace
@@ -41,8 +37,6 @@ from neubot.http.stream import StreamHTTP
 from neubot.log import LOG
 from neubot.net.stream import StreamHandler
 from neubot.net.poller import POLLER
-
-from neubot.main import common
 
 from neubot import utils
 from neubot import utils_path
@@ -307,42 +301,3 @@ class ServerHTTP(StreamHandler):
         logging.warning("ServerHTTP: accept() failed: %s", str(exception))
 
 HTTP_SERVER = ServerHTTP(POLLER)
-
-CONFIG.register_defaults({
-    "http.server.address": "",
-    "http.server.class": "",
-    "http.server.mime": True,
-    "http.server.ports": "8080,",
-    "http.server.rootdir": "",
-    "http.server.ssi": False,
-})
-
-def main(args):
-
-    ''' main() function of this module '''
-
-    CONFIG.register_descriptions({
-        "http.server.address": "Address to listen to",
-        "http.server.class": "Use alternate ServerHTTP-like class",
-        "http.server.mime": "Enable code that guess mime types",
-        "http.server.ports": "List of ports to listen to",
-        "http.server.rootdir": "Root directory for static pages",
-        "http.server.ssi": "Enable server-side includes",
-    })
-
-    common.main("http.server", "Neubot simple HTTP server", args)
-    conf = CONFIG.copy()
-
-    HTTP_SERVER.configure(conf)
-
-    if conf["http.server.rootdir"] == ".":
-        conf["http.server.rootdir"] = os.path.abspath(".")
-
-    for port in conf["http.server.ports"].split(","):
-        if port:
-            HTTP_SERVER.listen((conf["http.server.address"], int(port)))
-
-    POLLER.loop()
-
-if __name__ == "__main__":
-    main(sys.argv)
