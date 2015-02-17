@@ -31,11 +31,6 @@ import collections
 import os.path
 import random
 
-#
-# Must use WWWDIR because Python modules are not
-# reachable with Windows.  They are stored into
-# library.zip.
-#
 from neubot import utils_hier
 
 # Maximum depth
@@ -66,7 +61,7 @@ def create_base_block(length):
     base_block = collections.deque()
 
     files = []
-    listdir(utils_hier.WWWDIR, files, 0)
+    listdir(os.path.join(utils_hier.ROOTDIR, "neubot"), files, 0)
     random.shuffle(files)
 
     for fpath in files:
