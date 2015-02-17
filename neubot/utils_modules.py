@@ -39,7 +39,7 @@ from neubot import utils_hier
 def modprobe(filter, context, message):
     """ Probe all modules """
 
-    rootdir = utils_hier.ROOTDIR
+    rootdir = os.path.join(utils_hier.ROOTDIR, "neubot")
 
     for name in os.listdir(rootdir):
         pathname = os.sep.join([rootdir, name])
