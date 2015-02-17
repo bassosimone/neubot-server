@@ -32,7 +32,6 @@
 import collections
 import errno
 import socket
-import sys
 import types
 import logging
 
@@ -41,18 +40,12 @@ try:
 except ImportError:
     ssl = None
 
-if __name__ == "__main__":
-    sys.path.insert(0, ".")
-
 from neubot.config import CONFIG
 from neubot.log import oops
-from neubot.net.poller import POLLER
 from neubot.net.poller import Pollable
 
 from neubot import utils
 from neubot import utils_net
-
-from neubot.main import common
 
 # States returned by the socket model
 STATES = [SUCCESS, ERROR, WANT_READ, WANT_WRITE, CONNRESET] = range(5)
@@ -613,109 +606,3 @@ class StreamHandler(object):
 
     def connection_lost(self, stream):
         pass
-
-class GenericHandler(StreamHandler):
-    def connection_made(self, sock, endpoint, rtt):
-        stream = GenericProtocolStream(self.poller)
-        stream.kind = self.conf["net.stream.proto"]
-        stream.attach(self, sock, self.conf)
-
-#
-# Specializes stream in order to handle some byte-oriented
-# protocols like discard, chargen, and echo.
-#
-class GenericProtocolStream(Stream):
-    def __init__(self, poller):
-        Stream.__init__(self, poller)
-        self.buffer = None
-        self.kind = ""
-
-    def connection_made(self):
-        self.buffer = "A" * self.conf["net.stream.chunk"]
-        duration = self.conf["net.stream.duration"]
-        if duration >= 0:
-            POLLER.sched(duration, self._do_close)
-        if self.kind == "discard":
-            self.start_recv()
-        elif self.kind == "chargen":
-            self.start_send(self.buffer)
-        elif self.kind == "echo":
-            self.start_recv()
-        else:
-            self.close()
-
-    def _do_close(self, *args, **kwargs):
-        self.close()
-
-    def recv_complete(self, octets):
-        self.start_recv()
-        if self.kind == "echo":
-            self.start_send(octets)
-
-    def send_complete(self):
-        if self.kind == "echo":
-            self.start_recv()
-            return
-        self.start_send(self.buffer)
-
-CONFIG.register_defaults({
-    # General variables
-    "net.stream.certfile": "",
-    "net.stream.secure": False,
-    "net.stream.server_side": False,
-    # For main()
-    "net.stream.address": "127.0.0.1 ::1",
-    "net.stream.chunk": 262144,
-    "net.stream.clients": 1,
-    "net.stream.duration": 10,
-    "net.stream.listen": False,
-    "net.stream.port": 12345,
-    "net.stream.proto": "",
-})
-
-def main(args):
-
-    CONFIG.register_descriptions({
-        # General variables
-        "net.stream.certfile": "Set SSL certfile path",
-        "net.stream.secure": "Enable SSL",
-        "net.stream.server_side": "Enable SSL server-side mode",
-        # For main()
-        "net.stream.address": "Set client or server address",
-        "net.stream.chunk": "Chunk written by each write",
-        "net.stream.clients": "Set number of client connections",
-        "net.stream.duration": "Set duration of a test",
-        "net.stream.listen": "Enable server mode",
-        "net.stream.port": "Set client or server port",
-        "net.stream.proto": "Set proto (chargen, discard, or echo)",
-    })
-
-    common.main("net.stream", "TCP bulk transfer test", args)
-
-    conf = CONFIG.copy()
-
-    endpoint = (conf["net.stream.address"], conf["net.stream.port"])
-
-    if not conf["net.stream.proto"]:
-        if conf["net.stream.listen"]:
-            conf["net.stream.proto"] = "chargen"
-        else:
-            conf["net.stream.proto"] = "discard"
-    elif conf["net.stream.proto"] not in ("chargen", "discard", "echo"):
-        common.write_help(sys.stderr, "net.stream", "TCP bulk transfer test")
-        sys.exit(1)
-
-    handler = GenericHandler(POLLER)
-    handler.configure(conf)
-
-    if conf["net.stream.listen"]:
-        conf["net.stream.server_side"] = True
-        handler.listen(endpoint)
-    else:
-        handler.connect(endpoint, count=conf["net.stream.clients"])
-
-    POLLER.loop()
-    sys.exit(0)
-
-if __name__ == "__main__":
-    main(sys.argv)
