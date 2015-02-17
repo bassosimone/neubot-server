@@ -35,7 +35,6 @@ if __name__ == '__main__':
 
 from neubot.backend import BACKEND
 from neubot.config import CONFIG
-from neubot.database import DATABASE
 from neubot.poller import POLLER
 from .raw_negotiate import RawNegotiate
 
@@ -69,12 +68,8 @@ def main(args):
         elif name == '-v':
             noisy = 1
 
-    if os.path.isfile(DATABASE.path):
-        DATABASE.connect()
-        CONFIG.merge_database(DATABASE.connection())
-    else:
-        logging.warning('raw: database file is missing: %s', DATABASE.path)
-        BACKEND.use_backend('null')
+    logging.warning('raw: database file is missing')
+    BACKEND.use_backend('null')
     if noisy:
         log.set_verbose()
 

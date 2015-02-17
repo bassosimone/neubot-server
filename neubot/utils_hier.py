@@ -144,9 +144,6 @@ elif os.name == 'nt':
 else:
     raise RuntimeError('system not supported')
 
-# Path to Neubot database
-DATABASEPATH = os.sep.join([LOCALSTATEDIR, 'database.sqlite3'])
-
 # Path to /etc/neubot/api
 APIFILEPATH = os.sep.join([SYSCONFDIR, 'api'])
 
@@ -162,7 +159,6 @@ def main(args):
     sys.stdout.write('''\
 APIFILEPATH   : "%(APIFILEPATH)s"
 BASEDIR       : "%(BASEDIR)s"
-DATABASEPATH  : "%(DATABASEPATH)s"
 LOCALSTATEDIR : "%(LOCALSTATEDIR)s"
 OPENSSL       : "%(OPENSSL)s"
 ROOTDIR       : "%(ROOTDIR)s"
