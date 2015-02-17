@@ -64,7 +64,7 @@ def modprobe(filter, context, message):
             logging.debug("utils_modules: skip '%s' (filter: %s)", name, filter)
             continue
 
-        modname = "%s.neubot_module" % name
+        modname = "neubot.%s.neubot_module" % name
 
         try:
             __import__(modname)
