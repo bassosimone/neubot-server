@@ -133,6 +133,11 @@ def listen(epnt, prefer_ipv6):
 
             sock = socket.socket(ainfo[0], socket.SOCK_STREAM)
             sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            if ainfo[0] == socket.AF_INET6:
+                try:
+                    sock.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, 1)
+                except AttributeError:
+                    pass
             sock.setblocking(False)
             sock.bind(ainfo[4])
             # Probably the backlog here is too big
