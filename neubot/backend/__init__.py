@@ -164,7 +164,7 @@ class BackendProxy(object):
             # because I adapted them from a POSIX-only file.
             #
             if os.name == "posix":
-                from neubot import system_posix
+                from neubot.system import system_posix
                 self.passwd = system_posix.getpwnam()
             elif os.name == "nt":
                 from neubot import utils_nt
