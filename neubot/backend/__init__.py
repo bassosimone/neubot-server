@@ -49,10 +49,10 @@ import time
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from neubot.backend_mlab import BackendMLab
-from neubot.backend_neubot import BackendNeubot
-from neubot.backend_null import BackendNull
-from neubot.backend_volatile import BackendVolatile
+from .backend_mlab import BackendMLab
+from .backend_neubot import BackendNeubot
+from .backend_null import BackendNull
+from .backend_volatile import BackendVolatile
 
 from neubot.config import CONFIG
 

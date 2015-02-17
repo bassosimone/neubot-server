@@ -32,7 +32,7 @@ import gzip
 import json
 import time
 
-from neubot.backend_null import BackendNull
+from .backend_null import BackendNull
 
 class BackendMLab(BackendNull):
     ''' M-Lab backend '''
