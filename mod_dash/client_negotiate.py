@@ -26,6 +26,7 @@
 # Adapted from neubot/bittorrent/client.py
 
 import logging
+import json
 
 from mod_dash.client_smpl import DASHClientSmpl
 
@@ -33,7 +34,6 @@ from neubot.http.client import ClientHTTP
 from neubot.http.message import Message
 
 from neubot.backend import BACKEND
-from neubot.compat import json
 from neubot.notify import NOTIFIER
 from neubot.state import STATE
 

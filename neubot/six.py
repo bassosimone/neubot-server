@@ -393,7 +393,7 @@ else:
         return buffer(string, offset, size)
 
     import urlparse
-    from neubot.simplejson.ordered_dict import OrderedDict
+    from neubot.ordered_dict import OrderedDict
 
     def bytes_to_string(octets, encoding):
         return octets

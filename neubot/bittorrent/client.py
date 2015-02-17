@@ -28,6 +28,7 @@
 
 import StringIO
 import hashlib
+import json
 import sys
 import logging
 
@@ -37,7 +38,6 @@ from neubot.http.message import Message
 
 from neubot.bittorrent import estimate
 from neubot.config import CONFIG
-from neubot.compat import json
 from neubot.database import DATABASE
 from neubot.database import table_bittorrent
 from neubot import utils_version

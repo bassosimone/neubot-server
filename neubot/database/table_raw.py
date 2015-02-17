@@ -31,7 +31,8 @@
 
 # Adapted from neubot/database/table_bittorrent.py
 
-from neubot.compat import json
+import json
+
 from neubot.database import _table_utils
 
 from neubot import utils

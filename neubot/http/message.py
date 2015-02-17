@@ -27,6 +27,7 @@
 import StringIO
 import email.utils
 import collections
+import json
 import urlparse
 import socket
 import os
@@ -34,7 +35,6 @@ import logging
 
 from neubot.log import oops
 
-from neubot import compat
 from neubot import utils
 from neubot import utils_net
 
@@ -309,7 +309,7 @@ class Message(object):
 
         # Decode the body
         if self["content-type"] == "application/json":
-            string = compat.json.dumps(compat.json.loads(body),
+            string = json.dumps(json.loads(body),
               indent=4, sort_keys=True)
         elif self["content-type"] in ("text/xml", "application/xml"):
             string = body

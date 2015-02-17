@@ -22,6 +22,7 @@
 #
 
 import xml.dom.minidom
+import json
 import urllib
 import types
 import sys
@@ -29,8 +30,6 @@ import cgi
 
 if __name__ == "__main__":
     sys.path.insert(0, ".")
-
-from neubot.compat import json
 
 from neubot.utils import unicodize
 from neubot.utils import stringify
