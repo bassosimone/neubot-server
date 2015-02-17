@@ -28,7 +28,7 @@
 import logging
 import json
 
-from mod_dash.client_smpl import DASHClientSmpl
+from .client_smpl import DASHClientSmpl
 
 from neubot.http.client import ClientHTTP
 from neubot.http.message import Message
