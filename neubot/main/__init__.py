@@ -181,25 +181,7 @@ def main(argv):
                     agent.main(arguments)
                     sys.exit(0)
 
-            #
-            # It's not wise at all to open the browser when
-            # we are running as root.  Assume that when we
-            # are root the user wants just to start the agent.
-            #
-            if webgui and "DISPLAY" in os.environ:
-                if os.getuid() != 0:
-                    from neubot.main import browser
-                    browser.open_patient("127.0.0.1", "9774")
-
         elif os.name == "nt":
-
-            if webgui:
-                from neubot.main import browser
-
-                if not running and start:
-                    browser.open_patient("127.0.0.1", "9774", True)
-                else:
-                    browser.open_patient("127.0.0.1", "9774")
 
             if not running and start:
                 from neubot import agent
