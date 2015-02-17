@@ -45,7 +45,6 @@ from neubot.defer import Deferred
 from neubot.log import STREAMING_LOG
 from neubot.notify import NOTIFIER
 from neubot.raw_negotiate import RawNegotiate
-from neubot.runner_dload import RunnerDload
 from neubot.runner_hosts import RUNNER_HOSTS
 from neubot.runner_mlabns import RunnerMlabns
 from neubot.runner_tests import RUNNER_TESTS
@@ -168,9 +167,6 @@ class RunnerCore(object):
             uri = RUNNER_TESTS.test_to_negotiate_uri('bittorrent')
             conf['bittorrent._uri'] =  uri
             bittorrent.run(POLLER, conf)
-
-        elif first_elem[0] == 'dload':
-            RunnerDload(first_elem[2])
 
         elif first_elem[0] == 'raw':
             address = RUNNER_HOSTS.get_random_host()
