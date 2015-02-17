@@ -44,7 +44,6 @@ from neubot import utils_version
 from neubot.notify import NOTIFIER
 from neubot.state import STATE
 
-from neubot import privacy
 from neubot import utils
 from neubot import utils_net
 
@@ -202,11 +201,10 @@ class BitTorrentClient(ClientHTTP):
             STATE.update("test_upload", upload)
             logging.info('BitTorrent: upload speed: %s', upload)
 
-            if privacy.collect_allowed(self.my_side):
-                if DATABASE.readonly:
-                    logging.warning('bittorrent_client: readonly database')
-                else:
-                    table_bittorrent.insert(DATABASE.connection(), self.my_side)
+            if DATABASE.readonly:
+                logging.warning('bittorrent_client: readonly database')
+            else:
+                table_bittorrent.insert(DATABASE.connection(), self.my_side)
 
             # Update the upstream channel estimate
             target_bytes = int(m["target_bytes"])

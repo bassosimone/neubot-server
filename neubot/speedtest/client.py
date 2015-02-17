@@ -44,7 +44,6 @@ from neubot.backend import BACKEND
 
 from neubot import log
 from neubot import marshal
-from neubot import privacy
 from neubot import utils
 
 from neubot.bytegen_speedtest import BytegenSpeedtest
@@ -247,11 +246,10 @@ class ClientCollect(ClientHTTP):
         # Pass a dictionary because the function does not accept
         # anymore an object
         #
-        if privacy.collect_allowed(m1.__dict__):
-            if DATABASE.readonly:
-                logging.warning('speedtest: readonly database')
-            else:
-                insertxxx(DATABASE.connection(), m1)
+        if DATABASE.readonly:
+            logging.warning('speedtest: readonly database')
+        else:
+            insertxxx(DATABASE.connection(), m1)
 
         request = Message()
         request.compose(method="POST", pathquery="/speedtest/collect",
