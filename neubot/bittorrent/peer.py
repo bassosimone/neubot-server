@@ -46,8 +46,8 @@ from neubot.config import CONFIG
 from neubot.state import STATE
 
 from neubot import utils
-from neubot import utils_net
-from neubot import utils_rc
+from neubot.utils import utils_net
+from neubot.utils import utils_rc
 
 # Constants
 from neubot.bittorrent.config import PIECE_LEN

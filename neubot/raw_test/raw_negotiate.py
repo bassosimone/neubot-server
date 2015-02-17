@@ -53,8 +53,8 @@ from neubot.state import STATE
 from . import http_utils
 from . import raw_analyze
 from neubot import six
-from neubot import utils_net
-from neubot import utils_version
+from neubot.utils import utils_net
+from neubot.utils import utils_version
 
 APPLICATION_JSON = six.b('application/json')
 CODE200 = six.b('200')

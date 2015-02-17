@@ -28,7 +28,7 @@
 from .connector import Connector
 from .listener import Listener
 
-from neubot import utils_net
+from neubot.utils import utils_net
 
 class Handler(object):
 

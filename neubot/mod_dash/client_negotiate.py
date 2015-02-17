@@ -38,7 +38,7 @@ from neubot.notify import NOTIFIER
 from neubot.state import STATE
 
 from neubot import utils
-from neubot import utils_net
+from neubot.utils import utils_net
 
 STATE_NEGOTIATE = 0
 STATE_COLLECT = 1

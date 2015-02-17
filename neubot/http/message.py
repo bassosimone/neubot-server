@@ -36,7 +36,7 @@ import logging
 from neubot.log import oops
 
 from neubot import utils
-from neubot import utils_net
+from neubot.utils import utils_net
 
 REDIRECT = '''\
 <HTML>

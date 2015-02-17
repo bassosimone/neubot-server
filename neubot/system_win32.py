@@ -26,7 +26,7 @@
 
 import os.path
 
-from neubot import utils_hier
+from neubot.utils import utils_hier
 
 def _get_profile_dir():
     ''' Get database directory '''

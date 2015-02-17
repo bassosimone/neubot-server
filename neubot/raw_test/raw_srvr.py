@@ -52,8 +52,8 @@ from .stream import Stream
 
 from neubot import six
 from neubot import utils
-from neubot import utils_net
-from neubot import utils_version
+from neubot.utils import utils_net
+from neubot.utils import utils_version
 from neubot import web100
 
 LEN_MESSAGE = 32768
