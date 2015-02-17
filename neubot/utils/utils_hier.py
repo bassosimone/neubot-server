@@ -38,9 +38,10 @@ import sys
 # The following is magic to compute the absolute root directory
 # and has been suggested by Alessio Palmero.  Here is how it
 # works::
-#     __file__ -> $ROOTDIR/neubot/__file__.py -> $ROOTDIR
+#     __file__ -> $ROOTDIR/neubot/utils/__file__.py -> $ROOTDIR
 #
-ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOTDIR = os.path.dirname(os.path.dirname(os.path.dirname(
+                          os.path.abspath(__file__))))
 if hasattr(sys, 'frozen'):
     ROOTDIR = os.path.dirname(ROOTDIR)
 

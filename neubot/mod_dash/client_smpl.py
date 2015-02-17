@@ -36,8 +36,8 @@ from neubot.http.message import Message
 from neubot.state import STATE
 
 from neubot import utils
-from neubot import utils_net
-from neubot import utils_version
+from neubot.utils import utils_net
+from neubot.utils import utils_version
 
 #
 # We want the download of a chunk to run for about this number of

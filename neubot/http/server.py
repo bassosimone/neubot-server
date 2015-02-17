@@ -35,7 +35,7 @@ from neubot.net.stream import StreamHandler
 from neubot.net.poller import POLLER
 
 from neubot import utils
-from neubot import utils_net
+from neubot.utils import utils_net
 
 #
 # 3-letter abbreviation of month names.

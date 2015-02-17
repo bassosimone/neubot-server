@@ -56,8 +56,8 @@ from .backend_volatile import BackendVolatile
 
 from neubot.config import CONFIG
 
-from neubot import utils_hier
-from neubot import utils_path
+from neubot.utils import utils_hier
+from neubot.utils import utils_path
 
 class BackendProxy(object):
     ''' Proxy for the real backend '''
@@ -88,10 +88,10 @@ class BackendProxy(object):
         self.passwd = None
 
         if os.name == "posix":
-            from neubot import utils_posix
+            from neubot.utils import utils_posix
             self.vfs = utils_posix
         elif os.name == "nt":
-            from neubot import utils_nt
+            from neubot.utils import utils_nt
             self.vfs = utils_nt
         else:
             raise RuntimeError("backend: no VFS available")

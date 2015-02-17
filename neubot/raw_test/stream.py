@@ -39,7 +39,7 @@ from neubot.pollable import SUCCESS
 from neubot.pollable import WANT_READ
 from neubot.pollable import WANT_WRITE
 
-from neubot import utils_net
+from neubot.utils import utils_net
 from neubot import six
 
 # Soft errors on sockets, i.e. we can retry later

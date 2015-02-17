@@ -38,9 +38,9 @@ UNPRIV_USER = 'nobody'
 import os
 import syslog
 
-from neubot import utils_hier
-from neubot import utils_posix
-from neubot import utils_rc
+from neubot.utils import utils_hier
+from neubot.utils import utils_posix
+from neubot.utils import utils_rc
 
 def __logger(severity, message):
 

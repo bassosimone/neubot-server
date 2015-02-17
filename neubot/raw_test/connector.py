@@ -33,7 +33,7 @@ from .defer import Deferred
 from neubot.pollable import Pollable
 from neubot.poller import POLLER
 
-from neubot import utils_net
+from neubot.utils import utils_net
 from neubot import utils
 
 class Connector(Pollable):
