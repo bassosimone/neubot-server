@@ -37,7 +37,7 @@ try:
 except ImportError:
     import pickle
 
-from neubot.backend_null import BackendNull
+from .backend_null import BackendNull
 
 from neubot import utils_path
 
