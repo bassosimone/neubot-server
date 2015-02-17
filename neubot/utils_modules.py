@@ -39,7 +39,7 @@ from neubot import utils_hier
 def modprobe(filter, context, message):
     """ Probe all modules """
 
-    rootdir = utils_hier.ROOTDIR
+    rootdir = os.path.join(utils_hier.ROOTDIR, "neubot")
 
     for name in os.listdir(rootdir):
         pathname = os.sep.join([rootdir, name])
@@ -64,7 +64,7 @@ def modprobe(filter, context, message):
             logging.debug("utils_modules: skip '%s' (filter: %s)", name, filter)
             continue
 
-        modname = "%s.neubot_module" % name
+        modname = "neubot.%s.neubot_module" % name
 
         try:
             __import__(modname)
