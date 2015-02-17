@@ -37,11 +37,11 @@ from neubot.backend import BACKEND
 from neubot.config import CONFIG
 from neubot.database import DATABASE
 from neubot.poller import POLLER
-from neubot.raw_negotiate import RawNegotiate
+from .raw_negotiate import RawNegotiate
 
 from neubot import log
 from neubot import privacy
-from neubot import runner_clnt
+from . import runner_clnt
 
 def main(args):
     ''' Main function '''

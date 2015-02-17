@@ -25,7 +25,8 @@
 # Adapted from neubot/http/message.py
 
 import logging
-from neubot.compat import json
+import json
+
 from neubot import six
 
 class Body(object):

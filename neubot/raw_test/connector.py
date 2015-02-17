@@ -28,7 +28,8 @@
 import collections
 import logging
 
-from neubot.defer import Deferred
+from .defer import Deferred
+
 from neubot.pollable import Pollable
 from neubot.poller import POLLER
 
