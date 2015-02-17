@@ -27,22 +27,22 @@
 import os
 
 if os.name == "nt":
-    from neubot.system_win32 import go_background
-    from neubot.system_win32 import drop_privileges
-    from neubot.system_win32 import _get_profile_dir
-    from neubot.system_win32 import _want_rwx_dir
-    from neubot.system_win32 import _want_rw_file
-    from neubot.system_win32 import get_background_logger
-    from neubot.system_win32 import has_enough_privs
+    from .system_win32 import go_background
+    from .system_win32 import drop_privileges
+    from .system_win32 import _get_profile_dir
+    from .system_win32 import _want_rwx_dir
+    from .system_win32 import _want_rw_file
+    from .system_win32 import get_background_logger
+    from .system_win32 import has_enough_privs
 
 elif os.name == "posix":
-    from neubot.system_posix import go_background
-    from neubot.system_posix import drop_privileges
-    from neubot.system_posix import _get_profile_dir
-    from neubot.system_posix import _want_rwx_dir
-    from neubot.system_posix import _want_rw_file
-    from neubot.system_posix import get_background_logger
-    from neubot.system_posix import has_enough_privs
+    from .system_posix import go_background
+    from .system_posix import drop_privileges
+    from .system_posix import _get_profile_dir
+    from .system_posix import _want_rwx_dir
+    from .system_posix import _want_rw_file
+    from .system_posix import get_background_logger
+    from .system_posix import has_enough_privs
 
 else:
     raise RuntimeError("Your system is not supported")
