@@ -27,7 +27,6 @@ import hashlib
 
 from neubot.negotiate.server import NegotiateServerModule
 from neubot.backend import BACKEND
-from neubot import privacy
 
 class NegotiateServerBitTorrent(NegotiateServerModule):
 
@@ -80,15 +79,6 @@ class NegotiateServerBitTorrent(NegotiateServerModule):
             del self.peers[sha1]
 
             #
-            # Backward compatibility: the variable name changed from
-            # can_share to can_publish after Neubot 0.4.5
-            #
-            if 'privacy_can_share' in request_body:
-                request_body['privacy_can_publish'] = request_body[
-                  'privacy_can_share']
-                del request_body['privacy_can_share']
-
-            #
             # Note that the following is not a bug: it's just that
             # the server saves results using the point of view of the
             # client, i.e. upload_speed _is_ client's upload speed.
@@ -96,10 +86,7 @@ class NegotiateServerBitTorrent(NegotiateServerModule):
             request_body['timestamp'] = result['timestamp']
             request_body['upload_speed'] = result['upload_speed']
 
-            if privacy.collect_allowed(request_body):
-                BACKEND.bittorrent_store(request_body)
-            else:
-                logging.warning('* bad privacy settings: %s', str(stream))
+            BACKEND.bittorrent_store(request_body)
 
             #
             # After we've saved the result into the dictionary we
