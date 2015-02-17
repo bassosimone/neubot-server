@@ -32,12 +32,12 @@ import sys
 if __name__ == "__main__":
     sys.path.insert(0, ".")
 
-from mod_dash.client_smpl import DASHClientSmpl
-from mod_dash.client_negotiate import DASHNegotiateClient
-from mod_dash.client_negotiate import DASH_RATES
-from mod_dash.server_glue import DASHServerGlue
-from mod_dash.server_negotiate import DASHNegotiateServer
-from mod_dash.server_smpl import DASHServerSmpl
+from .client_smpl import DASHClientSmpl
+from .client_negotiate import DASHNegotiateClient
+from .client_negotiate import DASH_RATES
+from .server_glue import DASHServerGlue
+from .server_negotiate import DASHNegotiateServer
+from .server_smpl import DASHServerSmpl
 
 from neubot.http.server import ServerHTTP
 from neubot.negotiate.server import NegotiateServer

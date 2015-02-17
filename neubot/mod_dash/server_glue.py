@@ -25,7 +25,7 @@
 
 # Adapted from neubot/raw_srvr_glue.py
 
-from mod_dash.server_smpl import DASHServerSmpl
+from .server_smpl import DASHServerSmpl
 
 class DASHServerGlue(DASHServerSmpl):
     """ Glue for DASH on the server side """

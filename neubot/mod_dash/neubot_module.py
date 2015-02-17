@@ -25,9 +25,9 @@
 
 import logging
 
-from mod_dash.client_negotiate import DASHNegotiateClient
-from mod_dash.server_negotiate import DASHNegotiateServer
-from mod_dash.server_glue import DASHServerGlue
+from .client_negotiate import DASHNegotiateClient
+from .server_negotiate import DASHNegotiateServer
+from .server_glue import DASHServerGlue
 
 def _run_test(message):
     """ Run the DASH test """
