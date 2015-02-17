@@ -28,8 +28,6 @@ import traceback
 from neubot.net.poller import POLLER
 
 from neubot.config import CONFIG
-from neubot.database import DATABASE
-from neubot.database import table_log
 from neubot.notify import NOTIFIER
 
 from neubot import system
@@ -221,19 +219,6 @@ class Logger(object):
     def _writeback(self):
         """Really commit pending log records into the database"""
 
-        connection = DATABASE.connection()
-        table_log.prune(connection, DAYS_AGO, commit=False)
-
-        for record in self._queue:
-            table_log.insert(connection, record, False)
-        connection.commit()
-
-        now = utils.ticks()
-        if now - self.last_vacuum > INTERVAL_VACUUM:
-            connection.execute("VACUUM;")
-            self.last_vacuum = now
-        connection.commit()
-
     def writeback(self):
         """Commit pending log records into the database"""
 
@@ -330,12 +315,7 @@ class Logger(object):
     # Marshal
 
     def listify(self):
-        if self._use_database:
-            lst = table_log.listify(DATABASE.connection())
-            lst.extend(self._queue)
-            return lst
-        else:
-            return []
+        return []
 
 def oops(message="", func=None):
     if not func:

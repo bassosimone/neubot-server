@@ -42,7 +42,6 @@ from neubot.negotiate.server_speedtest import NEGOTIATE_SERVER_SPEEDTEST
 from neubot.negotiate.server_bittorrent import NEGOTIATE_SERVER_BITTORRENT
 from neubot.notify import NOTIFIER
 
-from neubot.database import DATABASE
 from neubot.debug import objgraph
 from neubot.config import CONFIG
 from neubot.backend import BACKEND
@@ -221,7 +220,6 @@ def main(args):
         BACKEND.datadir_init(None, SETTINGS['server.datadir'])
         BACKEND.use_backend('mlab')
     elif backend == 'neubot':
-        DATABASE.connect()
         BACKEND.use_backend('neubot')
     elif backend == 'volatile':
         BACKEND.use_backend('volatile')

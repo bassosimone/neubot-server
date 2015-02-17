@@ -42,7 +42,6 @@ from neubot.net.poller import POLLER
 from neubot.backend import BACKEND
 from neubot.bittorrent import config
 from neubot.config import CONFIG
-from neubot.database import DATABASE
 from neubot.notify import NOTIFIER
 
 from neubot import log
@@ -128,13 +127,8 @@ def main(args):
         elif name == '-v':
             noisy = 1
 
-    if os.path.isfile(DATABASE.path):
-        DATABASE.connect()
-        CONFIG.merge_database(DATABASE.connection())
-    else:
-        logging.warning('bittorrent: database file is missing: %s',
-                        DATABASE.path)
-        BACKEND.use_backend('null')
+    logging.warning('bittorrent: database file is missing')
+    BACKEND.use_backend('null')
     if noisy:
         log.set_verbose()
 
