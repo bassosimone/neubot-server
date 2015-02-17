@@ -36,7 +36,6 @@ import os
 import shlex
 import logging
 
-from neubot.database import table_config
 from neubot import utils
 
 def string_to_kv(string):
@@ -129,9 +128,6 @@ class Config(object):
 
     def merge_database(self, database):
         logging.debug("config: reading properties from database")
-        dictionary = table_config.dictionarize(database)
-        for key, value in dictionary.items():
-            self.merge_kv((key, value))
 
     def merge_environ(self):
         logging.debug("config: reading properties from the environment")
@@ -147,8 +143,6 @@ class Config(object):
         logging.debug("config: reading properties from /api/config")
         map(lambda t: self.merge_kv(t, dry=True), dictlike.iteritems())
         map(self.merge_kv, dictlike.iteritems())
-        if database:
-            table_config.update(database, dictlike.iteritems())
 
     def merge_kv(self, t, dry=False):
         if t:
@@ -174,7 +168,7 @@ class Config(object):
         map(fp.write, itertools.imap(kv_to_string, self.conf.iteritems()))
 
     def store_database(self, database):
-        table_config.update(database, self.conf.iteritems(), clear=True)
+        pass
 
     def print_descriptions(self, fp):
         fp.write("Properties (current value in square brackets):\n")
