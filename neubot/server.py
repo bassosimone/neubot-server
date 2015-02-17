@@ -20,11 +20,7 @@
 # along with Neubot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-"""
-This module implements the command that manages server-side
-components, including the rendezvous server and, for each test,
-the negotiate server and the test server.
-"""
+""" Neubot server """
 
 import gc
 import getopt
@@ -58,9 +54,6 @@ from neubot import negotiate
 from neubot import system
 from neubot import utils_modules
 from neubot import utils_posix
-
-#from neubot import rendezvous          # Not yet
-import neubot.rendezvous.server
 
 #from neubot import speedtest           # Not yet
 import neubot.speedtest.wrapper
@@ -165,7 +158,6 @@ SETTINGS = {
     'server.debug': False,
     "server.negotiate": True,
     "server.raw": True,
-    "server.rendezvous": False,         # Not needed on the random server
     "server.sapi": True,
     "server.speedtest": True,
 }
@@ -185,13 +177,12 @@ valid defines:
   server.debug      Set to nonzero to enable debug API (default: 0)
   server.negotiate  Set to nonzero to enable negotiate server (default: 1)
   server.raw        Set to nonzero to enable RAW server (default: 1)
-  server.rendezvous Set to nonzero to enable rendezvous server (default: 0)
   server.sapi       Set to nonzero to enable nagios API (default: 1)
   server.speedtest  Set to nonzero to enable speedtest server (default: 1)'''
 
 VALID_MACROS = ('server.bittorrent', 'server.daemonize', 'server.datadir',
                 'server.debug', 'server.negotiate', 'server.raw',
-                'server.rendezvous', 'server.sapi', 'server.speedtest')
+                'server.sapi', 'server.speedtest')
 
 def main(args):
     """ Starts the server module """
@@ -282,11 +273,6 @@ def main(args):
         #conf['speedtest.listen'] = 1           # Not yet
         #conf['speedtest.negotiate'] = 1        # Not yet
         neubot.speedtest.wrapper.run(POLLER, conf)
-
-    # Migrating from old style to new style
-    if conf["server.rendezvous"]:
-        #conf["rendezvous.listen"] = True       # Not yet
-        neubot.rendezvous.server.run()
 
     #
     # Historically Neubot runs on port 9773 and
