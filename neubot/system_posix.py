@@ -33,7 +33,7 @@
 # the latter can.
 #
 
-UNPRIV_USER = '_neubot'
+UNPRIV_USER = 'nobody'
 
 import os
 import syslog
