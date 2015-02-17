@@ -25,12 +25,12 @@
     of code that maps between the old and the new semantic. '''
 
 import StringIO
+import json
 
 from neubot.http.server import ServerHTTP
 from neubot.http.server import HTTP_SERVER
 from neubot.speedtest.server import SPEEDTEST_SERVER
 from neubot.negotiate.server import NEGOTIATE_SERVER
-from neubot.compat import json
 from neubot import marshal
 
 #

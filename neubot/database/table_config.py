@@ -48,8 +48,9 @@
  </on uuid and privacy>
 '''
 
+import json
+
 from neubot.utils import get_uuid
-from neubot import compat
 
 # The regress test requires this variable
 SCHEMA_VERSION = '4.5'
@@ -85,4 +86,4 @@ def dictionarize(connection):
 
 def jsonize(connection):
     ''' Jsonize table_config '''
-    return compat.json.dumps(dictionarize(connection))
+    return json.dumps(dictionarize(connection))

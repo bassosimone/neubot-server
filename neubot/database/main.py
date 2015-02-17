@@ -22,12 +22,12 @@
 
 import getopt
 import sys
+import json
 
 from neubot.database import DATABASE
 from neubot.database import table_config
 from neubot.database import table_speedtest
 
-from neubot import compat
 from neubot import utils
 
 USAGE = '''\
@@ -84,9 +84,9 @@ def main(args):
         d = { "config": table_config.dictionarize(DATABASE.connection()),
              "speedtest": table_speedtest.listify(DATABASE.connection()) }
         if arguments[0] == "show":
-            compat.json.dump(d, sys.stdout, indent=4)
+            json.dump(d, sys.stdout, indent=4)
         elif arguments[0] == "dump":
-            compat.json.dump(d, sys.stdout)
+            json.dump(d, sys.stdout)
 
     else:
         sys.stdout.write(USAGE)
