@@ -47,7 +47,7 @@ from neubot.debug import objgraph
 from neubot.config import CONFIG
 from neubot.backend import BACKEND
 from neubot.log import LOG
-from neubot.raw_srvr_glue import RAW_SERVER_EX
+from neubot.raw_test.raw_srvr_glue import RAW_SERVER_EX
 
 from neubot import bittorrent
 from neubot import negotiate

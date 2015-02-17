@@ -30,7 +30,7 @@ import os
 import socket
 import sys
 
-from neubot.defer import Deferred
+from .defer import Deferred
 from neubot.pollable import Pollable
 from neubot.poller import POLLER
 
