@@ -22,16 +22,12 @@
 
 ''' HTTP server '''
 
-import StringIO
-import mimetypes
-import os.path
 import sys
 import time
 import logging
 
 from neubot.http.stream import ERROR
 from neubot.http.message import Message
-from neubot.http.ssi import ssi_replace
 from neubot.http.stream import nextstate
 from neubot.http.stream import StreamHTTP
 from neubot.log import LOG
@@ -39,7 +35,6 @@ from neubot.net.stream import StreamHandler
 from neubot.net.poller import POLLER
 
 from neubot import utils
-from neubot import utils_path
 from neubot import utils_net
 
 #
@@ -187,64 +182,8 @@ class ServerHTTP(StreamHandler):
                 child.process_request(stream, request)
                 return
 
-        rootdir = self.conf.get("http.server.rootdir", "")
-        if not rootdir:
-            response.compose(code="403", reason="Forbidden",
-                             body="403 Forbidden")
-            stream.send_response(request, response)
-            return
-
-        if request.uri == "/":
-            response.compose_redirect(stream, "/api/index")
-            stream.send_response(request, response)
-            return
-
-        if '?' in request.uri:
-            request_uri = request.uri.split('?')[0]
-        else:
-            request_uri = request.uri
-
-        fullpath = utils_path.append(rootdir, request_uri, True)
-        if not fullpath:
-            response.compose(code="403", reason="Forbidden",
-                             body="403 Forbidden")
-            stream.send_response(request, response)
-            return
-
-        try:
-            filep = open(fullpath, "rb")
-        except (IOError, OSError):
-            logging.error("HTTP: Not Found: %s (WWWDIR: %s)",
-                          fullpath, rootdir)
-            response.compose(code="404", reason="Not Found",
-                             body="404 Not Found")
-            stream.send_response(request, response)
-            return
-
-        if self.conf.get("http.server.mime", True):
-            mimetype, encoding = mimetypes.guess_type(fullpath)
-
-            # Do not attempt SSI if the resource is, say, gzipped
-            if not encoding:
-                if mimetype == "text/html":
-                    ssi = self.conf.get("http.server.ssi", False)
-                    if ssi:
-                        body = ssi_replace(rootdir, filep)
-                        filep = StringIO.StringIO(body)
-
-                #XXX Do we need to enforce the charset?
-                if mimetype in ("text/html", "application/x-javascript"):
-                    mimetype += "; charset=UTF-8"
-            else:
-                response["content-encoding"] = encoding
-
-        else:
-            mimetype = "text/plain"
-
-        response.compose(code="200", reason="Ok", body=filep,
-                         mimetype=mimetype)
-        if request.method == "HEAD":
-            utils.safe_seek(filep, 0, os.SEEK_END)
+        response.compose(code="403", reason="Forbidden",
+                         body="403 Forbidden")
         stream.send_response(request, response)
 
     def got_request(self, stream, request):
