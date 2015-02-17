@@ -39,7 +39,7 @@ except ImportError:
 
 from .backend_null import BackendNull
 
-from neubot import utils_path
+from neubot.utils import utils_path
 
 SPLIT_INTERVAL = 1024
 SPLIT_NUM_FILES = 15

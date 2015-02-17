@@ -28,7 +28,7 @@ import sys
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from neubot.utils_random import RANDOMBLOCKS
+from neubot.utils.utils_random import RANDOMBLOCKS
 from neubot import utils
 
 PIECE_LEN = 262144
