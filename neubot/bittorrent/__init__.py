@@ -48,7 +48,6 @@ from neubot.notify import NOTIFIER
 
 from neubot import log
 from neubot import negotiate
-from neubot import privacy
 from neubot import runner_clnt
 from neubot import utils
 
