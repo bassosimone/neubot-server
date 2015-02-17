@@ -22,4 +22,3 @@
 
 ''' Main for speedtest module '''
 
-from neubot.speedtest.client import main
