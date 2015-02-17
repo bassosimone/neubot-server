@@ -31,7 +31,7 @@ from neubot.http.server import ServerHTTP
 from neubot.http.server import HTTP_SERVER
 from neubot.speedtest.server import SPEEDTEST_SERVER
 from neubot.negotiate.server import NEGOTIATE_SERVER
-from neubot import marshal
+from . import marshal
 
 #
 # Classes that represent the old XML messages used
