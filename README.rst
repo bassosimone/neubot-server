@@ -1,5 +1,7 @@
-Neubot, the network neutrality bot
-``````````````````````````````````
+Neubot server
+`````````````
+
+This is the server of Neubot that typically runs on M-Lab servers.
 
 Neubot is a research project on network neutrality of the Nexa
 Center for Internet & Society at Politecnico di Torino (DAUIN). The
@@ -14,7 +16,7 @@ test servers. The results dataset contains samples from various
 Providers and is published on the web, allowing anyone to analyze
 the data for research purposes.
 
-As a collection Neubot is Copyright (c) 2010-2014 Nexa Center for
+As a collection Neubot is Copyright (c) 2010-2015 Nexa Center for
 Internet & Society, Politecnico di Torino (DAUIN) <http://nexa.polito.it/>.
 
 Each file is copyrighted by the individual contributor.
