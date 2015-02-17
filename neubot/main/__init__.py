@@ -109,11 +109,7 @@ def main(argv):
 
     # Slow / quick startup
 
-    if slowpath:
-        from neubot.main import module
-        module.run(argv)
-
-    else:
+    if True:
         running = False
 
         # Running?
