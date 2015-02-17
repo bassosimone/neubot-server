@@ -23,7 +23,7 @@
 
 """ The volatile backend """
 
-from neubot.backend_null import BackendNull
+from .backend_null import BackendNull
 
 class BackendVolatile(BackendNull):
     """ The volatile backend """
