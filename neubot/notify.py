@@ -32,7 +32,7 @@
 import collections
 import logging
 
-from neubot.poller import POLLER
+from neubot.net.poller import POLLER
 from neubot import utils
 
 INTERVAL = 60
