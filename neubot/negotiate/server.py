@@ -25,11 +25,11 @@
 import collections
 import random
 import logging
+import json
 
 from neubot.config import CONFIG
 from neubot.http.message import Message
 from neubot.http.server import ServerHTTP
-from neubot.compat import json
 
 class NegotiateServerModule(object):
 

@@ -22,6 +22,7 @@
 
 """ Neubot server """
 
+import json
 import gc
 import getopt
 import sys
@@ -41,7 +42,6 @@ from neubot.negotiate.server_speedtest import NEGOTIATE_SERVER_SPEEDTEST
 from neubot.negotiate.server_bittorrent import NEGOTIATE_SERVER_BITTORRENT
 from neubot.notify import NOTIFIER
 
-from neubot.compat import json
 from neubot.database import DATABASE
 from neubot.debug import objgraph
 from neubot.config import CONFIG

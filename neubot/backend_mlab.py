@@ -29,9 +29,8 @@
 #
 
 import gzip
+import json
 import time
-
-from neubot.compat import json
 
 from neubot.backend_null import BackendNull
 

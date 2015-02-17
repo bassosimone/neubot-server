@@ -40,6 +40,7 @@
 #
 
 import getopt
+import json
 import logging
 import os
 import sys
@@ -47,8 +48,6 @@ import time
 
 if __name__ == '__main__':
     sys.path.insert(0, '.')
-
-from neubot.compat import json
 
 from neubot.backend_mlab import BackendMLab
 from neubot.backend_neubot import BackendNeubot
