@@ -174,7 +174,7 @@ class Stream(Pollable):
 
         logging.debug("* Connection made %s", str(self.logname))
 
-        if conf["net.stream.secure"]:
+        if conf.get("net.stream.secure", 0):
             if not ssl:
                 raise RuntimeError("SSL support not available")
 
