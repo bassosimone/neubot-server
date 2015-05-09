@@ -1,5 +1,4 @@
-Neubot server
-`````````````
+# Neubot server
 
 This is the server of Neubot that typically runs on M-Lab servers.
 
