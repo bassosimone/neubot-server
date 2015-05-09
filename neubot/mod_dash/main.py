@@ -47,7 +47,6 @@ from neubot.config import CONFIG
 from neubot.net.poller import POLLER
 
 from neubot import log
-from neubot import runner_clnt
 
 USAGE = """\
 usage: neubot dash [-6flnv] [-A address] [-b backend] [-d datadir] [-p port]"""
@@ -125,10 +124,6 @@ def main(args):
             server.register_child(dash_server, "/dash")
 
     elif not force:
-        result = runner_clnt.runner_client(CONFIG["agent.api.address"],
-          CONFIG["agent.api.port"], CONFIG["verbose"], "dash")
-        if result:
-            sys.exit(0)
         logging.warning("dash: failed to contact Neubot; is Neubot running?")
         sys.exit(1)
 

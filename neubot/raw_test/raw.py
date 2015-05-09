@@ -40,7 +40,6 @@ from .raw_negotiate import RawNegotiate
 
 from neubot import log
 from neubot import privacy
-from . import runner_clnt
 
 def main(args):
     ''' Main function '''
@@ -74,10 +73,6 @@ def main(args):
         log.set_verbose()
 
     if not force:
-        result = runner_clnt.runner_client(CONFIG['agent.api.address'],
-          CONFIG['agent.api.port'], CONFIG['verbose'], 'raw')
-        if result:
-            sys.exit(0)
         logging.warning('raw: failed to contact Neubot; is Neubot running?')
         sys.exit(1)
 

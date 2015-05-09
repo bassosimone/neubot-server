@@ -46,7 +46,6 @@ from neubot.notify import NOTIFIER
 
 from neubot import log
 from neubot import negotiate
-from neubot import runner_clnt
 from neubot import utils
 
 def run(poller, conf):
@@ -141,11 +140,6 @@ def main(args):
     conf['prefer_ipv6'] = prefer_ipv6
 
     if not force:
-        if runner_clnt.runner_client(conf["agent.api.address"],
-                                     conf["agent.api.port"],
-                                     CONFIG['verbose'],
-                                     "bittorrent"):
-            sys.exit(0)
         logging.warning(
           'bittorrent: failed to contact Neubot; is Neubot running?')
         sys.exit(1)
