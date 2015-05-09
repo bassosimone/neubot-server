@@ -90,9 +90,6 @@ class BackendProxy(object):
         if os.name == "posix":
             from neubot.utils import utils_posix
             self.vfs = utils_posix
-        elif os.name == "nt":
-            from neubot.utils import utils_nt
-            self.vfs = utils_nt
         else:
             raise RuntimeError("backend: no VFS available")
 
@@ -166,9 +163,6 @@ class BackendProxy(object):
             if os.name == "posix":
                 from neubot.system import system_posix
                 self.passwd = system_posix.getpwnam()
-            elif os.name == "nt":
-                from neubot import utils_nt
-                self.passwd = utils_nt.PWEntry()
             else:
                 raise RuntimeError("backend: unsupported system")
 
