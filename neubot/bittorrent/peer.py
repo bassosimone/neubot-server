@@ -45,6 +45,7 @@ from neubot.bittorrent import config
 from neubot.config import CONFIG
 from neubot.state import STATE
 
+from neubot import log
 from neubot import utils
 from neubot.utils import utils_net
 from neubot.utils import utils_rc
@@ -488,7 +489,7 @@ def main(args):
         elif name == '-O':
             settings.append(value)
         elif name == '-v':
-            CONFIG['verbose'] = 1
+            log.set_verbose()
 
     settings = utils_rc.parse_safe(iterable=settings)
 

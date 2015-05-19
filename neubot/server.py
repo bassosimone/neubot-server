@@ -48,6 +48,7 @@ from neubot.backend import BACKEND
 from neubot.log import LOG
 from neubot.raw_test.raw_srvr_glue import RAW_SERVER_EX
 
+from neubot import log
 from neubot import bittorrent
 from neubot import negotiate
 from neubot import system
@@ -212,7 +213,7 @@ def main(args):
         elif name == '-d':
             SETTINGS['server.daemonize'] = 0
         elif name == '-v':
-            CONFIG['verbose'] = 1
+            log.set_verbose()
 
     logging.debug('server: using backend: %s... in progress', backend)
     if backend == 'mlab':
