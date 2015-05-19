@@ -36,35 +36,10 @@
 UNPRIV_USER = 'nobody'
 
 import os
-import syslog
 
 from neubot.utils import utils_hier
 from neubot.utils import utils_posix
 from neubot.utils import utils_rc
-
-def __logger(severity, message):
-
-    ''' Log @message at the given @severity using syslog '''
-
-    #
-    # Implemented using syslog becuse SysLogHandler is
-    # difficult to use: you need to know the path to the
-    # system specific ``/dev/log``.
-    #
-
-    if severity == 'ERROR':
-        syslog.syslog(syslog.LOG_ERR, message)
-    elif severity == 'WARNING':
-        syslog.syslog(syslog.LOG_WARNING, message)
-    elif severity == 'DEBUG':
-        syslog.syslog(syslog.LOG_DEBUG, message)
-    else:
-        syslog.syslog(syslog.LOG_INFO, message)
-
-def get_background_logger():
-    ''' Return the background logger '''
-    syslog.openlog("neubot", syslog.LOG_PID, syslog.LOG_DAEMON)
-    return __logger
 
 def _get_profile_dir():
     ''' The profile directory is always LOCALSTATEDIR '''

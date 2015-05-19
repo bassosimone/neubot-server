@@ -38,6 +38,12 @@ class StderrFormatter(logging.Formatter):
 class BackgroundLogger(logging.Handler):
     """ Syslog handler """
 
+    #
+    # Implemented using syslog becuse SysLogHandler is
+    # difficult to use: you need to know the path to the
+    # system specific ``/dev/log``.
+    #
+
     def __init__(self):
         logging.Handler.__init__(self)
         syslog.openlog('neubot', syslog.LOG_PID, syslog.LOG_DAEMON)
