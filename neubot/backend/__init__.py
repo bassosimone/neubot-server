@@ -59,6 +59,8 @@ from neubot.config import CONFIG
 from neubot.utils import utils_hier
 from neubot.utils import utils_path
 
+from neubot import log
+
 class BackendProxy(object):
     ''' Proxy for the real backend '''
 
@@ -251,7 +253,7 @@ def main(args):
         elif name == "-u":
             uname = value
         elif name == '-v':
-            CONFIG['verbose'] = 1
+            log.set_verbose()
 
     if bcknd:
         BACKEND.use_backend(bcknd)

@@ -45,9 +45,9 @@ from neubot.notify import NOTIFIER
 from neubot.debug import objgraph
 from neubot.config import CONFIG
 from neubot.backend import BACKEND
-from neubot.log import LOG
 from neubot.raw_test.raw_srvr_glue import RAW_SERVER_EX
 
+from neubot import log
 from neubot import bittorrent
 from neubot import negotiate
 from neubot import system
@@ -86,7 +86,6 @@ class DebugAPI(ServerHTTP):
                         len(NEGOTIATE_SERVER_SPEEDTEST.clients),
                     'POLLER.readset': len(POLLER.readset),
                     'POLLER.writeset': len(POLLER.writeset),
-                    'LOG._queue': len(LOG._queue),
                     'CONFIG.conf': len(CONFIG.conf),
                     'NOTIFIER._timestamps': len(NOTIFIER._timestamps),
                     'NOTIFIER._subscribers': len(NOTIFIER._subscribers),
@@ -213,7 +212,7 @@ def main(args):
         elif name == '-d':
             SETTINGS['server.daemonize'] = 0
         elif name == '-v':
-            CONFIG['verbose'] = 1
+            log.set_verbose()
 
     logging.debug('server: using backend: %s... in progress', backend)
     if backend == 'mlab':
@@ -315,7 +314,7 @@ def main(args):
     # then enter into the main loop.
     #
     if conf["server.daemonize"]:
-        LOG.redirect()
+        log.redirect()
         system.go_background()
 
     sigterm_handler = lambda signo, frame: POLLER.break_loop()
