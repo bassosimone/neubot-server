@@ -25,13 +25,9 @@ import sys
 import logging
 import traceback
 
-from neubot.net.poller import POLLER
-
 from neubot.config import CONFIG
-from neubot.notify import NOTIFIER
 
 from neubot import system
-from neubot import utils
 
 def stderr_logger(severity, message):
     if severity not in ('INFO', 'ACCESS'):
@@ -39,92 +35,16 @@ def stderr_logger(severity, message):
     else:
         sys.stderr.write('%s\n' % message)
 
-#
-# We commit every NOCOMMIT log messages or when we see
-# a WARNING or ERROR message (whichever of the two comes
-# first).
-#
-NOCOMMIT = 32
-
-#
-# Interval in seconds between each invocation of the
-# function that takes care of the logs saved into the
-# database.
-#
-INTERVAL = 120
-
-#
-# Interval in seconds between each invocation of the
-# function that compacts the database.
-#
-INTERVAL_VACUUM = 3600
-
-#
-# This is the number of days of logs we keep into
-# the database.  Older logs are pruned.
-# TODO Allow to configure this.
-#
-DAYS_AGO = 7
-
 class Logger(object):
 
     """Logging object.  Usually there should be just one instance
-       of this class, accessible with the default logging object
-       LOG.  We keep recent logs in the database in order to implement
-       the /api/log API."""
+       of this class, accessible with the default logging object LOG."""
 
     def __init__(self):
         self.logger = stderr_logger
-        self.message = None
-
-        self.last_vacuum = 0
-
-        self._nocommit = NOCOMMIT
-        self._use_database = False
-        self._queue = []
-
-    #
-    # Better not to touch the database when a test is in
-    # progress, i.e. "testdone" is subscribed.
-    # Maintenance consists mainly of removing old logs and
-    # is mandatory because we don't want the database to grow
-    # without control.
-    #
-    def _maintain_database(self):
-
-        POLLER.sched(INTERVAL, self._maintain_database)
-
-        if (self._use_database and not NOTIFIER.is_subscribed("testdone")):
-            self.writeback()
-
-    #
-    # We don't want to log into the database when we run
-    # the server side or when we run from command line.
-    #
-    def use_database(self):
-        POLLER.sched(INTERVAL, self._maintain_database)
-        self._use_database = True
 
     def redirect(self):
         self.logger = system.get_background_logger()
-
-    def _writeback(self):
-        """Really commit pending log records into the database"""
-
-    def writeback(self):
-        """Commit pending log records into the database"""
-
-        # At least do not crash
-        try:
-            self._writeback()
-        except (KeyboardInterrupt, SystemExit):
-            raise
-        except:
-            # TODO write this exception to syslog
-            pass
-
-        # Purge the queue in any case
-        del self._queue[:]
 
     def log(self, severity, message, args, exc_info):
         ''' Really log a message '''
@@ -165,49 +85,8 @@ class Logger(object):
 
         message = message.rstrip()
 
-        # Write log into the database
-        if self._use_database and severity != "ACCESS":
-            record = {
-                      "timestamp": utils.timestamp(),
-                      "severity": severity,
-                      "message": message,
-                     }
-
-            #
-            # We don't need to commit INFO and DEBUG
-            # records: it's OK to see those with some
-            # delay.  While we want to see immediately
-            # WARNING and ERROR records.
-            # TODO We need to commit the database on
-            # sys.exit() and signals etc.  (This is
-            # more a database problem that a problem
-            # of this file.)
-            #
-            if severity in ("INFO", "DEBUG"):
-                commit = False
-
-                # Do we need to commit now?
-                self._nocommit = self._nocommit -1
-                if self._nocommit <= 0:
-                    self._nocommit = NOCOMMIT
-                    commit = True
-
-            else:
-                # Must commit now
-                self._nocommit = NOCOMMIT
-                commit = True
-
-            self._queue.append(record)
-            if commit:
-                self.writeback()
-
         # Write to the current logger object
         self.logger(severity, message)
-
-    # Marshal
-
-    def listify(self):
-        return []
 
 def oops(message="", func=None):
     if not func:
