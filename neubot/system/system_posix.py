@@ -93,7 +93,7 @@ def _want_rw_file(path):
     '''
 
     # Create file if non-existent
-    filep = open(path, "ab+")
+    filep = open(path, "a+b")
     filep.close()
 
     # Enforce file ownership
