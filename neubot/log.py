@@ -1,9 +1,7 @@
-# neubot/log.py
-
 #
-# Copyright (c) 2010-2011 Simone Basso <bassosimone@gmail.com>,
-#  NEXA Center for Internet & Society at Politecnico di Torino
-# Copyright (c) 2012 Marco Scopesi <marco.scopesi@gmail.com>
+# Copyright (c) 2015
+#   Nexa Center for Internet & Society, Politecnico di Torino (Italy)
+#   and Simone Basso <bassosimone@gmail.com>.
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #
@@ -21,100 +19,100 @@
 # along with Neubot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import sys
+""" Neubot logging wrappers """
+
 import logging
+import sys
+import syslog
 import traceback
 
-from neubot.config import CONFIG
+class StderrFormatter(logging.Formatter):
+    """ Reproduces Neubot original formatting on stderr """
 
-from neubot import system
+    def format(self, record):
+        msg = logging.Formatter.format(self, record)
+        if record.levelname in ('INFO', 'ACCESS'):
+            return msg
+        return record.levelname + ": " + msg
 
-def stderr_logger(severity, message):
-    if severity not in ('INFO', 'ACCESS'):
-        sys.stderr.write('%s: %s\n' % (severity, message))
-    else:
-        sys.stderr.write('%s\n' % message)
-
-class Logger(object):
-
-    """Logging object.  Usually there should be just one instance
-       of this class, accessible with the default logging object LOG."""
+class BackgroundLogger(logging.Handler):
+    """ Syslog handler """
 
     def __init__(self):
-        self.logger = stderr_logger
+        logging.Handler.__init__(self)
+        syslog.openlog('neubot', syslog.LOG_PID, syslog.LOG_DAEMON)
 
-    def redirect(self):
-        self.logger = system.get_background_logger()
-
-    def log(self, severity, message, args, exc_info):
-        ''' Really log a message '''
+    def emit(self, record):
         try:
-            self._log(severity, message, args, exc_info)
+
+            #
+            # Note: no format-string worries here since Python does 'the right
+            # thing' in Modules/syslogmodule.c:
+            #
+            # >    syslog(priority, "%s", message);
+            #
+            msg = record.msg % record.args
+            if record.levelname == 'ERORR':
+                syslog.syslog(syslog.LOG_ERR, msg)
+            elif record.levelname == 'WARNING':
+                syslog.syslog(syslog.LOG_WARNING, msg)
+            elif record.levelname == 'DEBUG':
+                syslog.syslog(syslog.LOG_DEBUG, msg)
+            else:
+                syslog.syslog(syslog.LOG_INFO, msg)
+
         except (KeyboardInterrupt, SystemExit):
             raise
         except:
             pass
 
-    def _log(self, severity, message, args, exc_info):
-        ''' Really log a message '''
+class Logger(object):
+    """ Neubot logger object """
 
-        # No point in logging empty lines
-        if not message:
-            return
+    _singleton = None
 
-        #
-        # Honor verbose.  We cannot leave this choice to the
-        # "root" logger because all messages must be passed
-        # to the streaming feature.  Hence the "root" logger
-        # must always be configured to be vebose.
-        #
-        if not CONFIG['verbose'] and severity == 'DEBUG':
-            return
+    def __init__(self):
+        self._root = logging.getLogger()
+        self._handler = logging.StreamHandler(sys.stderr)
+        self._handler.setFormatter(StderrFormatter())
+        self._root.handlers = []  # Start over
+        self._root.addHandler(self._handler)
+        self._root.setLevel(logging.INFO)
 
-        # Lazy processing
-        if args:
-            message = message % args
-        if exc_info:
-            exc_list = traceback.format_exception(exc_info[0],
-                                                  exc_info[1],
-                                                  exc_info[2])
-            message = "%s\n%s\n" % (message, ''.join(exc_list))
-            for line in message.split('\n'):
-                self._log(severity, line, None, None)
-            return
+    def redirect(self):
+        """ Redirect logger to syslog """
+        self._root.removeHandler(self._handler)
+        self._handler = BackgroundLogger()
+        self._root.addHandler(self._handler)
 
-        message = message.rstrip()
+    def set_verbose(self):
+        """ Make the logger verbose """
+        self._root.setLevel(logging.DEBUG)
 
-        # Write to the current logger object
-        self.logger(severity, message)
+    @classmethod
+    def singleton(cls):
+        """ Initialize singleton """
+        if not cls._singleton:
+            cls._singleton = Logger()
+        return cls._singleton
 
-def oops(message="", func=None):
-    if not func:
-        func = logging.error
+def log_access(msg, *args, **kwargs):
+    """ Log access message """
+    logging.info("ACCESS: " + msg, *args, **kwargs)
+
+def oops(message=""):
+    """ Write oops message """
     if message:
-        func("OOPS: " + message + " (traceback follows)")
+        logging.warning("OOPS: " + message + " (traceback follows)")
     for line in traceback.format_stack()[:-1]:
-        func(line)
+        logging.warning(line)
 
-LOG = Logger()
-
-class LogWrapper(logging.Handler):
-
-    """Wrapper for stdlib logging."""
-
-    def emit(self, record):
-        msg = record.msg
-        args = record.args
-        level = record.levelname
-        exc_info = record.exc_info
-        LOG.log(level, msg, args, exc_info)
-
-ROOT_LOGGER = logging.getLogger()
-# Make sure all previously registered handlers go away
-ROOT_LOGGER.handlers = []
-ROOT_LOGGER.addHandler(LogWrapper())
-ROOT_LOGGER.setLevel(logging.DEBUG)
+def redirect():
+    """ Redirect logger to syslog """
+    Logger.singleton().redirect()
 
 def set_verbose():
-    ''' Make logger verbose '''
-    CONFIG['verbose'] = 1
+    """ Make the logger verbose """
+    Logger.singleton().set_verbose()
+
+Logger.singleton()

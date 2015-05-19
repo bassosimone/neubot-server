@@ -30,10 +30,10 @@ from neubot.http.stream import ERROR
 from neubot.http.message import Message
 from neubot.http.stream import nextstate
 from neubot.http.stream import StreamHTTP
-from neubot.log import LOG
 from neubot.net.stream import StreamHandler
 from neubot.net.poller import POLLER
 
+from neubot import log
 from neubot import utils
 from neubot.utils import utils_net
 
@@ -124,10 +124,8 @@ class ServerStream(StreamHTTP):
             if nbytes == "0":
                 nbytes = "-"
 
-        LOG.log("ACCESS",
-                "%s - - [%s] \"%s\" %s %s",
-                (address, timestring, requestline, statuscode, nbytes),
-                None)
+        log.log_access("%s - - [%s] \"%s\" %s %s", address, timestring,
+                       requestline, statuscode, nbytes)
 
 class ServerHTTP(StreamHandler):
 

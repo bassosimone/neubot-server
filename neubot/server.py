@@ -45,7 +45,6 @@ from neubot.notify import NOTIFIER
 from neubot.debug import objgraph
 from neubot.config import CONFIG
 from neubot.backend import BACKEND
-from neubot.log import LOG
 from neubot.raw_test.raw_srvr_glue import RAW_SERVER_EX
 
 from neubot import log
@@ -315,7 +314,7 @@ def main(args):
     # then enter into the main loop.
     #
     if conf["server.daemonize"]:
-        LOG.redirect()
+        log.redirect()
         system.go_background()
 
     sigterm_handler = lambda signo, frame: POLLER.break_loop()
