@@ -32,9 +32,6 @@ class Config(object):
     def __init__(self):
         self.conf = {}
 
-    def register_defaults(self, kvstore):
-        self.conf.update(kvstore)
-
     def copy(self):
         return dict(self.conf)
 
@@ -49,10 +46,21 @@ class Config(object):
 
 CONFIG = Config()
 
-CONFIG.register_defaults_helper = lambda properties: \
-    CONFIG.register_defaults(dict(zip(map(lambda t: t[0], properties),
-                                      map(lambda t: t[1], properties))))
-
-CONFIG.register_defaults({
+CONFIG.update({
+    'bittorrent.address': '',
+    'bittorrent.bytes.down': 0,
+    'bittorrent.bytes.up': 0,
+    'bittorrent.infohash': '',
+    'bittorrent.listen': False,
+    'bittorrent.negotiate': True,
+    'bittorrent.negotiate.port': 8080,
+    'bittorrent.my_id': '',
+    'bittorrent.numpieces': 1 << 20,
+    'bittorrent.piece_len': 1 << 17,
+    'bittorrent.port': 6881,
+    'bittorrent.watchdog': 300,
+    'negotiate.parallelism': 7,
+    'negotiate.min_thresh': 32,
+    'negotiate.max_thresh': 64,
     "prefer_ipv6": 0,
 })

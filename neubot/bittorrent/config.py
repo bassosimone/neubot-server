@@ -29,32 +29,8 @@
 
 import random
 
-from neubot.net.pollable import WATCHDOG
-
 from neubot.config import CONFIG
 from neubot.bittorrent import estimate
-
-NUMPIECES = 1 << 20
-PIECE_LEN = 1 << 17
-
-MAXMESSAGE = 1 << 18
-
-PROPERTIES = (
-    ('bittorrent.address', '', 'Address to listen/connect to ("" = auto)'),
-    ('bittorrent.bytes.down', 0, 'Num of bytes to download (0 = auto)'),
-    ('bittorrent.bytes.up', 0, 'Num of bytes to upload (0 = auto)'),
-    ('bittorrent.infohash', '', 'Set InfoHash ("" = auto)'),
-    ('bittorrent.listen', False, 'Run in server mode'),
-    ('bittorrent.negotiate', True, 'Enable negotiate client/server'),
-    ('bittorrent.negotiate.port', 8080, 'Negotiate port'),
-    ('bittorrent.my_id', '', 'Set local PeerId ("" = auto)'),
-    ('bittorrent.numpieces', NUMPIECES, 'Num of pieces in bitfield'),
-    ('bittorrent.piece_len', PIECE_LEN, 'Length of each piece'),
-    ('bittorrent.port', 6881, 'Port to listen/connect to (0 = auto)'),
-    ('bittorrent.watchdog', WATCHDOG, 'Maximum test run-time in seconds'),
-)
-
-CONFIG.register_defaults_helper(PROPERTIES)
 
 def _random_bytes(num):
     ''' Generates a random string of @num bytes '''

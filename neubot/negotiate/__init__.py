@@ -29,12 +29,6 @@ from neubot.negotiate.server_raw import NEGOTIATE_SERVER_RAW
 from neubot.negotiate.server import NEGOTIATE_SERVER
 from neubot.http.server import HTTP_SERVER
 
-CONFIG.register_defaults({
-    'negotiate.parallelism': 7,
-    'negotiate.min_thresh': 32,
-    'negotiate.max_thresh': 64,
-})
-
 def run(poller, conf):
     ''' Start the negotiate server '''
 
