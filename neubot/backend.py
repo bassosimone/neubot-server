@@ -123,3 +123,12 @@ class Backend(object):
         filep = gzip.open(fullpath, 'ab')
         json.dump(message, filep)
         filep.close()
+
+def setup(uname, datadir):
+    """ Initialize backend """
+    Backend.singleton().setup(uname, datadir)
+
+def store(test, message):
+    """ Follows closely M-Lab specification regarding how
+        to save results on the disk for scalable collection. """
+    Backend.singleton().store(test, message)

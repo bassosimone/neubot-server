@@ -37,9 +37,9 @@ from neubot.net.poller import POLLER
 from neubot.negotiate.server import NEGOTIATE_SERVER
 
 from neubot.config import CONFIG
-from neubot.backend import Backend
 from neubot.raw_test.raw_srvr_glue import RAW_SERVER_EX
 
+from neubot import backend
 from neubot import log
 from neubot import bittorrent
 from neubot import negotiate
@@ -137,8 +137,7 @@ def main(args):
             log.set_verbose()
 
     logging.debug('server: using backend: %s... in progress', backend)
-    Backend.singleton().setup(CONFIG["unpriv_user"],
-                              SETTINGS['server.datadir'])
+    backend.setup(CONFIG["unpriv_user"], SETTINGS['server.datadir'])
 
     for name, value in SETTINGS.items():
         CONFIG[name] = value
