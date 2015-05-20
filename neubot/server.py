@@ -22,8 +22,6 @@
 
 """ Neubot server """
 
-import json
-import gc
 import getopt
 import sys
 import logging
@@ -39,11 +37,7 @@ from neubot.http.server import ServerHTTP
 from neubot.net.poller import POLLER
 
 from neubot.negotiate.server import NEGOTIATE_SERVER
-from neubot.negotiate.server_speedtest import NEGOTIATE_SERVER_SPEEDTEST
-from neubot.negotiate.server_bittorrent import NEGOTIATE_SERVER_BITTORRENT
-from neubot.notify import NOTIFIER
 
-from neubot.debug import objgraph
 from neubot.config import CONFIG
 from neubot.backend import Backend
 from neubot.raw_test.raw_srvr_glue import RAW_SERVER_EX
@@ -56,73 +50,6 @@ from neubot.utils import utils_posix
 
 #from neubot import speedtest           # Not yet
 import neubot.speedtest.wrapper
-
-class DebugAPI(ServerHTTP):
-    ''' Implements the debugging API '''
-
-    def process_request(self, stream, request):
-        ''' Process HTTP request and return response '''
-
-        response = Message()
-
-        if request.uri == '/debugmem/collect':
-            body = gc.collect(2)
-
-        elif request.uri == '/debugmem/count':
-            counts = gc.get_count()
-            body = {
-                    'len_gc_objects': len(gc.get_objects()),
-                    'len_gc_garbage': len(gc.garbage),
-                    'gc_count0': counts[0],
-                    'gc_count1': counts[1],
-                    'gc_count2': counts[2],
-
-                    # Add the length of the most relevant globals
-                    'NEGOTIATE_SERVER.queue': len(NEGOTIATE_SERVER.queue),
-                    'NEGOTIATE_SERVER.known': len(NEGOTIATE_SERVER.known),
-                    'NEGOTIATE_SERVER_BITTORRENT.peers': \
-                        len(NEGOTIATE_SERVER_BITTORRENT.peers),
-                    'NEGOTIATE_SERVER_SPEEDTEST.clients': \
-                        len(NEGOTIATE_SERVER_SPEEDTEST.clients),
-                    'POLLER.readset': len(POLLER.readset),
-                    'POLLER.writeset': len(POLLER.writeset),
-                    'NOTIFIER._timestamps': len(NOTIFIER._timestamps),
-                    'NOTIFIER._subscribers': len(NOTIFIER._subscribers),
-                    'NOTIFIER._tofire': len(NOTIFIER._tofire),
-                   }
-
-        elif request.uri == '/debugmem/garbage':
-            body = [str(obj) for obj in gc.garbage]
-
-        elif request.uri == '/debugmem/saveall':
-            enable = json.load(request.body)
-            flags = gc.get_debug()
-            if enable:
-                flags |= gc.DEBUG_SAVEALL
-            else:
-                flags &= ~gc.DEBUG_SAVEALL
-            gc.set_debug(flags)
-            body = enable
-
-        elif request.uri.startswith('/debugmem/types'):
-            if request.uri.startswith('/debugmem/types/'):
-                typename = request.uri.replace('/debugmem/types/', '')
-                objects = objgraph.by_type(typename)
-                body = [str(obj) for obj in objects]
-            else:
-                body = objgraph.typestats()
-
-        else:
-            body = None
-
-        if body is not None:
-            body = json.dumps(body, indent=4, sort_keys=True)
-            response.compose(code="200", reason="Ok", body=body,
-                             mimetype="application/json")
-        else:
-            response.compose(code="404", reason="Not Found")
-
-        stream.send_response(request, response)
 
 class ServerSideAPI(ServerHTTP):
     """ Implements server-side API for Nagios plugin """
@@ -152,7 +79,6 @@ SETTINGS = {
     "server.bittorrent": True,
     "server.daemonize": True,
     "server.datadir": '',
-    'server.debug': False,
     "server.negotiate": True,
     "server.raw": True,
     "server.sapi": True,
@@ -171,14 +97,13 @@ valid defines:
   server.bittorrent Set to nonzero to enable BitTorrent server (default: 1)
   server.daemonize  Set to nonzero to run in the background (default: 1)
   server.datadir    Set data directory (default: LOCALSTATEDIR/neubot)
-  server.debug      Set to nonzero to enable debug API (default: 0)
   server.negotiate  Set to nonzero to enable negotiate server (default: 1)
   server.raw        Set to nonzero to enable RAW server (default: 1)
   server.sapi       Set to nonzero to enable nagios API (default: 1)
   server.speedtest  Set to nonzero to enable speedtest server (default: 1)'''
 
 VALID_MACROS = ('server.bittorrent', 'server.daemonize', 'server.datadir',
-                'server.debug', 'server.negotiate', 'server.raw',
+                'server.negotiate', 'server.raw',
                 'server.sapi', 'server.speedtest')
 
 def main(args):
@@ -284,15 +209,6 @@ def main(args):
         server = ServerSideAPI(POLLER)
         server.configure(conf)
         HTTP_SERVER.register_child(server, "/sapi")
-
-    #
-    # Create localhost-only debug server
-    #
-    if CONFIG['server.debug']:
-        logging.info('server: Starting debug server at {127.0.0.1,::1}:9774')
-        server = DebugAPI(POLLER)
-        server.configure(conf)
-        server.listen(('127.0.0.1 ::1', 9774))
 
     # Probe existing modules and ask them to attach to us
     utils_modules.modprobe(None, "server", {
