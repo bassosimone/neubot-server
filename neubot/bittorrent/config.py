@@ -25,43 +25,12 @@
 #
 # All the other submodules of bittorrent should fetch the
 # definition of CONFIG from this one.
-# We don't register descriptions unless we are running the
-# bittorrent module, so the user does not see this settings
-# in the common case (internals ought to be internals).
 #
 
 import random
 
-from neubot.net.pollable import WATCHDOG
-
 from neubot.config import CONFIG
 from neubot.bittorrent import estimate
-
-NUMPIECES = 1 << 20
-PIECE_LEN = 1 << 17
-
-MAXMESSAGE = 1 << 18
-
-PROPERTIES = (
-    ('bittorrent.address', '', 'Address to listen/connect to ("" = auto)'),
-    ('bittorrent.bytes.down', 0, 'Num of bytes to download (0 = auto)'),
-    ('bittorrent.bytes.up', 0, 'Num of bytes to upload (0 = auto)'),
-    ('bittorrent.infohash', '', 'Set InfoHash ("" = auto)'),
-    ('bittorrent.listen', False, 'Run in server mode'),
-    ('bittorrent.negotiate', True, 'Enable negotiate client/server'),
-    ('bittorrent.negotiate.port', 8080, 'Negotiate port'),
-    ('bittorrent.my_id', '', 'Set local PeerId ("" = auto)'),
-    ('bittorrent.numpieces', NUMPIECES, 'Num of pieces in bitfield'),
-    ('bittorrent.piece_len', PIECE_LEN, 'Length of each piece'),
-    ('bittorrent.port', 6881, 'Port to listen/connect to (0 = auto)'),
-    ('bittorrent.watchdog', WATCHDOG, 'Maximum test run-time in seconds'),
-)
-
-CONFIG.register_defaults_helper(PROPERTIES)
-
-def register_descriptions():
-    ''' Registers the description of bittorrent variables '''
-    CONFIG.register_descriptions_helper(PROPERTIES)
 
 def _random_bytes(num):
     ''' Generates a random string of @num bytes '''

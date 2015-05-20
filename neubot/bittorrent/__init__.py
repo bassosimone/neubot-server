@@ -131,7 +131,6 @@ def main(args):
     if noisy:
         log.set_verbose()
 
-    config.register_descriptions()  # Needed?
     conf = CONFIG.copy()
     config.finalize_conf(conf)
 

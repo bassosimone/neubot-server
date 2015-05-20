@@ -86,7 +86,6 @@ class DebugAPI(ServerHTTP):
                         len(NEGOTIATE_SERVER_SPEEDTEST.clients),
                     'POLLER.readset': len(POLLER.readset),
                     'POLLER.writeset': len(POLLER.writeset),
-                    'CONFIG.conf': len(CONFIG.conf),
                     'NOTIFIER._timestamps': len(NOTIFIER._timestamps),
                     'NOTIFIER._subscribers': len(NOTIFIER._subscribers),
                     'NOTIFIER._tofire': len(NOTIFIER._tofire),
