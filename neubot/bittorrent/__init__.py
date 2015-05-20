@@ -39,10 +39,8 @@ from neubot.bittorrent.server import ServerPeer
 from neubot.http.server import HTTP_SERVER
 from neubot.net.poller import POLLER
 
-from neubot.backend import BACKEND
 from neubot.bittorrent import config
 from neubot.config import CONFIG
-from neubot.notify import NOTIFIER
 
 from neubot import log
 from neubot import negotiate
@@ -79,22 +77,7 @@ def run(poller, conf):
 
     else:
 
-        #
-        # Make sure there is someone ready to receive the
-        # "testdone" event.  If there is noone it is a bug
-        # none times out of ten.
-        #
-        if not NOTIFIER.is_subscribed("testdone"):
-            log.oops("The 'testdone' event is not subscribed")
-
-        if conf["bittorrent.negotiate"]:
-            raise RuntimeError("BitTorrent client not implemented")
-
-        else:
-            client = PeerNeubot(poller)
-            client.configure(conf)
-            client.connect((conf["bittorrent.address"],
-                           conf["bittorrent.port"]))
+        raise RuntimeError("BitTorrent client not implemented")
 
 def main(args):
     '''
@@ -126,8 +109,6 @@ def main(args):
         elif name == '-v':
             noisy = 1
 
-    logging.warning('bittorrent: database file is missing')
-    BACKEND.use_backend('null')
     if noisy:
         log.set_verbose()
 
@@ -144,17 +125,7 @@ def main(args):
         sys.exit(1)
 
     logging.info('bittorrent: run the test in the local process context...')
-
-    #
-    # When we're connecting to a remote host to perform a test
-    # we want Neubot to quit at the end of the test.  When this
-    # happens the test code publishes the "testdone" event, so
-    # here we prepare to intercept the event and break our main
-    # loop.
-    #
-    NOTIFIER.subscribe("testdone", lambda event, ctx: POLLER.break_loop())
-    run(POLLER, conf)
-    POLLER.loop()
+    raise RuntimeError("Not implemented")
 
 if __name__ == "__main__":
     main(sys.argv)

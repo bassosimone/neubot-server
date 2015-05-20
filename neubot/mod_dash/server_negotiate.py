@@ -30,7 +30,7 @@ import logging
 import hashlib
 
 from neubot.negotiate.server import NegotiateServerModule
-from neubot.backend import BACKEND
+from neubot.backend import Backend
 
 from neubot import utils
 
@@ -84,12 +84,12 @@ class DASHNegotiateServer(NegotiateServerModule):
 
         server_timestamp = utils.timestamp()
 
-        BACKEND.store_generic("dash", {
-                                       "srvr_schema_version": 3,
-                                       "srvr_timestamp": server_timestamp,
-                                       "client": request_body,
-                                       "server": result,
-                                      })
+        Backend.singleton().store("dash", {
+                                  "srvr_schema_version": 3,
+                                  "srvr_timestamp": server_timestamp,
+                                  "client": request_body,
+                                  "server": result,
+                                 })
 
         #
         # Return back, at a minimum, the server timestamp.

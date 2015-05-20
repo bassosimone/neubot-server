@@ -33,7 +33,6 @@ import sys
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from neubot.backend import BACKEND
 from neubot.net.poller import POLLER
 
 from neubot import log
@@ -65,8 +64,6 @@ def main(args):
         elif name == '-v':
             noisy = 1
 
-    logging.warning('raw: database file is missing')
-    BACKEND.use_backend('null')
     if noisy:
         log.set_verbose()
 

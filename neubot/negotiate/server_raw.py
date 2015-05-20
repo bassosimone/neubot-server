@@ -32,7 +32,7 @@ import logging
 import hashlib
 
 from neubot.negotiate.server import NegotiateServerModule
-from neubot.backend import BACKEND
+from neubot.backend import Backend
 
 class NegotiateServerRaw(NegotiateServerModule):
 
@@ -74,7 +74,7 @@ class NegotiateServerRaw(NegotiateServerModule):
             logging.debug('negotiate_server_raw: del sha512 OK: %s',
               sha512.encode('hex'))
             complete_result = {'client': request_body, 'server': result}
-            BACKEND.store_raw(complete_result)
+            Backend.singleton().store("raw", complete_result)
             return result
 
     def _update_peers(self, stream, ignored):

@@ -38,4 +38,5 @@ CONFIG = {
     "negotiate.min_thresh": 32,
     "negotiate.max_thresh": 64,
     "prefer_ipv6": 0,
+    "unpriv_user": "nobody",
 }

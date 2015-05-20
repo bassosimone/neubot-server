@@ -1,5 +1,3 @@
-# neubot/__init__.py
-
 #
 # Copyright (c) 2010
 #     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN)
@@ -21,4 +19,4 @@
 # along with Neubot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-pass
+""" Neubot server """
