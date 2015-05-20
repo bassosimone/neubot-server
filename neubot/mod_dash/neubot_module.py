@@ -25,15 +25,12 @@
 
 import logging
 
-from .client_negotiate import DASHNegotiateClient
 from .server_negotiate import DASHNegotiateServer
 from .server_glue import DASHServerGlue
 
 def _run_test(message):
     """ Run the DASH test """
-    client = DASHNegotiateClient(message["poller"])
-    client.configure(message["conf"])
-    client.connect((message["address"], message["port"]))
+    raise RuntimeError("Not implemented")
 
 def mod_load(context, message):
     """ Invoked when the module loads """
