@@ -1,9 +1,7 @@
-# neubot/state.py
-
 #
-# Copyright (c) 2011-2012
-#     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN)
-#     and Simone Basso <bassosimone@gmail.com>
+# Copyright (c) 2015
+#   Nexa Center for Internet & Society, Politecnico di Torino (Italy)
+#   and Simone Basso <bassosimone@gmail.com>.
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #
@@ -21,52 +19,16 @@
 # along with Neubot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-''' State of the test '''
+""" Mocks Neubot STATE object """
 
-import os
 import logging
 
-from neubot.notify import NOTIFIER
-from neubot import utils
-
-STATES = ( "idle", "rendezvous", "negotiate", "test", "collect" )
-STATECHANGE = "statechange"
-
 class State(object):
-    ''' State of the test '''
+    """ State of the test """
 
-    def __init__(self, publish=NOTIFIER.publish, time=utils.T):
-        self.publish = publish
-        self.time = time
-
-        self.current = ""
-        self.events = {}
-        self.tsnap = self.time()
-
-        self.update("since", utils.timestamp())
-        self.update("pid", os.getpid())
-
-    def dictionarize(self):
-        ''' Transforms the state to a dictionary '''
-        return {
-                "events": self.events,
-                "current": self.current,
-                "t": self.tsnap,
-               }
-
-    def update(self, name, event=None, publish=True):
-        ''' Updates test state '''
-        if not event:
-            event = {}
-
-        if name in STATES:
-            self.current = name
-        self.tsnap = self.time()
-        self.events[name] = event
-
-        logging.debug("state: %s %s", name, event)
-
-        if publish:
-            self.publish(STATECHANGE, self.tsnap)
+    @staticmethod
+    def update(name, event=None, publish=True):
+        """ Update the state of the test """
+        logging.debug("STATE: update %s, %s, %s", name, event, publish)
 
 STATE = State()

@@ -35,7 +35,6 @@ if __name__ == '__main__':
 
 from neubot.backend import BACKEND
 from neubot.net.poller import POLLER
-from .raw_negotiate import RawNegotiate
 
 from neubot import log
 from neubot import privacy
@@ -75,10 +74,7 @@ def main(args):
         logging.warning('raw: failed to contact Neubot; is Neubot running?')
         sys.exit(1)
 
-    logging.info('raw: run the test in the local process context...')
-    handler = RawNegotiate()
-    handler.connect((address, port), prefer_ipv6, 0, {})
-    POLLER.loop()
+    raise RuntimeError("raw: client mode not implemented")
 
 if __name__ == '__main__':
     main(sys.argv)

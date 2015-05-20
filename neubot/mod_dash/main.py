@@ -32,9 +32,6 @@ import sys
 if __name__ == "__main__":
     sys.path.insert(0, ".")
 
-from .client_smpl import DASHClientSmpl
-from .client_negotiate import DASHNegotiateClient
-from .client_negotiate import DASH_RATES
 from .server_glue import DASHServerGlue
 from .server_negotiate import DASHNegotiateServer
 from .server_smpl import DASHServerSmpl
@@ -123,17 +120,9 @@ def main(args):
             dash_server.configure(conf)
             server.register_child(dash_server, "/dash")
 
-    elif not force:
-        logging.warning("dash: failed to contact Neubot; is Neubot running?")
-        sys.exit(1)
-
     else:
-        if negotiate:
-            client = DASHNegotiateClient(POLLER)
-        else:
-            client = DASHClientSmpl(POLLER, None, DASH_RATES)
-        client.configure(conf)
-        client.connect((address, port))
+        logging.warning("dash: client mode not implemented")
+        sys.exit(1)
 
     POLLER.loop()
 
