@@ -44,9 +44,3 @@ def run(poller, conf):
 
     HTTP_SERVER.register_child(NEGOTIATE_SERVER, '/negotiate/')
     HTTP_SERVER.register_child(NEGOTIATE_SERVER, '/collect/')
-
-    CONFIG.register_descriptions({
-        'negotiate.parallelism': 'Number of parallel tests',
-        'negotiate.min_thresh': 'Minimum trehshold for RED',
-        'negotiate.max_thresh': 'Maximum trehshold for RED',
-    })

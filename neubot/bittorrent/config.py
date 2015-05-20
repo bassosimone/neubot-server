@@ -25,9 +25,6 @@
 #
 # All the other submodules of bittorrent should fetch the
 # definition of CONFIG from this one.
-# We don't register descriptions unless we are running the
-# bittorrent module, so the user does not see this settings
-# in the common case (internals ought to be internals).
 #
 
 import random
@@ -58,10 +55,6 @@ PROPERTIES = (
 )
 
 CONFIG.register_defaults_helper(PROPERTIES)
-
-def register_descriptions():
-    ''' Registers the description of bittorrent variables '''
-    CONFIG.register_descriptions_helper(PROPERTIES)
 
 def _random_bytes(num):
     ''' Generates a random string of @num bytes '''

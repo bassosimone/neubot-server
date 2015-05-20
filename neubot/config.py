@@ -31,13 +31,9 @@ class Config(object):
 
     def __init__(self):
         self.conf = {}
-        self.descriptions = {}
 
     def register_defaults(self, kvstore):
         self.conf.update(kvstore)
-
-    def register_descriptions(self, d):
-        self.descriptions.update(d)
 
     def copy(self):
         return dict(self.conf)
@@ -57,14 +53,6 @@ CONFIG.register_defaults_helper = lambda properties: \
     CONFIG.register_defaults(dict(zip(map(lambda t: t[0], properties),
                                       map(lambda t: t[1], properties))))
 
-CONFIG.register_descriptions_helper = lambda properties: \
-    CONFIG.register_descriptions(dict(zip(map(lambda t: t[0], properties),
-                                          map(lambda t: t[2], properties))))
-
 CONFIG.register_defaults({
     "prefer_ipv6": 0,
-})
-
-CONFIG.register_descriptions({
-    "prefer_ipv6": "Prefer IPv6 over IPv4 when resolving domain names",
 })
