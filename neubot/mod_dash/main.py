@@ -91,7 +91,7 @@ def main(args):
 
     conf = CONFIG.copy()
 
-    Backend.singleton().datadir_init("nobody", datadir)
+    Backend.singleton().datadir_init(CONFIG["unpriv_user"], datadir)
 
     if listen:
         if not negotiate:

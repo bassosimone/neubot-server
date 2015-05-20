@@ -27,6 +27,7 @@ import gc
 import getopt
 import sys
 import logging
+import os
 import signal
 
 if __name__ == "__main__":
@@ -50,7 +51,6 @@ from neubot.raw_test.raw_srvr_glue import RAW_SERVER_EX
 from neubot import log
 from neubot import bittorrent
 from neubot import negotiate
-from neubot import system
 from neubot.utils import utils_modules
 from neubot.utils import utils_posix
 
@@ -184,7 +184,7 @@ VALID_MACROS = ('server.bittorrent', 'server.daemonize', 'server.datadir',
 def main(args):
     """ Starts the server module """
 
-    if not system.has_enough_privs():
+    if os.getuid() != 0:
         sys.exit('FATAL: you must be root')
 
     try:
@@ -214,7 +214,7 @@ def main(args):
             log.set_verbose()
 
     logging.debug('server: using backend: %s... in progress', backend)
-    Backend.singleton().setup(system_posix.UNPRIV_USER,
+    Backend.singleton().setup(CONFIG["unpriv_user"],
                               SETTINGS['server.datadir'])
 
     for name, value in SETTINGS.items():
@@ -306,13 +306,13 @@ def main(args):
     #
     if conf["server.daemonize"]:
         log.redirect()
-        system.go_background()
+        utils_posix.daemonize(pidfile='/var/run/neubot.pid')
 
     sigterm_handler = lambda signo, frame: POLLER.break_loop()
     signal.signal(signal.SIGTERM, sigterm_handler)
 
     logging.info('Neubot server -- starting up')
-    system.drop_privileges()
+    utils_posix.chuser(utils_posix.getpwnam(CONFIG["unpriv_user"]))
     POLLER.loop()
 
     logging.info('Neubot server -- shutting down')

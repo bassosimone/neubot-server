@@ -23,13 +23,6 @@
 
 ''' POSIX utils '''
 
-#
-# TODO Part of the POSIX code is in this file, part is in system, and part
-# is in updater/unix.py.  The mid-term plan is to move here all the POSIX
-# related code.  updater/unix.py will be changed to depend on this file.
-# (system_posix.py already pulls from this file.)
-#
-
 import errno
 import logging
 import os.path
