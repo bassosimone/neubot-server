@@ -39,7 +39,6 @@ from neubot.bittorrent.server import ServerPeer
 from neubot.http.server import HTTP_SERVER
 from neubot.net.poller import POLLER
 
-from neubot.backend import BACKEND
 from neubot.bittorrent import config
 from neubot.config import CONFIG
 from neubot.notify import NOTIFIER
@@ -126,8 +125,6 @@ def main(args):
         elif name == '-v':
             noisy = 1
 
-    logging.warning('bittorrent: database file is missing')
-    BACKEND.use_backend('null')
     if noisy:
         log.set_verbose()
 

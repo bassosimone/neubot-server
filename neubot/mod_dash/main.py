@@ -39,7 +39,7 @@ from .server_smpl import DASHServerSmpl
 from neubot.http.server import ServerHTTP
 from neubot.negotiate.server import NegotiateServer
 
-from neubot.backend import BACKEND
+from neubot.backend import Backend
 from neubot.config import CONFIG
 from neubot.net.poller import POLLER
 
@@ -91,8 +91,7 @@ def main(args):
 
     conf = CONFIG.copy()
 
-    BACKEND.use_backend(backend)
-    BACKEND.datadir_init(None, datadir)
+    Backend.singleton().datadir_init("nobody", datadir)
 
     if listen:
         if not negotiate:

@@ -44,7 +44,7 @@ from neubot.notify import NOTIFIER
 
 from neubot.debug import objgraph
 from neubot.config import CONFIG
-from neubot.backend import BACKEND
+from neubot.backend import Backend
 from neubot.raw_test.raw_srvr_glue import RAW_SERVER_EX
 
 from neubot import log
@@ -214,16 +214,8 @@ def main(args):
             log.set_verbose()
 
     logging.debug('server: using backend: %s... in progress', backend)
-    if backend == 'mlab':
-        BACKEND.datadir_init(None, SETTINGS['server.datadir'])
-        BACKEND.use_backend('mlab')
-    elif backend == 'neubot':
-        BACKEND.use_backend('neubot')
-    elif backend == 'volatile':
-        BACKEND.use_backend('volatile')
-    else:
-        BACKEND.use_backend('null')
-    logging.debug('server: using backend: %s... complete', backend)
+    Backend.singleton().setup(system_posix.UNPRIV_USER,
+                              SETTINGS['server.datadir'])
 
     for name, value in SETTINGS.items():
         CONFIG[name] = value
