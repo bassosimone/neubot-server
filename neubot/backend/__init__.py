@@ -54,8 +54,6 @@ from .backend_neubot import BackendNeubot
 from .backend_null import BackendNull
 from .backend_volatile import BackendVolatile
 
-from neubot.config import CONFIG
-
 from neubot.utils import utils_hier
 from neubot.utils import utils_path
 
