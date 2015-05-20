@@ -31,32 +31,9 @@
 # =================================================================
 #
 
-import itertools
-import os
-import shlex
 import logging
 
 from neubot import utils
-
-def string_to_kv(string):
-
-    """Convert string to (key,value).  Returns the empty tuple if
-       the string is a comment or contains just spaces."""
-
-    string = string.strip()
-    if not string or string[0] == "#":
-        return tuple()
-    kv = string.split("=", 1)
-    if len(kv) == 1:
-        kv.append("True")
-    return tuple(kv)
-
-def kv_to_string(kv):
-
-    """Convert (key,value) to string.  Adds a trailing newline so
-       we can pass the return value directly to fp.write()."""
-
-    return "%s=%s\n" % (utils.stringify(kv[0]), utils.stringify(kv[1]))
 
 class ConfigDict(dict):
 
@@ -87,15 +64,11 @@ class ConfigDict(dict):
         if kwds:
             self.update(kwds.iteritems())
 
-class ConfigError(Exception):
-    pass
-
 class Config(object):
 
     """Configuration manager"""
 
     def __init__(self):
-        self.properties = []
         self.conf = ConfigDict()
         self.descriptions = {}
 
@@ -116,67 +89,6 @@ class Config(object):
 
     def __setitem__(self, key, value):
         self.conf[key] = value
-
-    def register_property(self, prop, module=""):
-        if module and not prop.startswith(module):
-            prop = "%s.%s" % (module, prop)
-        self.properties.append(prop)
-
-    def merge_fp(self, fp):
-        logging.debug("config: reading properties from file")
-        map(self.merge_kv, itertools.imap(string_to_kv, fp))
-
-    def merge_database(self, database):
-        logging.debug("config: reading properties from database")
-
-    def merge_environ(self):
-        logging.debug("config: reading properties from the environment")
-        map(self.merge_kv, itertools.imap(string_to_kv,
-          shlex.split(os.environ.get("NEUBOT_OPTIONS",""))))
-
-    def merge_properties(self):
-        logging.debug("config: reading properties from command-line")
-        map(self.merge_kv, itertools.imap(string_to_kv, self.properties))
-
-    def merge_api(self, dictlike, database=None):
-        # enforce all-or-nothing
-        logging.debug("config: reading properties from /api/config")
-        map(lambda t: self.merge_kv(t, dry=True), dictlike.iteritems())
-        map(self.merge_kv, dictlike.iteritems())
-
-    def merge_kv(self, t, dry=False):
-        if t:
-            key, value = t
-            if not dry:
-                self.conf[key] = value
-
-            else:
-                try:
-                    ovalue = self.conf[key]
-                    cast = utils.smart_cast(ovalue)
-                    cast(value)
-                except KeyError:
-                    raise ConfigError("No such property: %s" % key)
-                except TypeError:
-                    raise ConfigError("Old value '%s' for property '%s'"
-                      " has the wrong type" % (ovalue, key))
-                except ValueError:
-                    raise ConfigError("Invalid value '%s' for property '%s'" %
-                                      (value, key))
-
-    def store_fp(self, fp):
-        map(fp.write, itertools.imap(kv_to_string, self.conf.iteritems()))
-
-    def store_database(self, database):
-        pass
-
-    def print_descriptions(self, fp):
-        fp.write("Properties (current value in square brackets):\n")
-        for key in sorted(self.descriptions.keys()):
-            description = self.descriptions[key]
-            value = self.conf[key]
-            fp.write("    %-28s: %s [%s]\n" % (key, description, value))
-        fp.write("\n")
 
 CONFIG = Config()
 
