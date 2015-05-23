@@ -48,15 +48,15 @@ class Poller(sched.scheduler):
     #
     # We always keep the check_timeout() event registered
     # so the scheduler is alive forever.
+    #
     # We register self._poll() as the delay function and
     # in that function we either invoke select() or we
     # sleep for the requested amount of time.
     #
 
-    def __init__(self, select_timeout):
+    def __init__(self):
         ''' Initialize '''
         sched.scheduler.__init__(self, ticks, self._poll)
-        self.select_timeout = select_timeout
         self.again = True
         self.readset = {}
         self.writeset = {}
@@ -216,4 +216,4 @@ class Poller(sched.scheduler):
                     logging.debug('poller: watchdog timeout: %s', str(stream))
                     self.close(stream)
 
-POLLER = Poller(1)
+POLLER = Poller()
