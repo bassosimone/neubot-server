@@ -30,7 +30,7 @@ from neubot.http.stream import ERROR
 from neubot.http.message import Message
 from neubot.http.stream import nextstate
 from neubot.http.stream import StreamHTTP
-from neubot.net.stream import StreamHandler
+from neubot.net.stream_handler import StreamHandler
 from neubot.net.poller import POLLER
 
 from neubot import log

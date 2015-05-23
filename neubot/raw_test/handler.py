@@ -36,9 +36,9 @@ class Handler(object):
 
     # Inspired by BitTorrent handle class
 
-    def listen(self, endpoint, prefer_ipv6, sslconfig, sslcert):
+    def listen(self, endpoint, _, sslconfig, sslcert):
         ''' Listen() at endpoint '''
-        sockets = utils_net.listen(endpoint, prefer_ipv6)
+        sockets = utils_net.listen(endpoint)
         if not sockets:
             self.handle_listen_error(endpoint)
             return

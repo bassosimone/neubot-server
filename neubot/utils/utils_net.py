@@ -92,7 +92,7 @@ def addrinfo_key(ainfo):
     ''' Map addrinfo to protocol family '''
     return COMPARE_AF[ainfo[0]]
 
-def listen(epnt, prefer_ipv6):
+def listen(epnt):
     ''' Listen to all sockets represented by epnt '''
 
     logging.debug('listen(): about to listen to: %s', str(epnt))
@@ -106,7 +106,7 @@ def listen(epnt, prefer_ipv6):
     # Allow to listen on a list of addresses
     if epnt[0] and ' ' in epnt[0]:
         for address in epnt[0].split():
-            result = listen((address.strip(), epnt[1]), prefer_ipv6)
+            result = listen((address.strip(), epnt[1]))
             sockets.extend(result)
         return sockets
 
@@ -125,7 +125,7 @@ def listen(epnt, prefer_ipv6):
     message[-1] = ']'
     logging.debug(''.join(message))
 
-    addrinfo.sort(key=addrinfo_key, reverse=prefer_ipv6)
+    addrinfo.sort(key=addrinfo_key, reverse=True)
 
     for ainfo in addrinfo:
         try:
