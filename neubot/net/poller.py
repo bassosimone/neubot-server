@@ -1,5 +1,3 @@
-# neubot/poller.py
-
 #
 # Copyright (c) 2010, 2012, 2015
 #     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN)

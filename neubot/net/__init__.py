@@ -1,8 +1,7 @@
-# neubot/net/__init__.py
-
 #
-# Copyright (c) 2010 Simone Basso <bassosimone@gmail.com>,
-#  NEXA Center for Internet & Society at Politecnico di Torino
+# Copyright (c) 2010
+#     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN)
+#     and Simone Basso <bassosimone@gmail.com>.
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #
@@ -20,4 +19,4 @@
 # along with Neubot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-pass
+""" Neubot networking module """
