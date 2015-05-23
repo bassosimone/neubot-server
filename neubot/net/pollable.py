@@ -21,7 +21,7 @@
 
 ''' An object that can be passed to the poller '''
 
-from neubot import utils
+from .. import utils
 
 # States returned by the socket model
 (SUCCESS, WANT_READ, WANT_WRITE, CONNRST) = range(4)

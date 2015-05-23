@@ -27,8 +27,8 @@ import select
 import sched
 import sys
 
-from neubot.utils import ticks
-from neubot.utils import timestamp
+from ..utils import ticks
+from ..utils import timestamp
 
 #
 # Number of seconds between each check for timed-out
