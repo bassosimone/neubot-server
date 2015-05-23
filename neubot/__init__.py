@@ -1,7 +1,7 @@
 #
 # Copyright (c) 2010
 #     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN)
-#     and Simone Basso <bassosimone@gmail.com>
+#     and Simone Basso <bassosimone@gmail.com>.
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #

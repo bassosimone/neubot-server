@@ -25,7 +25,7 @@
 import logging
 
 from neubot.negotiate.server import NegotiateServerModule
-from neubot.backend import Backend
+from neubot import backend
 
 class NegotiateServerSpeedtest(NegotiateServerModule):
 
@@ -71,7 +71,7 @@ class NegotiateServerSpeedtest(NegotiateServerModule):
         # Note: no more than one collect per session
         self.clients.remove(ident)
 
-        Backend.singleton().store("speedtest", request_body)
+        backend.store("speedtest", request_body)
         return {}
 
     # Note: if collect is successful ident is not in self.clients

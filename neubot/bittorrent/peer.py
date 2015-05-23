@@ -39,7 +39,7 @@ from neubot.bittorrent.bitfield import make_bitfield
 from neubot.bittorrent.btsched import sched_req
 from neubot.bittorrent.stream import StreamBitTorrent
 from neubot.net.poller import POLLER
-from neubot.net.stream import StreamHandler
+from neubot.net.stream_handler import StreamHandler
 
 from neubot.bittorrent import config
 from neubot.config import CONFIG
@@ -137,7 +137,7 @@ class PeerNeubot(StreamHandler):
         else:
             peer = self
         stream.attach(peer, sock, peer.conf)
-        stream.watchdog = self.conf["bittorrent.watchdog"]
+        stream.set_timeout(self.conf["bittorrent.watchdog"])
 
     def connection_ready(self, stream):
         stream.send_bitfield(str(self.bitfield))

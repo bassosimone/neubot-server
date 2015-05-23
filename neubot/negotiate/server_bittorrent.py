@@ -26,7 +26,7 @@ import logging
 import hashlib
 
 from neubot.negotiate.server import NegotiateServerModule
-from neubot.backend import Backend
+from neubot import backend
 
 class NegotiateServerBitTorrent(NegotiateServerModule):
 
@@ -86,7 +86,7 @@ class NegotiateServerBitTorrent(NegotiateServerModule):
             request_body['timestamp'] = result['timestamp']
             request_body['upload_speed'] = result['upload_speed']
 
-            Backend.singleton().store("bittorrent", request_body)
+            backend.store("bittorrent", request_body)
 
             #
             # After we've saved the result into the dictionary we

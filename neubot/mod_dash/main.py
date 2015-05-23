@@ -39,10 +39,10 @@ from .server_smpl import DASHServerSmpl
 from neubot.http.server import ServerHTTP
 from neubot.negotiate.server import NegotiateServer
 
-from neubot.backend import Backend
 from neubot.config import CONFIG
 from neubot.net.poller import POLLER
 
+from neubot import backend
 from neubot import log
 
 USAGE = """\
@@ -91,7 +91,7 @@ def main(args):
 
     conf = CONFIG.copy()
 
-    Backend.singleton().datadir_init(CONFIG["unpriv_user"], datadir)
+    backend.setup(CONFIG["unpriv_user"], datadir)
 
     if listen:
         if not negotiate:

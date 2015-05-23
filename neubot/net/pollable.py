@@ -1,8 +1,7 @@
-# neubot/pollable.py
-
 #
-# Copyright (c) 2010, 2012 Simone Basso <bassosimone@gmail.com>,
-#  NEXA Center for Internet & Society at Politecnico di Torino
+# Copyright (c) 2010, 2012, 2015
+#     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN)
+#     and Simone Basso <bassosimone@gmail.com>.
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #
@@ -22,10 +21,7 @@
 
 ''' An object that can be passed to the poller '''
 
-# Adapted from neubot/net/poller.py
-# Python3-ready: yes
-
-from neubot import utils
+from .. import utils
 
 # States returned by the socket model
 (SUCCESS, WANT_READ, WANT_WRITE, CONNRST) = range(4)
@@ -34,16 +30,14 @@ from neubot import utils
 WATCHDOG = 300
 
 class Pollable(object):
-
     ''' Base class for pollable objects '''
 
     def __init__(self):
-        self.created = utils.ticks()
-        self.watchdog = WATCHDOG
+        self._created = utils.ticks()
+        self._watchdog = WATCHDOG
 
     def fileno(self):
         ''' Return file descriptor number '''
-        return -1
 
     def handle_read(self):
         ''' Handle the READ event '''
@@ -56,9 +50,9 @@ class Pollable(object):
 
     def handle_periodic(self, timenow):
         ''' Handle the PERIODIC event '''
-        return self.watchdog >= 0 and timenow - self.created > self.watchdog
+        return self._watchdog >= 0 and timenow - self._created > self._watchdog
 
     def set_timeout(self, timeo):
         ''' Set timeout of this pollable '''
-        self.created = utils.ticks()
-        self.watchdog = timeo
+        self._created = utils.ticks()
+        self._watchdog = timeo
