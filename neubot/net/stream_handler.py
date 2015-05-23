@@ -23,7 +23,7 @@
 
 from ..utils import utils_net
 
-from ._listener import _Listener
+from .listener import Listener
 
 class StreamHandler(object):
     """ Handle many streams at once """
@@ -43,7 +43,7 @@ class StreamHandler(object):
             self.bind_failed(endpoint)
             return
         for sock in sockets:
-            listener = _Listener(self.poller, self, sock, endpoint)
+            listener = Listener(self.poller, self, sock, endpoint)
             listener.listen()
 
     def bind_failed(self, epnt):

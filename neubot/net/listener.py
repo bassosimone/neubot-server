@@ -23,7 +23,7 @@
 
 from .pollable import Pollable
 
-class _Listener(Pollable):
+class Listener(Pollable):
     """ Listen to a specific endpoint """
 
     def __init__(self, poller, parent, sock, endpoint):
