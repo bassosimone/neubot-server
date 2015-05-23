@@ -1,8 +1,7 @@
-# neubot/pollable.py
-
 #
-# Copyright (c) 2010, 2012 Simone Basso <bassosimone@gmail.com>,
-#  NEXA Center for Internet & Society at Politecnico di Torino
+# Copyright (c) 2010, 2012, 2015
+#     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN)
+#     and Simone Basso <bassosimone@gmail.com>.
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #
@@ -22,9 +21,6 @@
 
 ''' An object that can be passed to the poller '''
 
-# Adapted from neubot/net/poller.py
-# Python3-ready: yes
-
 from neubot import utils
 
 # States returned by the socket model
@@ -34,7 +30,6 @@ from neubot import utils
 WATCHDOG = 300
 
 class Pollable(object):
-
     ''' Base class for pollable objects '''
 
     def __init__(self):
@@ -43,7 +38,6 @@ class Pollable(object):
 
     def fileno(self):
         ''' Return file descriptor number '''
-        return -1
 
     def handle_read(self):
         ''' Handle the READ event '''
