@@ -1,9 +1,9 @@
 # neubot/poller.py
 
 #
-# Copyright (c) 2010, 2012
+# Copyright (c) 2010, 2012, 2015
 #     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN)
-#     and Simone Basso <bassosimone@gmail.com>
+#     and Simone Basso <bassosimone@gmail.com>.
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #
@@ -22,9 +22,6 @@
 #
 
 ''' Dispatch read, write, periodic and other events '''
-
-# Was neubot/net/poller.py
-# Python3-ready: yes
 
 import logging
 import errno
@@ -46,7 +43,7 @@ class Poller(sched.scheduler):
     ''' Dispatch read, write, periodic and other events '''
 
     #
-    # We always keep the check_timeout() event registered
+    # We always keep the _check_timeout() event registered
     # so the scheduler is alive forever.
     #
     # We register self._poll() as the delay function and
@@ -57,10 +54,10 @@ class Poller(sched.scheduler):
     def __init__(self):
         ''' Initialize '''
         sched.scheduler.__init__(self, ticks, self._poll)
-        self.again = True
-        self.readset = {}
-        self.writeset = {}
-        self.check_timeout()
+        self._again = True
+        self._readset = {}
+        self._writeset = {}
+        self._check_timeout()
 
     def sched(self, delta, func, *args):
         ''' Schedule task '''
@@ -84,23 +81,23 @@ class Poller(sched.scheduler):
 
     def set_readable(self, stream):
         ''' Monitor for readability '''
-        self.readset[stream.fileno()] = stream
+        self._readset[stream.fileno()] = stream
 
     def set_writable(self, stream):
         ''' Monitor for writability '''
-        self.writeset[stream.fileno()] = stream
+        self._writeset[stream.fileno()] = stream
 
     def unset_readable(self, stream):
         ''' Stop monitoring for readability '''
         fileno = stream.fileno()
-        if fileno in self.readset:
-            del self.readset[fileno]
+        if fileno in self._readset:
+            del self._readset[fileno]
 
     def unset_writable(self, stream):
         ''' Stop monitoring for writability '''
         fileno = stream.fileno()
-        if fileno in self.writeset:
-            del self.writeset[fileno]
+        if fileno in self._writeset:
+            del self._writeset[fileno]
 
     def close(self, stream):
         ''' Safely close a stream '''
@@ -127,8 +124,8 @@ class Poller(sched.scheduler):
 
     def _call_handle_read(self, fileno):
         ''' Safely dispatch read event '''
-        if fileno in self.readset:
-            stream = self.readset[fileno]
+        if fileno in self._readset:
+            stream = self._readset[fileno]
             try:
                 stream.handle_read()
             except (KeyboardInterrupt, SystemExit):
@@ -139,8 +136,8 @@ class Poller(sched.scheduler):
 
     def _call_handle_write(self, fileno):
         ''' Safely dispatch write event '''
-        if fileno in self.writeset:
-            stream = self.writeset[fileno]
+        if fileno in self._writeset:
+            stream = self._writeset[fileno]
             try:
                 stream.handle_write()
             except (KeyboardInterrupt, SystemExit):
@@ -151,7 +148,7 @@ class Poller(sched.scheduler):
 
     def break_loop(self):
         ''' Break out of poller loop '''
-        self.again = False
+        self._again = False
 
     def loop(self):
         ''' Poller loop '''
@@ -169,16 +166,16 @@ class Poller(sched.scheduler):
         ''' Poll for readability and writability '''
 
         # Immediately break out of the loop if requested to do so
-        if not self.again:
-            raise KeyboardInterrupt('poller: self.again is false')
+        if not self._again:
+            raise KeyboardInterrupt('poller: self._again is false')
 
         # Monitor streams readability/writability
-        elif self.readset or self.writeset:
+        elif self._readset or self._writeset:
 
             # Get list of readable/writable streams
             try:
-                res = select.select(list(self.readset.keys()),
-                                    list(self.writeset.keys()),
+                res = select.select(list(self._readset.keys()),
+                                    list(self._writeset.keys()),
                                     [], timeout)
             except select.error:
                 code = sys.exc_info()[1][0]
@@ -200,15 +197,15 @@ class Poller(sched.scheduler):
         else:
             raise KeyboardInterrupt('poller: no I/O pending')
 
-    def check_timeout(self):
+    def _check_timeout(self):
         ''' Dispatch the periodic event '''
 
-        self.sched(CHECK_TIMEOUT, self.check_timeout)
-        if self.readset or self.writeset:
+        self.sched(CHECK_TIMEOUT, self._check_timeout)
+        if self._readset or self._writeset:
 
             streams = set()
-            streams.update(list(self.readset.values()))
-            streams.update(list(self.writeset.values()))
+            streams.update(list(self._readset.values()))
+            streams.update(list(self._writeset.values()))
 
             timenow = ticks()
             for stream in streams:
