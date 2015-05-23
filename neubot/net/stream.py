@@ -439,7 +439,7 @@ class Connector(Pollable):
         self.timestamp = 0
         self.endpoint = None
         self.epnts = collections.deque()
-        self.watchdog = 10
+        self.set_timeout(10)
 
     def __repr__(self):
         return "connector to %s" % str(self.endpoint)
@@ -502,7 +502,7 @@ class Listener(Pollable):
         self.endpoint = endpoint
 
         # Want to listen "forever"
-        self.watchdog = -1
+        self.set_timeout(-1)
 
     def __repr__(self):
         return "listener at %s" % str(self.endpoint)

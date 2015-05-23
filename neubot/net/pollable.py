@@ -33,8 +33,8 @@ class Pollable(object):
     ''' Base class for pollable objects '''
 
     def __init__(self):
-        self.created = utils.ticks()
-        self.watchdog = WATCHDOG
+        self._created = utils.ticks()
+        self._watchdog = WATCHDOG
 
     def fileno(self):
         ''' Return file descriptor number '''
@@ -50,9 +50,9 @@ class Pollable(object):
 
     def handle_periodic(self, timenow):
         ''' Handle the PERIODIC event '''
-        return self.watchdog >= 0 and timenow - self.created > self.watchdog
+        return self._watchdog >= 0 and timenow - self._created > self._watchdog
 
     def set_timeout(self, timeo):
         ''' Set timeout of this pollable '''
-        self.created = utils.ticks()
-        self.watchdog = timeo
+        self._created = utils.ticks()
+        self._watchdog = timeo
