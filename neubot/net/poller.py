@@ -216,10 +216,4 @@ class Poller(sched.scheduler):
                     logging.debug('poller: watchdog timeout: %s', str(stream))
                     self.close(stream)
 
-    def snap(self, data):
-        ''' Take a snapshot of poller state '''
-        data['poller'] = { "readset": self.readset, "writeset": self.writeset }
-        if hasattr(self, 'queue'):
-            data['poller']['queue'] = self.queue
-
 POLLER = Poller(1)
