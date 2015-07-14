@@ -40,7 +40,7 @@ from neubot.http.server import ServerHTTP
 from neubot.negotiate.server import NegotiateServer
 
 from neubot.config import CONFIG
-from neubot.net.poller import POLLER
+from neubot.lib_net.poller import POLLER
 
 from neubot import backend
 from neubot import log
