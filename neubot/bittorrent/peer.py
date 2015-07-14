@@ -38,8 +38,8 @@ from neubot.bittorrent.bitfield import Bitfield
 from neubot.bittorrent.bitfield import make_bitfield
 from neubot.bittorrent.btsched import sched_req
 from neubot.bittorrent.stream import StreamBitTorrent
-from neubot.net.poller import POLLER
-from neubot.net.stream_handler import StreamHandler
+from neubot.lib_net.poller import POLLER
+from neubot.lib_net.stream_handler import StreamHandler
 
 from neubot.bittorrent import config
 from neubot.config import CONFIG

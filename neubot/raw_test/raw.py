@@ -33,7 +33,7 @@ import sys
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from neubot.net.poller import POLLER
+from neubot.lib_net.poller import POLLER
 
 from neubot import log
 from neubot import privacy

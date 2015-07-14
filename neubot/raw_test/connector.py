@@ -22,7 +22,7 @@
 
 ''' Pollable socket connector '''
 
-# Adapted from neubot/net/stream.py
+# Adapted from neubot.lib_net/stream.py
 # Python3-ready: yes
 
 import collections
@@ -30,8 +30,8 @@ import logging
 
 from .defer import Deferred
 
-from neubot.net.pollable import Pollable
-from neubot.net.poller import POLLER
+from neubot.lib_net.pollable import Pollable
+from neubot.lib_net.poller import POLLER
 
 from neubot.utils import utils_net
 from neubot import utils

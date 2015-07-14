@@ -28,7 +28,7 @@ import collections
 import logging
 
 from neubot.http.stream import StreamHTTP
-from neubot.net.stream_handler import StreamHandler
+from neubot.lib_net.stream_handler import StreamHandler
 from neubot.http.stream import ERROR
 from neubot.http.stream import nextstate
 from neubot.http.message import Message

@@ -26,8 +26,8 @@
 
 import logging
 
-from neubot.net.stream import MAXBUF
-from neubot.net.stream import Stream
+from neubot.lib_net.stream import MAXBUF
+from neubot.lib_net.stream import Stream
 
 # Accepted HTTP protocols
 PROTOCOLS = [ "HTTP/1.0", "HTTP/1.1" ]

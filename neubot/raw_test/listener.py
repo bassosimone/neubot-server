@@ -22,11 +22,11 @@
 
 ''' Pollable socket listener '''
 
-# Adapted from neubot/net/stream.py
+# Adapted from neubot.lib_net/stream.py
 # Python3-ready: yes
 
-from neubot.net.pollable import Pollable
-from neubot.net.poller import POLLER
+from neubot.lib_net.pollable import Pollable
+from neubot.lib_net.poller import POLLER
 
 class Listener(Pollable):
 
