@@ -313,7 +313,7 @@ usage: utils_posix.py [-v] [-f file] [-u user] chuser
         chuser(passwd)
 
         real_umask = os.umask(0)
-        os.umask(real_umask) 
+        os.umask(real_umask)
         sys.stdout.write('new umask: 0%o\n' % real_umask)
 
         if hasattr(os, 'getresgid'):

@@ -51,7 +51,7 @@ from neubot.utils import utils_net
 from neubot.utils import utils_rc
 
 # Constants
-from neubot.bittorrent.config import PIECE_LEN
+#from neubot.bittorrent.config import PIECE_LEN
 
 LO_THRESH = 3
 MAX_REPEAT = 7

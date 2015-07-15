@@ -24,7 +24,7 @@
 import struct
 import logging
 
-from neubot.bittorrent.config import MAXMESSAGE
+#from neubot.bittorrent.config import MAXMESSAGE
 
 from neubot.lib_net.stream import Stream
 

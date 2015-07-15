@@ -25,4 +25,4 @@
 # Script to quickly start the Neubot server
 #
 
-sudo python neubot/server.py -dvb volatile
+sudo python neubot/main.py -D server.datadir=$PWD
