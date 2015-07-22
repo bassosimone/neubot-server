@@ -27,7 +27,7 @@ from neubot.negotiate.server_speedtest import NEGOTIATE_SERVER_SPEEDTEST
 from neubot.negotiate.server_bittorrent import NEGOTIATE_SERVER_BITTORRENT
 from neubot.negotiate.server_raw import NEGOTIATE_SERVER_RAW
 from neubot.negotiate.server import NEGOTIATE_SERVER
-from neubot.http.server import HTTP_SERVER
+from neubot.lib_http.server import HTTP_SERVER
 
 def run(poller, conf):
     ''' Start the negotiate server '''

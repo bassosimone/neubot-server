@@ -27,8 +27,8 @@
 
 # Adapted from neubot/speedtest/server.py
 
-from neubot.http.message import Message
-from neubot.http.server import ServerHTTP
+from neubot.lib_http.message import Message
+from neubot.lib_http.server import ServerHTTP
 
 #
 # The default body size is small enough that the body, and

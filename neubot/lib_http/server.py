@@ -26,10 +26,10 @@ import sys
 import time
 import logging
 
-from neubot.http.stream import ERROR
-from neubot.http.message import Message
-from neubot.http.stream import nextstate
-from neubot.http.stream import StreamHTTP
+from neubot.lib_http.stream import ERROR
+from neubot.lib_http.message import Message
+from neubot.lib_http.stream import nextstate
+from neubot.lib_http.stream import StreamHTTP
 from neubot.lib_net.stream_handler import StreamHandler
 from neubot.lib_net.poller import POLLER
 
