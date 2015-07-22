@@ -36,7 +36,7 @@ if __name__ == "__main__":
 
 from neubot.bittorrent.peer import PeerNeubot
 from neubot.bittorrent.server import ServerPeer
-from neubot.http.server import HTTP_SERVER
+from neubot.lib_http.server import HTTP_SERVER
 from neubot.lib_net.poller import POLLER
 
 from neubot.bittorrent import config
