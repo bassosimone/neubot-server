@@ -23,8 +23,8 @@
 ''' Speedtest server '''
 
 from neubot.utils.utils_random import RandomBody
-from neubot.http.message import Message
-from neubot.http.server import ServerHTTP
+from neubot.lib_http.message import Message
+from neubot.lib_http.server import ServerHTTP
 
 from .bytegen import BytegenSpeedtest
 

@@ -51,11 +51,12 @@ from neubot.utils import utils_net
 from neubot.utils import utils_rc
 
 # Constants
-from neubot.bittorrent.config import PIECE_LEN
+from neubot.config import CONFIG
 
 LO_THRESH = 3
 MAX_REPEAT = 7
 TARGET = 5
+PIECE_LEN = CONFIG["bittorrent.piece_len"]
 
 # States of the PeerNeubot object
 STATES = (INITIAL, SENT_INTERESTED, DOWNLOADING, UPLOADING,

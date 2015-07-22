@@ -36,7 +36,7 @@ from .server_glue import DASHServerGlue
 from .server_negotiate import DASHNegotiateServer
 from .server_smpl import DASHServerSmpl
 
-from neubot.http.server import ServerHTTP
+from neubot.lib_http.server import ServerHTTP
 from neubot.negotiate.server import NegotiateServer
 
 from neubot.config import CONFIG
