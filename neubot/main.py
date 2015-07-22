@@ -38,17 +38,17 @@ from neubot.lib_net.poller import POLLER
 from neubot.negotiate.server import NEGOTIATE_SERVER
 
 from neubot.config import CONFIG
-from neubot.raw_test.raw_srvr_glue import RAW_SERVER_EX
+from neubot.mod_raw_test.raw_srvr_glue import RAW_SERVER_EX
 
 from neubot import backend
 from neubot import log
-from neubot import bittorrent
+from neubot import mod_bittorrent
 from neubot import negotiate
 from neubot.utils import utils_modules
 from neubot.utils import utils_posix
 
 #from neubot import speedtest           # Not yet
-import neubot.speedtest.wrapper
+import neubot.mod_speedtest.wrapper
 
 from neubot.utils.utils_hier import LOCALSTATEDIR
 
@@ -177,12 +177,12 @@ def main(args):
         conf["bittorrent.address"] = address
         conf["bittorrent.listen"] = True
         conf["bittorrent.negotiate"] = True
-        bittorrent.run(POLLER, conf)
+        mod_bittorrent.run(POLLER, conf)
 
     if conf['server.speedtest']:
         #conf['speedtest.listen'] = 1           # Not yet
         #conf['speedtest.negotiate'] = 1        # Not yet
-        neubot.speedtest.wrapper.run(POLLER, conf)
+        neubot.mod_speedtest.wrapper.run(POLLER, conf)
 
     #
     # Historically Neubot runs on port 9773 and

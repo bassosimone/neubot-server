@@ -1,4 +1,4 @@
-# neubot/bittorrent/config.py
+# neubot.mod_bittorrent/config.py
 
 #
 # Copyright (c) 2011 Simone Basso <bassosimone@gmail.com>,
@@ -30,7 +30,7 @@
 import random
 
 from neubot.config import CONFIG
-from neubot.bittorrent import estimate
+from neubot.mod_bittorrent import estimate
 
 def _random_bytes(num):
     ''' Generates a random string of @num bytes '''

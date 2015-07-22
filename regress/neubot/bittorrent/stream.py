@@ -29,7 +29,7 @@ import unittest
 if __name__ == "__main__":
     sys.path.insert(0, ".")
 
-from neubot.bittorrent import stream
+from neubot.mod_bittorrent import stream
 
 #
 #   ____                     _       _
