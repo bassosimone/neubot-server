@@ -40,7 +40,7 @@ from neubot.negotiate.server import NEGOTIATE_SERVER
 from neubot.config import CONFIG
 from neubot.raw_test.raw_srvr_glue import RAW_SERVER_EX
 
-from neubot import backend as backend1
+from neubot import backend
 from neubot import log
 from neubot import bittorrent
 from neubot import negotiate
@@ -49,6 +49,9 @@ from neubot.utils import utils_posix
 
 #from neubot import speedtest           # Not yet
 import neubot.speedtest.wrapper
+
+from neubot.utils.utils_hier import LOCALSTATEDIR
+
 
 class ServerSideAPI(ServerHTTP):
     """ Implements server-side API for Nagios plugin """
@@ -77,7 +80,7 @@ class ServerSideAPI(ServerHTTP):
 SETTINGS = {
     "server.bittorrent": True,
     "server.daemonize": True,
-    "server.datadir": '',
+    "server.datadir": LOCALSTATEDIR,
     "server.negotiate": True,
     "server.raw": True,
     "server.sapi": True,
@@ -119,12 +122,9 @@ def main(args):
         sys.exit(USAGE)
 
     address = ':: 0.0.0.0'
-    backend = 'mlab'
     for name, value in options:
         if name == '-A':
             address = value
-        elif name == '-b':
-            backend = value
         elif name == '-D':
             name, value = value.split('=', 1)
             if name not in VALID_MACROS:
@@ -137,8 +137,7 @@ def main(args):
         elif name == '-v':
             log.set_verbose()
 
-    logging.debug('server: using backend: %s... in progress', backend)
-    backend1.setup(CONFIG["unpriv_user"], SETTINGS['server.datadir'])
+    backend.setup(CONFIG["unpriv_user"], SETTINGS['server.datadir'])
 
     for name, value in SETTINGS.items():
         CONFIG[name] = value

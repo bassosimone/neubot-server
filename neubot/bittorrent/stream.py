@@ -24,9 +24,12 @@
 import struct
 import logging
 
-#from neubot.bittorrent.config import MAXMESSAGE
-
 from neubot.lib_net.stream import Stream
+
+from ..config import CONFIG
+
+# Max Message lenght
+MAXMESSAGE = CONFIG["bittorrent.max_message"]
 
 # Available msgs
 MESSAGES = (CHOKE, UNCHOKE, INTERESTED, NOT_INTERESTED, HAVE, BITFIELD,
