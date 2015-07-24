@@ -34,6 +34,7 @@ CONFIG = {
     "bittorrent.piece_len": 1 << 17,
     "bittorrent.port": 6881,
     "bittorrent.watchdog": 300,
+    "bittorrent.max_message": 1 << 18,
     "negotiate.parallelism": 7,
     "negotiate.min_thresh": 32,
     "negotiate.max_thresh": 64,
