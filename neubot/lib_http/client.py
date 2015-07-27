@@ -27,11 +27,11 @@
 import collections
 import logging
 
-from neubot.http.stream import StreamHTTP
+from neubot.lib_http.stream import StreamHTTP
 from neubot.lib_net.stream_handler import StreamHandler
-from neubot.http.stream import ERROR
-from neubot.http.stream import nextstate
-from neubot.http.message import Message
+from neubot.lib_http.stream import ERROR
+from neubot.lib_http.stream import nextstate
+from neubot.lib_http.message import Message
 from neubot import utils
 from neubot.utils import utils_net
 

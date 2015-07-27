@@ -30,9 +30,9 @@ import signal
 if __name__ == "__main__":
     sys.path.insert(0, ".")
 
-from neubot.http.message import Message
-from neubot.http.server import HTTP_SERVER
-from neubot.http.server import ServerHTTP
+from neubot.lib_http.message import Message
+from neubot.lib_http.server import HTTP_SERVER
+from neubot.lib_http.server import ServerHTTP
 from neubot.lib_net.poller import POLLER
 
 from neubot.negotiate.server import NEGOTIATE_SERVER
