@@ -20,7 +20,7 @@
 # along with Neubot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-''' Regression tests for neubot/bittorrent/config.py '''
+''' Regression tests for neubot.mod_bittorrent/config.py '''
 
 import unittest
 import sys
@@ -28,8 +28,8 @@ import sys
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from neubot.bittorrent import config
-from neubot.bittorrent import estimate
+from neubot.mod_bittorrent import config
+from neubot.mod_bittorrent import estimate
 
 PROPERTIES = (
     'bittorrent.address',

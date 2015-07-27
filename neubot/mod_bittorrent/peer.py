@@ -1,4 +1,4 @@
-# neubot/bittorrent/peer.py
+# neubot.mod_bittorrent/peer.py
 
 #
 # Copyright (c) 2011 Simone Basso <bassosimone@gmail.com>,
@@ -34,14 +34,14 @@ import sys
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from neubot.bittorrent.bitfield import Bitfield
-from neubot.bittorrent.bitfield import make_bitfield
-from neubot.bittorrent.btsched import sched_req
-from neubot.bittorrent.stream import StreamBitTorrent
+from neubot.mod_bittorrent.bitfield import Bitfield
+from neubot.mod_bittorrent.bitfield import make_bitfield
+from neubot.mod_bittorrent.btsched import sched_req
+from neubot.mod_bittorrent.stream import StreamBitTorrent
 from neubot.lib_net.poller import POLLER
 from neubot.lib_net.stream_handler import StreamHandler
 
-from neubot.bittorrent import config
+from neubot.mod_bittorrent import config
 from neubot.config import CONFIG
 from neubot.state import STATE
 
@@ -65,7 +65,7 @@ STATES = (INITIAL, SENT_INTERESTED, DOWNLOADING, UPLOADING,
 #
 # This class implements the test finite state
 # machine and message exchange that are documented
-# by <doc/neubot/bittorrent/peer.png>.
+# by <doc/neubot.mod_bittorrent/peer.png>.
 #
 class PeerNeubot(StreamHandler):
     def __init__(self, poller):
@@ -475,9 +475,9 @@ def main(args):
     try:
         options, arguments = getopt.getopt(args[1:], 'lO:v')
     except getopt.error:
-        sys.exit('usage: neubot bittorrent_peer [-lv] [-O setting]')
+        sys.exit('usage: neubot.mod_bittorrent_peer [-lv] [-O setting]')
     if arguments:
-        sys.exit('usage: neubot bittorrent_peer [-lv] [-O setting]')
+        sys.exit('usage: neubot.mod_bittorrent_peer [-lv] [-O setting]')
 
     settings = [ 'address "127.0.0.1 ::1"',
                  'port 6881',

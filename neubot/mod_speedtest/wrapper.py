@@ -1,4 +1,4 @@
-# neubot/speedtest/wrapper.py
+# neubot.mod_speedtest/wrapper.py
 
 #
 # Copyright (c) 2011 Simone Basso <bassosimone@gmail.com>,
@@ -29,7 +29,7 @@ import json
 
 from neubot.lib_http.server import ServerHTTP
 from neubot.lib_http.server import HTTP_SERVER
-from neubot.speedtest.server import SPEEDTEST_SERVER
+from neubot.mod_speedtest.server import SPEEDTEST_SERVER
 from neubot.negotiate.server import NEGOTIATE_SERVER
 from . import marshal
 

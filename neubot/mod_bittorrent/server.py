@@ -1,4 +1,4 @@
-# neubot/bittorrent/server.py
+# neubot.mod_bittorrent/server.py
 
 #
 # Copyright (c) 2011 Simone Basso <bassosimone@gmail.com>,
@@ -21,8 +21,8 @@
 #
 
 from neubot.negotiate.server_bittorrent import NEGOTIATE_SERVER_BITTORRENT
-from neubot.bittorrent.peer import PeerNeubot
-from neubot.bittorrent.config import _random_bytes
+from neubot.mod_bittorrent.peer import PeerNeubot
+from neubot.mod_bittorrent.config import _random_bytes
 
 from neubot import utils
 
