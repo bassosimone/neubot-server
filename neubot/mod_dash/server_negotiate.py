@@ -29,10 +29,10 @@ import base64
 import logging
 import hashlib
 
-from neubot.negotiate.server import NegotiateServerModule
+from .negotiate.server import NegotiateServerModule
 
-from neubot import utils
-from neubot import backend
+from . import utils
+from . import backend
 
 class DASHNegotiateServer(NegotiateServerModule):
     """ Negotiator for MPEG DASH test """

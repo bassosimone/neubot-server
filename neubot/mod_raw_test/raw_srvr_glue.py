@@ -25,7 +25,7 @@
  access control capabilities.
 '''
 
-from neubot.negotiate.server_raw import NEGOTIATE_SERVER_RAW
+from .negotiate.server_raw import NEGOTIATE_SERVER_RAW
 from .raw_srvr import RawServer
 
 class RawServerEx(RawServer):

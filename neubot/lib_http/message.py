@@ -33,10 +33,10 @@ import socket
 import os
 import logging
 
-from neubot.log import oops
+from .log import oops
 
-from neubot import utils
-from neubot.utils import utils_net
+from . import utils
+from .utils import utils_net
 
 REDIRECT = '''\
 <HTML>

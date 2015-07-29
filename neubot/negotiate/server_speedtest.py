@@ -24,8 +24,8 @@
 
 import logging
 
-from neubot.negotiate.server import NegotiateServerModule
-from neubot import backend
+from .server import NegotiateServerModule
+from . import backend
 
 class NegotiateServerSpeedtest(NegotiateServerModule):
 

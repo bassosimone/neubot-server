@@ -33,10 +33,10 @@ import sys
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from neubot.lib_net.poller import POLLER
+from .lib_net.poller import POLLER
 
-from neubot import log
-from neubot import privacy
+from . import log
+from . import privacy
 
 def main(args):
     ''' Main function '''

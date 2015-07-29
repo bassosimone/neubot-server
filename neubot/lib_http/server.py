@@ -26,16 +26,16 @@ import sys
 import time
 import logging
 
-from neubot.lib_http.stream import ERROR
-from neubot.lib_http.message import Message
-from neubot.lib_http.stream import nextstate
-from neubot.lib_http.stream import StreamHTTP
-from neubot.lib_net.stream_handler import StreamHandler
-from neubot.lib_net.poller import POLLER
+from .stream import ERROR
+from .message import Message
+from .stream import nextstate
+from .stream import StreamHTTP
+from .lib_net.stream_handler import StreamHandler
+from .lib_net.poller import POLLER
 
-from neubot import log
-from neubot import utils
-from neubot.utils import utils_net
+from . import log
+from . import utils
+from .utils import utils_net
 
 #
 # 3-letter abbreviation of month names.

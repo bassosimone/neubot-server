@@ -34,17 +34,17 @@ import sys
 if __name__ == "__main__":
     sys.path.insert(0, ".")
 
-from neubot.mod_bittorrent.peer import PeerNeubot
-from neubot.mod_bittorrent.server import ServerPeer
-from neubot.lib_http.server import HTTP_SERVER
-from neubot.lib_net.poller import POLLER
+from .peer import PeerNeubot
+from .server import ServerPeer
+from .lib_http.server import HTTP_SERVER
+from .lib_net.poller import POLLER
 
-from neubot.mod_bittorrent import config
-from neubot.config import CONFIG
+from . import config
+from .config import CONFIG
 
-from neubot import log
-from neubot import negotiate
-from neubot import utils
+from . import log
+from . import negotiate
+from . import utils
 
 def run(poller, conf):
     '''

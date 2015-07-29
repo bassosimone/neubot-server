@@ -31,11 +31,11 @@ import sys
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from neubot.lib_net.pollable import Pollable
-from neubot.lib_net.pollable import SUCCESS
-from neubot.lib_net.pollable import WANT_READ
-from neubot.lib_net.pollable import WANT_WRITE
-from neubot.lib_net.poller import POLLER
+from .lib_net.pollable import Pollable
+from .lib_net.pollable import SUCCESS
+from .lib_net.pollable import WANT_READ
+from .lib_net.pollable import WANT_WRITE
+from .lib_net.poller import POLLER
 
 class SSLWrapper(object):
     ''' Wrapper for an SSL socket '''

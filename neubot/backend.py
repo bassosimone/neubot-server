@@ -23,8 +23,8 @@
 
 """ Save results to disk """
 
-from neubot.utils import utils_path
-from neubot.utils import utils_posix
+from .utils import utils_path
+from .utils import utils_posix
 
 import gzip
 import json

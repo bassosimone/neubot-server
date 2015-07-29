@@ -34,24 +34,24 @@ import sys
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from neubot.mod_bittorrent.bitfield import Bitfield
-from neubot.mod_bittorrent.bitfield import make_bitfield
-from neubot.mod_bittorrent.btsched import sched_req
-from neubot.mod_bittorrent.stream import StreamBitTorrent
-from neubot.lib_net.poller import POLLER
-from neubot.lib_net.stream_handler import StreamHandler
+from .bitfield import Bitfield
+from .bitfield import make_bitfield
+from .btsched import sched_req
+from .stream import StreamBitTorrent
+from .lib_net.poller import POLLER
+from .lib_net.stream_handler import StreamHandler
 
-from neubot.mod_bittorrent import config
-from neubot.config import CONFIG
-from neubot.state import STATE
+from . import config
+from .config import CONFIG
+from .state import STATE
 
-from neubot import log
-from neubot import utils
-from neubot.utils import utils_net
-from neubot.utils import utils_rc
+from . import log
+from . import utils
+from .utils import utils_net
+from .utils import utils_rc
 
 # Constants
-from neubot.config import CONFIG
+from .config import CONFIG
 
 LO_THRESH = 3
 MAX_REPEAT = 7
