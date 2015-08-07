@@ -39,7 +39,7 @@ if __name__ == '__main__':
 from .brigade import Brigade
 from .defer import Deferred
 from .handler import Handler
-from neubot.lib_net.poller import POLLER
+from .lib_net.poller import POLLER
 from .raw_defs import AUTH_LEN
 from .raw_defs import EMPTY_MESSAGE
 from .raw_defs import FAKEAUTH
@@ -50,11 +50,11 @@ from .raw_defs import PING_CODE
 from .raw_defs import PINGBACK
 from .stream import Stream
 
-from neubot import six
-from neubot import utils
-from neubot.utils import utils_net
-from neubot.utils import utils_version
-from neubot import web100
+from . import six
+from . import utils
+from .utils import utils_net
+from .utils import utils_version
+from . import web100
 
 LEN_MESSAGE = 32768
 MAXRECV = 262144

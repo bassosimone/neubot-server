@@ -22,12 +22,12 @@
 
 ''' Negotiate module '''
 
-from neubot.config import CONFIG
-from neubot.negotiate.server_speedtest import NEGOTIATE_SERVER_SPEEDTEST
-from neubot.negotiate.server_bittorrent import NEGOTIATE_SERVER_BITTORRENT
-from neubot.negotiate.server_raw import NEGOTIATE_SERVER_RAW
-from neubot.negotiate.server import NEGOTIATE_SERVER
-from neubot.lib_http.server import HTTP_SERVER
+from .config import CONFIG
+from .server_speedtest import NEGOTIATE_SERVER_SPEEDTEST
+from .server_bittorrent import NEGOTIATE_SERVER_BITTORRENT
+from .server_raw import NEGOTIATE_SERVER_RAW
+from .server import NEGOTIATE_SERVER
+from .lib_http.server import HTTP_SERVER
 
 def run(poller, conf):
     ''' Start the negotiate server '''

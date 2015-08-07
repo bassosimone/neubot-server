@@ -36,14 +36,14 @@ from .server_glue import DASHServerGlue
 from .server_negotiate import DASHNegotiateServer
 from .server_smpl import DASHServerSmpl
 
-from neubot.lib_http.server import ServerHTTP
-from neubot.negotiate.server import NegotiateServer
+from .lib_http.server import ServerHTTP
+from .negotiate.server import NegotiateServer
 
-from neubot.config import CONFIG
-from neubot.lib_net.poller import POLLER
+from .config import CONFIG
+from .lib_net.poller import POLLER
 
-from neubot import backend
-from neubot import log
+from . import backend
+from . import log
 
 USAGE = """\
 usage: neubot dash [-6flnv] [-A address] [-b backend] [-d datadir] [-p port]"""

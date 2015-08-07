@@ -31,8 +31,8 @@ import cgi
 if __name__ == "__main__":
     sys.path.insert(0, ".")
 
-from neubot.utils import unicodize
-from neubot.utils import stringify
+from .utils import unicodize
+from .utils import stringify
 
 # Marshal
 

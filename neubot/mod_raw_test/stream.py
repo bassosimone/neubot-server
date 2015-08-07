@@ -31,16 +31,16 @@ import socket
 import sys
 
 from .defer import Deferred
-from neubot.lib_net.pollable import Pollable
-from neubot.lib_net.poller import POLLER
+from .lib_net.pollable import Pollable
+from .lib_net.poller import POLLER
 
-from neubot.lib_net.pollable import CONNRST
-from neubot.lib_net.pollable import SUCCESS
-from neubot.lib_net.pollable import WANT_READ
-from neubot.lib_net.pollable import WANT_WRITE
+from .lib_net.pollable import CONNRST
+from .lib_net.pollable import SUCCESS
+from .lib_net.pollable import WANT_READ
+from .lib_net.pollable import WANT_WRITE
 
-from neubot.utils import utils_net
-from neubot import six
+from .utils import utils_net
+from . import six
 
 # Soft errors on sockets, i.e. we can retry later
 SOFT_ERRORS = (errno.EAGAIN, errno.EWOULDBLOCK, errno.EINTR)
@@ -167,7 +167,7 @@ class Stream(Pollable):
         # accept() code already needs to setup a try..except to route any
         # error away from the listening socket.
         #
-        from neubot import sslstream
+        from . import sslstream
 
         #
         # If there is SSL support, initialise() deals transparently with SSL

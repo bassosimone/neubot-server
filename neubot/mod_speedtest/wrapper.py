@@ -27,10 +27,10 @@
 import StringIO
 import json
 
-from neubot.lib_http.server import ServerHTTP
-from neubot.lib_http.server import HTTP_SERVER
-from neubot.mod_speedtest.server import SPEEDTEST_SERVER
-from neubot.negotiate.server import NEGOTIATE_SERVER
+from .lib_http.server import ServerHTTP
+from .lib_http.server import HTTP_SERVER
+from .server import SPEEDTEST_SERVER
+from .negotiate.server import NEGOTIATE_SERVER
 from . import marshal
 
 #

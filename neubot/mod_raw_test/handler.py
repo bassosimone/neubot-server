@@ -22,13 +22,13 @@
 
 ''' Handles poller events '''
 
-# Adapted from neubot.lib_net/stream.py
+# Adapted from neubot/lib_net/stream.py
 # Python3-ready: yes
 
 from .connector import Connector
 from .listener import Listener
 
-from neubot.utils import utils_net
+from .utils import utils_net
 
 class Handler(object):
 

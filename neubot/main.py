@@ -30,27 +30,27 @@ import signal
 if __name__ == "__main__":
     sys.path.insert(0, ".")
 
-from neubot.lib_http.message import Message
-from neubot.lib_http.server import HTTP_SERVER
-from neubot.lib_http.server import ServerHTTP
-from neubot.lib_net.poller import POLLER
+from .lib_http.message import Message
+from .lib_http.server import HTTP_SERVER
+from .lib_http.server import ServerHTTP
+from .lib_net.poller import POLLER
 
-from neubot.negotiate.server import NEGOTIATE_SERVER
+from .negotiate.server import NEGOTIATE_SERVER
 
-from neubot.config import CONFIG
-from neubot.mod_raw_test.raw_srvr_glue import RAW_SERVER_EX
+from .config import CONFIG
+from .mod_raw_test.raw_srvr_glue import RAW_SERVER_EX
 
-from neubot import backend
-from neubot import log
-from neubot import mod_bittorrent
-from neubot import negotiate
-from neubot.utils import utils_modules
-from neubot.utils import utils_posix
+from . import backend
+from . import log
+from . import mod_bittorrent
+from . import negotiate
+from .utils import utils_modules
+from .utils import utils_posix
 
-#from neubot import speedtest           # Not yet
+#from . import speedtest           # Not yet
 import neubot.mod_speedtest.wrapper
 
-from neubot.utils.utils_hier import LOCALSTATEDIR
+from .utils.utils_hier import LOCALSTATEDIR
 
 
 class ServerSideAPI(ServerHTTP):

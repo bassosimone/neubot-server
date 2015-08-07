@@ -20,11 +20,11 @@
 # along with Neubot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from neubot.negotiate.server_bittorrent import NEGOTIATE_SERVER_BITTORRENT
-from neubot.mod_bittorrent.peer import PeerNeubot
-from neubot.mod_bittorrent.config import _random_bytes
+from .negotiate.server_bittorrent import NEGOTIATE_SERVER_BITTORRENT
+from .peer import PeerNeubot
+from .config import _random_bytes
 
-from neubot import utils
+from . import utils
 
 #
 # The BitTorrent server must not change its PEER_ID

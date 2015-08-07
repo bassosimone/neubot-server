@@ -29,8 +29,8 @@
 
 import random
 
-from neubot.config import CONFIG
-from neubot.mod_bittorrent import estimate
+from .config import CONFIG
+from .mod_bittorrent import estimate
 
 def _random_bytes(num):
     ''' Generates a random string of @num bytes '''

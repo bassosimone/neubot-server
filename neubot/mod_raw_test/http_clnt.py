@@ -37,10 +37,10 @@ from .brigade import Brigade
 from .handler import Handler
 from .stream import Stream
 
-from neubot.lib_net.poller import POLLER
+from .lib_net.poller import POLLER
 
-from neubot import six
-from neubot.utils import utils_version
+from . import six
+from .utils import utils_version
 
 MAXLINE = 512
 MAXPIECE = 524288
