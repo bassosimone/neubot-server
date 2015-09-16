@@ -28,8 +28,8 @@ import sys
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from .utils.utils_random import RANDOMBLOCKS
-from . import utils
+from ..utils.utils_random import RANDOMBLOCKS
+from .. import utils
 
 PIECE_LEN = 262144
 

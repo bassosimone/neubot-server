@@ -25,8 +25,8 @@
 # Adapted from neubot/lib_net/stream.py
 # Python3-ready: yes
 
-from .lib_net.pollable import Pollable
-from .lib_net.poller import POLLER
+from ..lib_net.pollable import Pollable
+from ..lib_net.poller import POLLER
 
 class Listener(Pollable):
 

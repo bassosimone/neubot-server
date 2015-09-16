@@ -25,7 +25,7 @@
 import logging
 
 from .server import NegotiateServerModule
-from . import backend
+from .. import backend
 
 class NegotiateServerSpeedtest(NegotiateServerModule):
 

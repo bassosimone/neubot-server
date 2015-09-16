@@ -29,8 +29,8 @@
 
 import random
 
-from .config import CONFIG
-from .mod_bittorrent import estimate
+from ..config import CONFIG
+from . import estimate
 
 def _random_bytes(num):
     ''' Generates a random string of @num bytes '''

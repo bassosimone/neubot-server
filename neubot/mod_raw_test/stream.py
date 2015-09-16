@@ -31,16 +31,16 @@ import socket
 import sys
 
 from .defer import Deferred
-from .lib_net.pollable import Pollable
-from .lib_net.poller import POLLER
+from ..lib_net.pollable import Pollable
+from ..lib_net.poller import POLLER
 
-from .lib_net.pollable import CONNRST
-from .lib_net.pollable import SUCCESS
-from .lib_net.pollable import WANT_READ
-from .lib_net.pollable import WANT_WRITE
+from ..lib_net.pollable import CONNRST
+from ..lib_net.pollable import SUCCESS
+from ..lib_net.pollable import WANT_READ
+from ..lib_net.pollable import WANT_WRITE
 
-from .utils import utils_net
-from . import six
+from ..utils import utils_net
+from .. import six
 
 # Soft errors on sockets, i.e. we can retry later
 SOFT_ERRORS = (errno.EAGAIN, errno.EWOULDBLOCK, errno.EINTR)

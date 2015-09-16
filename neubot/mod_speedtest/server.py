@@ -22,9 +22,9 @@
 
 ''' Speedtest server '''
 
-from .utils.utils_random import RandomBody
-from .lib_http.message import Message
-from .lib_http.server import ServerHTTP
+from ..utils.utils_random import RandomBody
+from ..lib_http.message import Message
+from ..lib_http.server import ServerHTTP
 
 from .bytegen import BytegenSpeedtest
 

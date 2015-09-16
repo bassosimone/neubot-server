@@ -32,7 +32,7 @@ import logging
 import hashlib
 
 from .server import NegotiateServerModule
-from . import backend
+from .. import backend
 
 class NegotiateServerRaw(NegotiateServerModule):
 

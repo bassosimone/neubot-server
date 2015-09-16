@@ -27,9 +27,9 @@ import random
 import logging
 import json
 
-from .config import CONFIG
-from .lib_http.message import Message
-from .lib_http.server import ServerHTTP
+from ..config import CONFIG
+from ..lib_http.message import Message
+from ..lib_http.server import ServerHTTP
 
 class NegotiateServerModule(object):
 

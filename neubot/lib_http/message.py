@@ -33,10 +33,10 @@ import socket
 import os
 import logging
 
-from .log import oops
+from ..log import oops
 
-from . import utils
-from .utils import utils_net
+from .. import utils
+from ..utils import utils_net
 
 REDIRECT = '''\
 <HTML>

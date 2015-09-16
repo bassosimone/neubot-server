@@ -31,7 +31,7 @@ import collections
 import types
 import logging
 
-from .log import oops
+from ..log import oops
 from .pollable import Pollable
 from .pollable import SUCCESS
 from .pollable import WANT_READ
@@ -39,7 +39,7 @@ from .pollable import WANT_WRITE
 from .pollable import CONNRST
 from .async_socket import AsyncSocket
 
-from .utils import utils_net
+from ..utils import utils_net
 
 # Maximum amount of bytes we read from a socket
 MAXBUF = 1 << 18

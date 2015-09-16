@@ -38,17 +38,17 @@ from .bitfield import Bitfield
 from .bitfield import make_bitfield
 from .btsched import sched_req
 from .stream import StreamBitTorrent
-from .lib_net.poller import POLLER
-from .lib_net.stream_handler import StreamHandler
+from ..lib_net.poller import POLLER
+from ..lib_net.stream_handler import StreamHandler
 
-from . import config
-from .config import CONFIG
-from .state import STATE
+from .. import config
+from ..config import CONFIG
+from ..state import STATE
 
-from . import log
-from . import utils
-from .utils import utils_net
-from .utils import utils_rc
+from .. import log
+from .. import utils
+from ..utils import utils_net
+from ..utils import utils_rc
 
 # Constants
 from .config import CONFIG
