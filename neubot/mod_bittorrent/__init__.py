@@ -39,7 +39,7 @@ from .server import ServerPeer
 from ..lib_http.server import HTTP_SERVER
 from ..lib_net.poller import POLLER
 
-from .. import config
+from . import config
 from ..config import CONFIG
 
 from .. import log
