@@ -1,4 +1,4 @@
-# neubot/http/client.py
+# neubot/lib_http/client.py
 
 #
 # Copyright (c) 2010-2011 Simone Basso <bassosimone@gmail.com>,
@@ -28,7 +28,7 @@ import collections
 import logging
 
 from .stream import StreamHTTP
-from .lib_net.stream_handler import StreamHandler
+from ..lib_net.stream_handler import StreamHandler
 from .stream import ERROR
 from .stream import nextstate
 from .message import Message
