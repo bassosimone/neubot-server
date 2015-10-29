@@ -121,4 +121,5 @@ def set_verbose():
     """ Make the logger verbose """
     Logger.singleton().set_verbose()
 
+# Force creation of instance
 Logger.singleton()
