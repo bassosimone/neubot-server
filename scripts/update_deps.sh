@@ -17,3 +17,4 @@ get DavideAllavena/neubot-lib-http 7f385dd lib_http
 get DavideAllavena/neubot-mod-raw-test 9a6b74e mod_raw_test
 get DavideAllavena/neubot-utils 78f4606 utils
 get DavideAllavena/neubot-negotiate b0211ac negotiate
+rm -rf tmp
