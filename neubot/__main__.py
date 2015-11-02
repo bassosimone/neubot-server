@@ -30,9 +30,7 @@ import signal
 if __name__ == "__main__":
     sys.path.insert(0, ".")
 
-from .lib_http.message import Message
 from .lib_http.server import HTTP_SERVER
-from .lib_http.server import ServerHTTP
 from .lib_net.poller import POLLER
 
 from .negotiate.server import NEGOTIATE_SERVER
@@ -44,6 +42,7 @@ from . import backend
 from . import log
 from . import mod_bittorrent
 from . import negotiate
+from .server_side_api import ServerSideAPI
 from .utils import utils_modules
 from .utils import utils_posix
 
@@ -51,31 +50,6 @@ from .utils import utils_posix
 import neubot.mod_speedtest.wrapper
 
 from .utils.utils_hier import LOCALSTATEDIR
-
-
-class ServerSideAPI(ServerHTTP):
-    """ Implements server-side API for Nagios plugin """
-
-    def process_request(self, stream, request):
-        """ Process HTTP request and return response """
-
-        if request.uri == "/sapi":
-            request.uri = "/sapi/"
-
-        response = Message()
-
-        if request.uri == "/sapi/":
-            body = '["/sapi/", "/sapi/state"]'
-            response.compose(code="200", reason="Ok", body=body,
-                             mimetype="application/json")
-        elif request.uri == "/sapi/state":
-            body = '{"queue_len_cur": %d}' % len(NEGOTIATE_SERVER.queue)
-            response.compose(code="200", reason="Ok", body=body,
-                             mimetype="application/json")
-        else:
-            response.compose(code="404", reason="Not Found")
-
-        stream.send_response(request, response)
 
 SETTINGS = {
     "server.bittorrent": True,
@@ -158,8 +132,7 @@ def main(args):
     #
     if CONFIG['server.raw']:
         logging.debug('server: starting raw server... in progress')
-        RAW_SERVER_EX.listen((address, 12345),
-          CONFIG['prefer_ipv6'], 0, '')
+        RAW_SERVER_EX.listen((address, 12345), CONFIG['prefer_ipv6'], 0, '')
         logging.debug('server: starting raw server... complete')
 
     #
