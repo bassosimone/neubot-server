@@ -12,9 +12,15 @@ rm -rf tmp/*
 get DavideAllavena/neubot-mod-speedtest 339e1e8 mod_speedtest
 get DavideAllavena/neubot-mod-bittorrent  7d837de mod_bittorrent
 get DavideAllavena/neubot-mod-dash d556977 mod_dash
-get DavideAllavena/neubot-lib-net bfb39c7 lib_net
-get DavideAllavena/neubot-lib-http 7f385dd lib_http
 get DavideAllavena/neubot-mod-raw-test 9a6b74e mod_raw_test
-get DavideAllavena/neubot-utils 78f4606 utils
 get DavideAllavena/neubot-negotiate b0211ac negotiate
 rm -rf tmp
+
+
+# XXX Quick fix just to import the needed dir
+git clone https://github.com/bassosimone/neubot-runtime tmp/neubot-runtime 
+(cd tmp/neubot-runtime && git checkout v1.0.0-alpha.1)
+cp -R tmp/neubot-runtime/neubot_runtime/* neubot/runtime/
+rm -rf tmp
+
+

@@ -36,15 +36,15 @@ if __name__ == "__main__":
 
 from .peer import PeerNeubot
 from .server import ServerPeer
-from ..lib_http.server import HTTP_SERVER
-from ..lib_net.poller import POLLER
+from ..runtime.http_server import HTTP_SERVER
+from ..runtime.poller import POLLER
 
 from . import config
 from ..config import CONFIG
 
 from .. import log
 from .. import negotiate
-from .. import utils
+from ..runtime import utils
 
 def run(poller, conf):
     '''

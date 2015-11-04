@@ -28,8 +28,8 @@ import logging
 import json
 
 from ..config import CONFIG
-from ..lib_http.message import Message
-from ..lib_http.server import ServerHTTP
+from ..runtime.http_message import HttpMessage
+from ..runtime.http_server import HttpServer
 
 class NegotiateServerModule(object):
 
@@ -52,13 +52,13 @@ class NegotiateServerModule(object):
         ''' Invoked when a stream is authorized to take the test '''
         return { 'authorization': str(hash(stream)) }
 
-class NegotiateServer(ServerHTTP):
+class NegotiateServer(HttpServer):
 
     ''' Common code layer for /negotiate and /collect '''
 
     def __init__(self, poller):
         ''' Initialize the negotiator '''
-        ServerHTTP.__init__(self, poller)
+        HttpServer.__init__(self, poller)
         self.queue = collections.deque()
         self.modules = {}
         self.known = set()
@@ -108,7 +108,7 @@ class NegotiateServer(ServerHTTP):
             response_body = module.collect_legacy(stream, request_body, request)
             response_body = json.dumps(response_body)
 
-            response = Message()
+            response = HttpMessage()
             response.compose(code='200', reason='Ok', body=response_body,
                              keepalive=False, mimetype='application/json')
             stream.send_response(request, response)
@@ -170,7 +170,7 @@ class NegotiateServer(ServerHTTP):
         else:
             response_body['authorization'] = ''
 
-        response = Message()
+        response = HttpMessage()
         response.compose(code='200', reason='Ok',
                          body=json.dumps(response_body),
                          keepalive=True,

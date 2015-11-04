@@ -27,7 +27,7 @@ from .server_speedtest import NEGOTIATE_SERVER_SPEEDTEST
 from .server_bittorrent import NEGOTIATE_SERVER_BITTORRENT
 from .server_raw import NEGOTIATE_SERVER_RAW
 from .server import NEGOTIATE_SERVER
-from ..lib_http.server import HTTP_SERVER
+from ..runtime.http_server import HTTP_SERVER
 
 def run(poller, conf):
     ''' Start the negotiate server '''

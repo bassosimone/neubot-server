@@ -1,7 +1,6 @@
 #
-# Copyright (c) 2010
-#     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN)
-#     and Simone Basso <bassosimone@gmail.com>.
+# Copyright (c) 2015
+#     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN).
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #
@@ -19,4 +18,4 @@
 # along with Neubot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-""" Neubot networking module """
+""" Neubot runtime library """

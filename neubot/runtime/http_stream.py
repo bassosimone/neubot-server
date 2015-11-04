@@ -1,8 +1,7 @@
-# neubot/http/stream.py
-
 #
-# Copyright (c) 2011 Simone Basso <bassosimone@gmail.com>,
-#  NEXA Center for Internet & Society at Politecnico di Torino
+# Copyright (c) 2011, 2015
+#     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN),
+#     and Simone Basso <bassosimone@gmail.com>.
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #
@@ -22,26 +21,32 @@
 
 ''' HTTP stream '''
 
-# Will be replaced by neubot/http_clnt.py and neubot/http_srvr.py
-
 import logging
 
-from ..lib_net.stream import MAXBUF
-from ..lib_net.stream import Stream
+from .stream import MAXBUF
+from .stream import Stream
+
+from .http_states import BOUNDED
+from .http_states import UNBOUNDED
+from .http_states import CHUNK
+from .http_states import CHUNK_END
+from .http_states import FIRSTLINE
+from .http_states import HEADER
+from .http_states import CHUNK_LENGTH
+from .http_states import TRAILER
+from .http_states import ERROR
+
+from .third_party import six
 
 # Accepted HTTP protocols
-PROTOCOLS = [ "HTTP/1.0", "HTTP/1.1" ]
+PROTOCOLS = ("HTTP/1.0", "HTTP/1.1")
 
 # Maximum allowed line length
 MAXLINE = 1 << 15
 
-# Possible states of the receiver
-(IDLE, BOUNDED, UNBOUNDED, CHUNK, CHUNK_END, FIRSTLINE,
- HEADER, CHUNK_LENGTH, TRAILER, ERROR) = range(0,10)
-
 # receiver state names
-STATES = ["IDLE", "BOUNDED", "UNBOUNDED", "CHUNK", "CHUNK_END", "FIRSTLINE",
-          "HEADER", "CHUNK_LENGTH", "TRAILER", "ERROR"]
+STATES = ("IDLE", "BOUNDED", "UNBOUNDED", "CHUNK", "CHUNK_END", "FIRSTLINE",
+          "HEADER", "CHUNK_LENGTH", "TRAILER", "ERROR")
 
 #
 # When messages are not bigger than SMALLMESSAGE we join headers
@@ -50,7 +55,7 @@ STATES = ["IDLE", "BOUNDED", "UNBOUNDED", "CHUNK", "CHUNK_END", "FIRSTLINE",
 #
 SMALLMESSAGE = 8000
 
-class StreamHTTP(Stream):
+class HttpStream(Stream):
 
     ''' Specializes stream in order to handle the Hyper-Text Transfer
         Protocol (HTTP) '''
@@ -83,7 +88,7 @@ class StreamHTTP(Stream):
             vector = []
             vector.append(message.serialize_headers().read())
             body = message.serialize_body()
-            if not isinstance(body, basestring):
+            if hasattr(body, 'read'):
                 vector.append(body.read())
             else:
                 vector.append(body)
@@ -118,7 +123,7 @@ class StreamHTTP(Stream):
             # when we know the length we're looking for a piece
             if self.left > 0:
                 count = min(self.left, length)
-                piece = buffer(data, offset, count)
+                piece = six.buff(data, offset, count)
                 self.left -= count
                 offset += count
                 length -= count
@@ -247,11 +252,11 @@ class StreamHTTP(Stream):
 
     def got_request_line(self, method, uri, protocol):
         ''' Got the request line '''
-        raise RuntimeError("Not expecting a request-line")
+        raise NotImplementedError("Not expecting a request-line")
 
     def got_response_line(self, protocol, code, reason):
         ''' Got the response line '''
-        raise RuntimeError("Not expecting a reponse-line")
+        raise NotImplementedError("Not expecting a reponse-line")
 
     def got_header(self, key, value):
         ''' Got an header '''
@@ -267,62 +272,3 @@ class StreamHTTP(Stream):
 
     def message_sent(self):
         ''' The message was sent '''
-
-#
-# Quoting from RFC2616, sect. 4.3:
-#
-#   "The presence of a message-body in a request is signaled by the
-#    inclusion of a Content-Length or Transfer-Encoding header field
-#    in the request's message-headers. [...] A server SHOULD read and
-#    forward a message-body on any request; if the request method does
-#    not include defined semantics for an entity-body, then the message
-#    -body SHOULD be ignored when handling the request."
-#
-#   "[...] All responses to the HEAD request method MUST NOT include a
-#    message-body, even though the presence of entity-header fields might
-#    lead one to believe they do. All 1xx (informational), 204 (no content),
-#    and 304 (not modified) responses MUST NOT include a message-body.  All
-#    other responses do include a message-body, although it MAY be of zero
-#    length."
-#
-
-def _parselength(message):
-    ''' Return next state depending on content-length '''
-    value = message["content-length"]
-    try:
-        length = int(value)
-    except ValueError:
-        return ERROR, 0
-    else:
-        if length < 0:
-            return ERROR, 0
-        elif length == 0:
-            return FIRSTLINE, 0
-        else:
-            return BOUNDED, length
-
-def nextstate(request, response=None):
-    ''' Return nextstate depending on request and response '''
-    if response == None:
-        if request["transfer-encoding"] == "chunked":
-            return CHUNK_LENGTH, 0
-        elif request["content-length"]:
-            return _parselength(request)
-        else:
-            return FIRSTLINE, 0
-    else:
-        if (request.method == "HEAD" or response.code[0] == "1" or
-         response.code == "204" or response.code == "304"):
-            return FIRSTLINE, 0
-        elif response["transfer-encoding"] == "chunked":
-            return CHUNK_LENGTH, 0
-        elif response["content-length"]:
-            return _parselength(response)
-        else:
-            # make sure the server *will* close the connection
-            if response.protocol == "HTTP/1.0":
-                return UNBOUNDED, 8000
-            elif response["connection"] == "close":
-                return UNBOUNDED, 8000
-            else:
-                return FIRSTLINE, 0

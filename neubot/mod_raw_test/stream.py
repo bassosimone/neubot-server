@@ -31,15 +31,15 @@ import socket
 import sys
 
 from .defer import Deferred
-from ..lib_net.pollable import Pollable
-from ..lib_net.poller import POLLER
+from ..runtime.pollable import Pollable
+from ..runtime.poller import POLLER
 
-from ..lib_net.pollable import CONNRST
-from ..lib_net.pollable import SUCCESS
-from ..lib_net.pollable import WANT_READ
-from ..lib_net.pollable import WANT_WRITE
+from ..runtime.pollable import CONNRST
+from ..runtime.pollable import SUCCESS
+from ..runtime.pollable import WANT_READ
+from ..runtime.pollable import WANT_WRITE
 
-from ..utils import utils_net
+from ..runtime import utils_net
 from .. import six
 
 # Soft errors on sockets, i.e. we can retry later

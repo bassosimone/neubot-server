@@ -39,7 +39,7 @@ if __name__ == '__main__':
 from .brigade import Brigade
 from .defer import Deferred
 from .handler import Handler
-from ..lib_net.poller import POLLER
+from ..runtime.poller import POLLER
 from .raw_defs import AUTH_LEN
 from .raw_defs import EMPTY_MESSAGE
 from .raw_defs import FAKEAUTH
@@ -51,9 +51,9 @@ from .raw_defs import PINGBACK
 from .stream import Stream
 
 from .. import six
-from .. import utils
-from ..utils import utils_net
-from ..utils import utils_version
+from ..runtime import utils
+from ..runtime import utils_net
+from ..runtime import utils_version
 from .. import web100
 
 LEN_MESSAGE = 32768

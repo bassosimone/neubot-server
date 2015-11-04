@@ -1,8 +1,7 @@
-# neubot/utils_rc.py
-
 #
-# Copyright (c) 2012 Simone Basso <bassosimone@gmail.com>,
-#  NEXA Center for Internet & Society at Politecnico di Torino
+# Copyright (c) 2012, 2015
+#     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN)
+#     and Simone Basso <bassosimone@gmail.com>.
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #
@@ -22,9 +21,7 @@
 
 ''' Configuration file utils '''
 
-import getopt
 import os
-import pprint
 import shlex
 import sys
 
@@ -72,32 +69,3 @@ def parse_safe(path=None, iterable=None):
         error = str(exc)
         sys.stderr.write('WARNING: utils_rc: %s\n' % error)
         return {}
-
-def main(args):
-    ''' main() function '''
-
-    try:
-        options, arguments = getopt.getopt(args[1:], 'f:O:')
-    except getopt.error:
-        sys.exit('usage: neubot utils_rc [-f file] [-O setting]')
-    if arguments:
-        sys.exit('usage: neubot utils_rc [-f file] [-O setting]')
-
-    path = None
-    settings = []
-    for name, value in options:
-        if name == '-f':
-            path = value
-        elif name == '-O':
-            settings.append(value)
-
-    if path:
-        result = parse_safe(path)
-        pprint.pprint(result)
-
-    if settings:
-        result = parse_safe(iterable=settings)
-        pprint.pprint(result)
-
-if __name__ == '__main__':
-    main(sys.argv)

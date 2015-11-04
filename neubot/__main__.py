@@ -30,8 +30,8 @@ import signal
 if __name__ == "__main__":
     sys.path.insert(0, ".")
 
-from .lib_http.server import HTTP_SERVER
-from .lib_net.poller import POLLER
+from .runtime.http_server import HTTP_SERVER
+from .runtime.poller import POLLER
 
 from .negotiate.server import NEGOTIATE_SERVER
 
@@ -43,13 +43,14 @@ from . import log
 from . import mod_bittorrent
 from . import negotiate
 from .server_side_api import ServerSideAPI
-from .utils import utils_modules
-from .utils import utils_posix
+from .runtime import utils_modules
+from .runtime import utils_posix
 
 #from . import speedtest           # Not yet
-import neubot.mod_speedtest.wrapper
+from .mod_speedtest import wrapper
 
-from .utils.utils_hier import LOCALSTATEDIR
+
+from .runtime.utils_hier import LOCALSTATEDIR
 
 SETTINGS = {
     "server.bittorrent": True,
@@ -155,7 +156,8 @@ def main(args):
     if conf['server.speedtest']:
         #conf['speedtest.listen'] = 1           # Not yet
         #conf['speedtest.negotiate'] = 1        # Not yet
-        neubot.mod_speedtest.wrapper.run(POLLER, conf)
+        from .mod_speedtest import wrapper
+        wrapper.run(POLLER, conf)
 
     #
     # Historically Neubot runs on port 9773 and

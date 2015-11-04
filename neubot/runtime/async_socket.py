@@ -52,9 +52,9 @@ class AsyncSocket(object):
             octets = self._sock.recv(maxlen)
             return SUCCESS, octets
         except socket.error as exception:
-            if exception[0] in SOFT_ERRORS:
+            if exception.args[0] in SOFT_ERRORS:
                 return WANT_READ, b""
-            elif exception[0] == errno.ECONNRESET:
+            elif exception.args[0] == errno.ECONNRESET:
                 return CONNRST, b""
             else:
                 raise
@@ -65,9 +65,9 @@ class AsyncSocket(object):
             count = self._sock.send(octets)
             return SUCCESS, count
         except socket.error as exception:
-            if exception[0] in SOFT_ERRORS:
+            if exception.args[0] in SOFT_ERRORS:
                 return WANT_WRITE, 0
-            elif exception[0] == errno.ECONNRESET:
+            elif exception.args[0] == errno.ECONNRESET:
                 return CONNRST, 0
             else:
                 raise

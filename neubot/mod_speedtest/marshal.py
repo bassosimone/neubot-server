@@ -31,8 +31,8 @@ import cgi
 if __name__ == "__main__":
     sys.path.insert(0, ".")
 
-from ..utils import unicodize
-from ..utils import stringify
+from ..XXX import unicodize
+from ..XXX import stringify
 
 # Marshal
 

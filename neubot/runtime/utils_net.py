@@ -1,8 +1,7 @@
-# neubot/utils_net.py
-
 #
-# Copyright (c) 2010-2012 Simone Basso <bassosimone@gmail.com>,
-#  NEXA Center for Internet & Society at Politecnico di Torino
+# Copyright (c) 2010-2012, 2015
+#     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN)
+#     and Simone Basso <bassosimone@gmail.com>.
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #
@@ -29,7 +28,7 @@ import socket
 import sys
 
 # Winsock returns EWOULDBLOCK
-INPROGRESS = [ 0, errno.EINPROGRESS, errno.EWOULDBLOCK, errno.EAGAIN ]
+INPROGRESS = (0, errno.EINPROGRESS, errno.EWOULDBLOCK, errno.EAGAIN)
 
 def format_epnt(epnt):
     ''' Format endpoint for printing '''
@@ -80,7 +79,7 @@ def format_ainfo(ainfo):
         canonname = '""'
 
     return '(%s, %s, %s, %s, %s)' % (family, socktype, proto,
-      canonname, sockaddr)
+                                     canonname, sockaddr)
 
 # Make sure AF_INET < AF_INET6
 COMPARE_AF = {
@@ -112,7 +111,7 @@ def listen(epnt):
 
     try:
         addrinfo = socket.getaddrinfo(epnt[0], epnt[1], socket.AF_UNSPEC,
-                            socket.SOCK_STREAM, 0, socket.AI_PASSIVE)
+                                      socket.SOCK_STREAM, 0, socket.AI_PASSIVE)
     except socket.error:
         logging.error('listen(): cannot listen to %s',
                       format_epnt(epnt), exc_info=1)
@@ -148,14 +147,14 @@ def listen(epnt):
 
         except socket.error:
             logging.warning('listen(): cannot listen to %s',
-              format_epnt(ainfo[4]), exc_info=1)
+                            format_epnt(ainfo[4]), exc_info=1)
         except:
             logging.warning('listen(): cannot listen to %s',
-              format_epnt(ainfo[4]), exc_info=1)
+                            format_epnt(ainfo[4]), exc_info=1)
 
     if not sockets:
         logging.error('listen(): cannot listen to %s: %s',
-          format_epnt(epnt), 'all attempts failed')
+                      format_epnt(epnt), 'all attempts failed')
 
     return sockets
 
@@ -197,13 +196,13 @@ def connect(epnt, prefer_ipv6):
 
         except socket.error:
             logging.warning('connect(): cannot connect to %s',
-              format_epnt(ainfo[4]), exc_info=1)
+                            format_epnt(ainfo[4]), exc_info=1)
         except:
             logging.warning('connect(): cannot connect to %s',
-              format_epnt(ainfo[4]), exc_info=1)
+                            format_epnt(ainfo[4]), exc_info=1)
 
     logging.error('connect(): cannot connect to %s: %s',
-      format_epnt(epnt), 'all attempts failed')
+                  format_epnt(epnt), 'all attempts failed')
     return None
 
 def isconnected(endpoint, sock):
@@ -222,7 +221,7 @@ def isconnected(endpoint, sock):
 
     if not exception:
         logging.debug('isconnected(): connect() to %s succeeded', (
-                      format_epnt(peername)))
+            format_epnt(peername)))
         return peername
 
     # MacOSX getpeername() fails with EINVAL

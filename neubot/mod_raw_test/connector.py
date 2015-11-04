@@ -30,11 +30,11 @@ import logging
 
 from .defer import Deferred
 
-from ..lib_net.pollable import Pollable
-from ..lib_net.poller import POLLER
+from ..runtime.pollable import Pollable
+from ..runtime.poller import POLLER
 
-from ..utils import utils_net
-from .. import utils
+from ..runtime import utils_net
+from ..runtime import utils
 
 class Connector(Pollable):
 
