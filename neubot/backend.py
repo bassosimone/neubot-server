@@ -23,8 +23,8 @@
 
 """ Save results to disk """
 
-from .utils import utils_path
-from .utils import utils_posix
+from .runtime import utils_path
+from .runtime import utils_posix
 
 import gzip
 import json

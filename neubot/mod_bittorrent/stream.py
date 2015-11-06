@@ -24,7 +24,7 @@
 import struct
 import logging
 
-from ..lib_net.stream import Stream
+from ..runtime.stream import Stream
 
 from ..config import CONFIG
 

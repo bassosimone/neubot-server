@@ -1,4 +1,5 @@
 #
+
 # Copyright (c) 2011-2012, 2015
 #    Nexa Center for Internet & Society, Politecnico di Torino (DAUIN)
 #    and Simone Basso <bassosimone@gmail.com>.
@@ -21,21 +22,21 @@
 
 """ Server-side API """
 
-from .lib_http.message import Message
-from .lib_http.server import ServerHTTP
+from .runtime.http_message import HttpMessage
+from .runtime.http_server import HttpServer
 
 from .negotiate.server import NEGOTIATE_SERVER
 
-class ServerSideAPI(ServerHTTP):
+class ServerSideAPI(HttpServer):
     """ Implements server-side API for Nagios plugin """
 
-    def process_request(self, stream, request):
+    def process_request(self,  stream, request):
         """ Process HTTP request and return response """
 
         if request.uri == "/sapi":
             request.uri = "/sapi/"
 
-        response = Message()
+        response = HttpMessage()
 
         if request.uri == "/sapi/":
             body = '["/sapi/", "/sapi/state"]'

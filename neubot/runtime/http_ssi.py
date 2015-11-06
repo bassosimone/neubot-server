@@ -1,8 +1,7 @@
-# neubot/http/ssi.py
-
 #
-# Copyright (c) 2011 Simone Basso <bassosimone@gmail.com>,
-#  NEXA Center for Internet & Society at Politecnico di Torino
+# Copyright (c) 2011, 2015
+#     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN),
+#     and Simone Basso <bassosimone@gmail.com>.
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #
@@ -28,13 +27,9 @@
  enforce an ASCII-only policy on all the path names.
 '''
 
-# Should be moved to neubot/http_ssi.py
-
-import sys
-import os.path
 import re
 
-from ..utils import utils_path
+from . import utils_path
 
 MAXDEPTH = 8
 REGEX = '<!--#include virtual="([A-Za-z0-9./_-]+)"-->'
@@ -66,7 +61,3 @@ def ssi_replace(rootdir, filep):
     page = []
     ssi_split(rootdir, filep.read(), page, 0)
     return "".join(page)
-
-if __name__ == "__main__":
-    FILEP = open(sys.argv[1], "rb")
-    print ssi_replace(os.path.abspath("."), FILEP)

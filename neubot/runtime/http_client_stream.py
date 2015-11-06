@@ -1,8 +1,7 @@
-# neubot/lib_http/client.py
-
 #
-# Copyright (c) 2010-2011 Simone Basso <bassosimone@gmail.com>,
-#  NEXA Center for Internet & Society at Politecnico di Torino
+# Copyright (c) 2010-2011, 2015
+#     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN),
+#     and Simone Basso <bassosimone@gmail.com>.
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #
@@ -22,34 +21,29 @@
 
 ''' HTTP client '''
 
-# Will be replaced by neubot/http_clnt.py
-
 import collections
-import logging
 
-from .stream import StreamHTTP
-from ..lib_net.stream_handler import StreamHandler
-from .stream import ERROR
-from .stream import nextstate
-from .message import Message
+from .http_stream import HttpStream
+from .http_stream import ERROR
+from .http_misc import nextstate
+from .http_message import HttpMessage
 from . import utils
-from .utils import utils_net
 
-class ClientStream(StreamHTTP):
+class HttpClientStream(HttpStream):
 
-    ''' Specializes StreamHTTP and implements the client
+    ''' Specializes HttpStream and implements the client
         side of an HTTP channel '''
 
     def __init__(self, poller):
         ''' Initialize client stream '''
-        StreamHTTP.__init__(self, poller)
+        HttpStream.__init__(self, poller)
         self.requests = collections.deque()
 
     def send_request(self, request, response=None):
         ''' Sends a request '''
         self.requests.append(request)
         if not response:
-            response = Message()
+            response = HttpMessage()
         request.response = response
         self.send_message(request)
 
@@ -76,7 +70,7 @@ class ClientStream(StreamHTTP):
         if self.requests:
             request = self.requests[0]
             if not self.parent.got_response_headers(self, request,
-                                                request.response):
+                                                    request.response):
                 return ERROR, 0
             return nextstate(request, request.response)
         else:
@@ -98,55 +92,7 @@ class ClientStream(StreamHTTP):
             request.response.prettyprintbody("<")
             self.parent.got_response(self, request, request.response)
             if (request["connection"] == "close" or
-              request.response["connection"] == "close"):
+                    request.response["connection"] == "close"):
                 self.close()
         else:
             self.close()
-
-class ClientHTTP(StreamHandler):
-
-    ''' Manages one or more HTTP streams '''
-
-    def __init__(self, poller):
-        ''' Initialize the HTTP client '''
-        StreamHandler.__init__(self, poller)
-        self.host_header = ""
-        self.rtt = 0
-
-    def connect_uri(self, uri, count=1):
-        ''' Connects to the given URI '''
-        try:
-            message = Message()
-            message.compose(method="GET", uri=uri)
-            if message.scheme == "https":
-                self.conf["net.stream.secure"] = True
-            endpoint = (message.address, int(message.port))
-            self.host_header = utils_net.format_epnt(endpoint)
-        except (KeyboardInterrupt, SystemExit):
-            raise
-        except Exception, why:
-            self.connection_failed(None, why)
-        else:
-            self.connect(endpoint, count)
-
-    def connection_ready(self, stream):
-        ''' Invoked when the connection is ready '''
-
-    def got_response_headers(self, stream, request, response):
-        ''' Invoked when we receive response headers '''
-        return True
-
-    def got_response(self, stream, request, response):
-        ''' Invoked when we receive the response '''
-
-    def connection_made(self, sock, endpoint, rtt):
-        ''' Invoked when the connection is created '''
-        if rtt:
-            logging.debug("ClientHTTP: latency: %s", utils.time_formatter(rtt))
-            self.rtt = rtt
-        # XXX If we didn't connect via connect_uri()...
-        if not self.host_header:
-            self.host_header = utils_net.format_epnt(endpoint)
-        stream = ClientStream(self.poller)
-        stream.attach(self, sock, self.conf)
-        self.connection_ready(stream)

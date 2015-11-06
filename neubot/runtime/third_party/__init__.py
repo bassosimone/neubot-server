@@ -1,8 +1,6 @@
-# neubot/http/__init__.py
-
 #
-# Copyright (c) 2010 Simone Basso <bassosimone@gmail.com>,
-#  NEXA Center for Internet & Society at Politecnico di Torino
+# Copyright (c) 2015
+#     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN).
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #
@@ -20,4 +18,4 @@
 # along with Neubot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-''' The HTTP module '''
+""" Neubot runtime library """

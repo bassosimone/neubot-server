@@ -59,7 +59,7 @@ class Listener(Pollable):
             self._parent.connection_made(sock, self._endpoint, 0)
         except (KeyboardInterrupt, SystemExit):
             raise
-        except Exception, exception:
+        except Exception as exception:
             self._parent.accept_failed(self, exception)
             return
 

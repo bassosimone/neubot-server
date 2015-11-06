@@ -1,8 +1,7 @@
-# neubot/utils.py
-
 #
-# Copyright (c) 2010-2011 Simone Basso <bassosimone@gmail.com>,
-#  NEXA Center for Internet & Society at Politecnico di Torino
+# Copyright (c) 2010-2011, 2015
+#     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN)
+#     and Simone Basso <bassosimone@gmail.com>.
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #
@@ -24,7 +23,6 @@
 
 import sys
 import os
-import types
 import time
 import uuid
 
@@ -96,56 +94,6 @@ def time_formatter(number):
     else:
         number *= 1000000
         return "%e us" % number
-
-# Coerce types
-
-def asciiify(string):
-    ''' Convert something to ASCII string '''
-    return string.encode("ascii")
-
-def stringify(value):
-    ''' Convert something to string '''
-    if type(value) == types.UnicodeType:
-        return value.encode("utf-8")
-    elif type(value) == types.StringType:
-        return value
-    else:
-        return str(value)
-
-def unicodize(value):
-    ''' Convert something to unicode '''
-    if type(value) == types.UnicodeType:
-        return value
-    elif type(value) == types.StringType:
-        return value.decode("utf-8")
-    else:
-        return unicode(value)
-
-def intify(string):
-    ''' Convert something to integer '''
-    if type(string) == types.StringType or type(string) == types.UnicodeType:
-        if string.lower() in ("off", "false", "no"):
-            return 0
-        elif string.lower() in ("on", "true", "yes"):
-            return 1
-    return int(string)
-
-def smart_cast(value):
-    ''' Return the proper cast depending on value '''
-    if type(value) == types.StringType:
-        return stringify
-    elif type(value) == types.UnicodeType:
-        return unicodize
-    elif type(value) == types.BooleanType:
-        return intify
-    elif type(value) == types.IntType:
-        return intify
-    elif type(value) == types.LongType:
-        return intify
-    elif type(value) == types.FloatType:
-        return float
-    else:
-        raise TypeError("No such cast for this type")
 
 def timestamp():
     ''' Returns an integer representing the number of seconds elapsed

@@ -27,8 +27,8 @@
 import StringIO
 import json
 
-from ..lib_http.server import ServerHTTP
-from ..lib_http.server import HTTP_SERVER
+from ..runtime.http_server import HttpServer
+from ..runtime.http_server import HTTP_SERVER
 from .server import SPEEDTEST_SERVER
 from ..negotiate.server import NEGOTIATE_SERVER
 from . import marshal
@@ -88,7 +88,7 @@ class SpeedtestNegotiate_Response(object):
 # and server expectations, waiting for clients to switch to
 # JSON.
 #
-class SpeedtestWrapper(ServerHTTP):
+class SpeedtestWrapper(HttpServer):
 
     ''' Speedtest server wrapper '''
 

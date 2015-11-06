@@ -1,8 +1,7 @@
-# neubot/http/message.py
-
 #
-# Copyright (c) 2010-2011 Simone Basso <bassosimone@gmail.com>,
-#  NEXA Center for Internet & Society at Politecnico di Torino
+# Copyright (c) 2010-2011, 2015
+#     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN),
+#     and Simone Basso <bassosimone@gmail.com>.
 #
 # This file is part of Neubot <http://www.neubot.org/>.
 #
@@ -22,21 +21,17 @@
 
 ''' An HTTP message '''
 
-# Will be replaced by neubot/http_utils.py
-
-import StringIO
 import email.utils
 import collections
-import json
-import urlparse
 import socket
 import os
 import logging
 
-from ..log import oops
-
-from .. import utils
-from ..utils import utils_net
+from .third_party.six import StringIO
+from .third_party.six import PY3
+from . import http_misc
+from . import utils
+from . import utils_net
 
 REDIRECT = '''\
 <HTML>
@@ -49,46 +44,7 @@ REDIRECT = '''\
 </HTML>
 '''
 
-def urlsplit(uri):
-    ''' Wrapper for urlparse.urlsplit() '''
-    scheme, netloc, path, query, fragment = urlparse.urlsplit(uri)
-    if scheme != "http" and scheme != "https":
-        raise ValueError("Unknown scheme")
-
-    # Unquote IPv6 [<address>]:<port> or [<address>]
-    if netloc.startswith('['):
-        netloc = netloc[1:]
-        index = netloc.find(']')
-        if index == -1:
-            raise ValueError("Invalid quoted IPv6 address")
-        address = netloc[:index]
-
-        port = netloc[index + 1:].strip()
-        if not port:
-            if scheme == 'https':
-                port = "443"
-            else:
-                port = "80"
-        elif not port.startswith(':'):
-            raise ValueError("Missing port separator")
-        else:
-            port = port[1:]
-
-    elif ":" in netloc:
-        address, port = netloc.split(":", 1)
-    elif scheme == "https":
-        address, port = netloc, "443"
-    else:
-        address, port = netloc, "80"
-
-    if not path:
-        path = "/"
-    pathquery = path
-    if query:
-        pathquery = pathquery + "?" + query
-    return scheme, address, port, pathquery
-
-class Message(object):
+class HttpMessage(object):
 
     ''' Represents an HTTP message '''
 
@@ -108,7 +64,7 @@ class Message(object):
         self.requestline = " ".join((method, uri, protocol))
 
         self.headers = collections.defaultdict(str)
-        self.body = StringIO.StringIO("")
+        self.body = StringIO("")
 
         self.family = socket.AF_UNSPEC
         self.response = None
@@ -150,7 +106,7 @@ class Message(object):
         vector.append("\r\n")
 
         for key, value in self.headers.items():
-            key = "-".join(map(lambda s: s.capitalize(), key.split("-")))
+            key = "-".join([s.capitalize() for s in key.split("-")])
             vector.append(key)
             vector.append(": ")
             vector.append(value)
@@ -162,8 +118,9 @@ class Message(object):
         vector.append("\r\n")
 
         string = "".join(vector)
-        string = utils.stringify(string)
-        return StringIO.StringIO(string)
+        if PY3:
+            string = string.encode("iso-8859-1")
+        return StringIO(string)
 
     def serialize_body(self):
         ''' Serialize message body '''
@@ -184,14 +141,14 @@ class Message(object):
     def __setitem__(self, key, value):
         ''' Save an header '''
         key = key.lower()
-        if self.headers.has_key(key):
+        if key in self.headers:
             value = self.headers[key] + ", " + value
         self.headers[key] = value
 
     def __delitem__(self, key):
         ''' Delete an header '''
         key = key.lower()
-        if self.headers.has_key(key):
+        if key in self.headers:
             del self.headers[key]
 
     #
@@ -209,7 +166,7 @@ class Message(object):
         if kwargs.get("uri", ""):
             self.uri = kwargs.get("uri", "")
             (self.scheme, self.address,
-             self.port, self.pathquery) = urlsplit(self.uri)
+             self.port, self.pathquery) = http_misc.urlsplit(self.uri)
             self["host"] = self.address + ":" + self.port
         else:
             self.scheme = kwargs.get("scheme", "")
@@ -226,7 +183,7 @@ class Message(object):
                 #
                 self["host"] = kwargs.get("host", "")
                 if not self["host"]:
-                    oops("Missing host header")
+                    logging.warning("Missing host header")
 
         self.code = kwargs.get("code", "")
         self.reason = kwargs.get("reason", "")
@@ -253,13 +210,13 @@ class Message(object):
         #
         if kwargs.get("up_to_eof", False):
             if not "mimetype" in kwargs:
-                oops("up_to_eof without mimetype")
+                logging.warning("up_to_eof without mimetype")
             self["content-type"] = kwargs.get("mimetype",
-                                       "text/plain")
+                                              "text/plain")
 
         elif kwargs.get("body", None):
             self.body = kwargs.get("body", None)
-            if isinstance(self.body, basestring):
+            if not hasattr(self.body, 'tell'):
                 self.length = len(self.body)
             else:
                 utils.safe_seek(self.body, 0, os.SEEK_END)
@@ -285,8 +242,8 @@ class Message(object):
         ''' Prepare a redirect response '''
         if not target.startswith("/"):
             target = "/" + target
-        location = "http://%s%s" % (utils_net.format_epnt(
-                                    stream.myname), target)
+        location = "http://%s%s" % (utils_net.format_epnt(stream.myname),
+                                    target)
         body = REDIRECT % (target, target)
         self.compose(code="302", reason="Found", body=body,
                      mimetype="text/html; charset=UTF-8")
@@ -294,33 +251,7 @@ class Message(object):
 
     def prettyprintbody(self, prefix):
         ''' Pretty print body '''
-
-        return  # Slow in some cases; disable
-
-        if self["content-type"] not in ("application/json", "text/xml",
-                                        "application/xml"):
-            return
-
-        # Grab the whole body
-        if not isinstance(self.body, basestring):
-            body = self.body.read()
-        else:
-            body = self.body
-
-        # Decode the body
-        if self["content-type"] == "application/json":
-            string = json.dumps(json.loads(body),
-              indent=4, sort_keys=True)
-        elif self["content-type"] in ("text/xml", "application/xml"):
-            string = body
-
-        # Prettyprint
-        for line in string.split("\n"):
-            logging.debug("%s %s", prefix, line.rstrip())
-
-        # Seek to the beginning if needed
-        if not isinstance(self.body, basestring):
-            utils.safe_seek(self.body, 0)
+        # Actually not implemented because it was too slow in some cases
 
     def content_length(self):
         ''' Get content length '''

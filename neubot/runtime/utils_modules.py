@@ -1,5 +1,3 @@
-# neubot/utils_modules.py
-
 #
 # Copyright (c) 2013
 #     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN)
@@ -31,15 +29,12 @@ import logging
 import os
 import sys
 
-if __name__ == "__main__":
-    sys.path.insert(0, ".")
-
 from . import utils_hier
 
-def modprobe(filter, context, message):
+def modprobe(filt, context, message):
     """ Probe all modules """
 
-    rootdir = os.path.join(utils_hier.ROOTDIR, "neubot")
+    rootdir = utils_hier.ROOTDIR
 
     for name in os.listdir(rootdir):
         pathname = os.sep.join([rootdir, name])
@@ -60,11 +55,11 @@ def modprobe(filter, context, message):
 
         logging.debug("utils_modules: good candidate: %s", name)
 
-        if filter != None and name != filter:
-            logging.debug("utils_modules: skip '%s' (filter: %s)", name, filter)
+        if filt != None and name != filt:
+            logging.debug("utils_modules: skip '%s' (filt: %s)", name, filt)
             continue
 
-        modname = "neubot.%s.neubot_module" % name
+        modname = "%s.neubot_module" % name
 
         try:
             __import__(modname)
@@ -95,7 +90,3 @@ def modprobe(filter, context, message):
             continue
 
         logging.debug("utils_modules: load '%s' context '%s'", name, context)
-
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG, format="%(message)s")
-    modprobe(None, "server", {})
