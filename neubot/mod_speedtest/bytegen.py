@@ -28,7 +28,7 @@ import sys
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from ..runtime.utils_random import RANDOMBLOCKS
+from ..globals import RANDOMBLOCKS
 from ..runtime import utils
 
 PIECE_LEN = 262144

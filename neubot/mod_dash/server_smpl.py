@@ -27,8 +27,8 @@
 
 # Adapted from neubot/speedtest/server.py
 
-from ..lib_http.message import Message
-from ..lib_http.server import ServerHTTP
+from ..runtime.http_message import HttpMessage
+from ..runtime.http_server import HttpServer
 
 #
 # The default body size is small enough that the body, and
@@ -50,7 +50,7 @@ class DASHServerSideState(object):
     def __init__(self):
         self.count = 0
 
-class DASHServerSmpl(ServerHTTP):
+class DASHServerSmpl(HttpServer):
     """ Server-side of the MPEG DASH test """
 
     def got_request_headers(self, stream, request):
@@ -119,7 +119,7 @@ class DASHServerSmpl(ServerHTTP):
             if len(body) > body_size:
                 body = body[:body_size]
 
-            response = Message()
+            response = HttpMessage()
             response.compose(code="200", reason="Ok", body=body,
                              mimetype="video/mp4")
 

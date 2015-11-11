@@ -43,7 +43,6 @@ from . import config
 from ..config import CONFIG
 
 from .. import log
-from .. import negotiate
 from ..runtime import utils
 
 def run(poller, conf):

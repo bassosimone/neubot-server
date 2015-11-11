@@ -29,9 +29,9 @@ import base64
 import logging
 import hashlib
 
-from ..negotiate.server import NegotiateServerModule
+from ..negotiate_server_module import NegotiateServerModule
 
-from .. import utils
+from ..runtime import utils
 from .. import backend
 
 class DASHNegotiateServer(NegotiateServerModule):

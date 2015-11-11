@@ -1,4 +1,4 @@
-# neubot/negotiate/server.py
+# neubot/negotiate_server.py
 
 #
 # Copyright (c) 2011 Simone Basso <bassosimone@gmail.com>,
@@ -27,30 +27,9 @@ import random
 import logging
 import json
 
-from ..config import CONFIG
-from ..runtime.http_message import HttpMessage
-from ..runtime.http_server import HttpServer
-
-class NegotiateServerModule(object):
-
-    ''' Each test should implement this interface '''
-
-    # The minimal collect echoes the request body
-    def collect(self, stream, request_body):
-        ''' Invoked at the end of the test, to collect data '''
-        return request_body
-
-    # Only speedtest reimplements this method
-    def collect_legacy(self, stream, request_body, request):
-        ''' Legacy interface to collect that also receives the
-            request object: speedtest needs to inspect the Authorization
-            header when the connecting client is pretty old '''
-        return self.collect(stream, request_body)
-
-    # The minimal unchoke returns the stream unique identifier only
-    def unchoke(self, stream, request_body):
-        ''' Invoked when a stream is authorized to take the test '''
-        return { 'authorization': str(hash(stream)) }
+from .config import CONFIG
+from .runtime.http_message import HttpMessage
+from .runtime.http_server import HttpServer
 
 class NegotiateServer(HttpServer):
 

@@ -20,7 +20,7 @@
 # along with Neubot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from ..negotiate.server_bittorrent import NEGOTIATE_SERVER_BITTORRENT
+from .negotiate_server_bittorrent import NEGOTIATE_SERVER_BITTORRENT
 from .peer import PeerNeubot
 from .config import _random_bytes
 

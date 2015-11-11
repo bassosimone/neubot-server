@@ -36,11 +36,11 @@ from .server_glue import DASHServerGlue
 from .server_negotiate import DASHNegotiateServer
 from .server_smpl import DASHServerSmpl
 
-from .lib_http.server import ServerHTTP
-from .negotiate.server import NegotiateServer
+from ..runtime.http_server import HttpServer
+from ..negotiate_server import NegotiateServer
 
 from .config import CONFIG
-from .lib_net.poller import POLLER
+from ..runtime.poller import POLLER
 
 from . import backend
 from . import log
@@ -103,7 +103,7 @@ def main(args):
             # Code adapted from neubot/server.py
 
             conf["http.server.rootdir"] = ""
-            server = ServerHTTP(POLLER)
+            server = HttpServer(POLLER)
             server.configure(conf)
             server.listen((address, port))
 
