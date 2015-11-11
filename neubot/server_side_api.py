@@ -25,7 +25,7 @@
 from .runtime.http_message import HttpMessage
 from .runtime.http_server import HttpServer
 
-from .negotiate.server import NEGOTIATE_SERVER
+from .negotiate_server import NEGOTIATE_SERVER
 
 class ServerSideAPI(HttpServer):
     """ Implements server-side API for Nagios plugin """

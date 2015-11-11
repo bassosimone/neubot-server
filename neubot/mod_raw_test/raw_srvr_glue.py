@@ -25,7 +25,7 @@
  access control capabilities.
 '''
 
-from ..negotiate.server_raw import NEGOTIATE_SERVER_RAW
+from .negotiate_server_raw import NEGOTIATE_SERVER_RAW
 from .raw_srvr import RawServer
 
 class RawServerEx(RawServer):

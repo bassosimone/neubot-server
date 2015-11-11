@@ -30,7 +30,7 @@ import json
 from ..runtime.http_server import HttpServer
 from ..runtime.http_server import HTTP_SERVER
 from .server import SPEEDTEST_SERVER
-from ..negotiate.server import NEGOTIATE_SERVER
+from ..negotiate_server import NEGOTIATE_SERVER
 from . import marshal
 
 #

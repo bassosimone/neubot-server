@@ -33,24 +33,17 @@ if __name__ == "__main__":
 from .runtime.http_server import HTTP_SERVER
 from .runtime.poller import POLLER
 
-from .negotiate.server import NEGOTIATE_SERVER
-
+from .negotiate_server import NEGOTIATE_SERVER
 from .config import CONFIG
-from .mod_raw_test.raw_srvr_glue import RAW_SERVER_EX
 
 from . import backend
 from . import log
-from . import mod_bittorrent
-from . import negotiate
 from .server_side_api import ServerSideAPI
 from .runtime import utils_modules
 from .runtime import utils_posix
 
-#from . import speedtest           # Not yet
-from .mod_speedtest import wrapper
-
-
-from .runtime.utils_hier import LOCALSTATEDIR
+from .globals import LOCALSTATEDIR
+from .globals import ROOTDIR
 
 SETTINGS = {
     "server.bittorrent": True,
@@ -119,6 +112,8 @@ def main(args):
 
     conf = CONFIG.copy()
 
+    conf["address"] = address
+
     #
     # Configure our global HTTP server and make
     # sure that we don't provide filesystem access
@@ -127,37 +122,9 @@ def main(args):
     conf["http.server.rootdir"] = ""
     HTTP_SERVER.configure(conf)
 
-    #
-    # New-new style: don't bother with abstraction and start the fucking
-    # server by invoking its listen() method.
-    #
-    if CONFIG['server.raw']:
-        logging.debug('server: starting raw server... in progress')
-        RAW_SERVER_EX.listen((address, 12345), CONFIG['prefer_ipv6'], 0, '')
-        logging.debug('server: starting raw server... complete')
-
-    #
-    # New-style modules are started just setting a
-    # bunch of conf[] variables and then invoking
-    # their run() method in order to kick them off.
-    # This is now depricated in favor of the new-
-    # new style described above.
-    #
-
     if conf["server.negotiate"]:
-        negotiate.run(POLLER, conf)
-
-    if conf["server.bittorrent"]:
-        conf["bittorrent.address"] = address
-        conf["bittorrent.listen"] = True
-        conf["bittorrent.negotiate"] = True
-        mod_bittorrent.run(POLLER, conf)
-
-    if conf['server.speedtest']:
-        #conf['speedtest.listen'] = 1           # Not yet
-        #conf['speedtest.negotiate'] = 1        # Not yet
-        from .mod_speedtest import wrapper
-        wrapper.run(POLLER, conf)
+        HTTP_SERVER.register_child(NEGOTIATE_SERVER, '/negotiate/')
+        HTTP_SERVER.register_child(NEGOTIATE_SERVER, '/collect/')
 
     #
     # Historically Neubot runs on port 9773 and
@@ -183,9 +150,10 @@ def main(args):
         HTTP_SERVER.register_child(server, "/sapi")
 
     # Probe existing modules and ask them to attach to us
-    utils_modules.modprobe(None, "server", {
+    utils_modules.modprobe(ROOTDIR + "/neubot", None, "server", {
         "http_server": HTTP_SERVER,
         "negotiate_server": NEGOTIATE_SERVER,
+        "configuration": conf
     })
 
     #

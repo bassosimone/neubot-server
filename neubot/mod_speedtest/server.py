@@ -22,12 +22,13 @@
 
 ''' Speedtest server '''
 
-from ..runtime.utils_random import RandomBody
+from ..runtime.random_body import RandomBody
 from ..runtime.http_message import HttpMessage
 from ..runtime.http_server import HttpServer
 
 from .bytegen import BytegenSpeedtest
 
+from ..globals import RANDOMBLOCKS
 TARGET = 5
 
 class SpeedtestServer(HttpServer):
@@ -90,7 +91,7 @@ class SpeedtestServer(HttpServer):
             first, last = self._parse_range(request)
             response = HttpMessage()
             response.compose(code='200', reason='Ok',
-              body=RandomBody(last - first + 1),
+              body=RandomBody(RANDOMBLOCKS, last - first + 1),
               mimetype='application/octet-stream')
             stream.send_response(request, response)
 

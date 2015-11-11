@@ -31,11 +31,11 @@ import sys
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from .lib_net.pollable import Pollable
-from .lib_net.pollable import SUCCESS
-from .lib_net.pollable import WANT_READ
-from .lib_net.pollable import WANT_WRITE
-from .lib_net.poller import POLLER
+from ..runtime.pollable import Pollable
+from ..runtime.pollable import SUCCESS
+from ..runtime.pollable import WANT_READ
+from ..runtime.pollable import WANT_WRITE
+from ..runtime.poller import POLLER
 
 class SSLWrapper(object):
     ''' Wrapper for an SSL socket '''

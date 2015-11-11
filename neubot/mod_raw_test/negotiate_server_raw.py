@@ -31,7 +31,7 @@
 import logging
 import hashlib
 
-from .server import NegotiateServerModule
+from ..negotiate_server_module import NegotiateServerModule
 from .. import backend
 
 class NegotiateServerRaw(NegotiateServerModule):

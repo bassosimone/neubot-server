@@ -37,7 +37,7 @@ from .brigade import Brigade
 from .handler import Handler
 from .stream import Stream
 
-from .lib_net.poller import POLLER
+from ..runtime.poller import POLLER
 
 from . import six
 from .utils import utils_version

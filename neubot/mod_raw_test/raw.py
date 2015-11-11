@@ -33,7 +33,7 @@ import sys
 if __name__ == '__main__':
     sys.path.insert(0, '.')
 
-from .lib_net.poller import POLLER
+from ..runtime.poller import POLLER
 
 from . import log
 from . import privacy

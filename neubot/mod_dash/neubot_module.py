@@ -25,7 +25,7 @@
 
 import logging
 
-from .server_negotiate import DASHNegotiateServer
+from .dash_negotiate_server import DASHNegotiateServer
 from .server_glue import DASHServerGlue
 
 def _run_test(message):

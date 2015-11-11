@@ -1,0 +1,89 @@
+#
+# Copyright (c) 2010-2011, 2015 Simone Basso <bassosimone@gmail.com>,
+#     Nexa Center for Internet & Society, Politecnico di Torino (DAUIN).
+#
+# This file is part of Neubot <http://www.neubot.org/>.
+#
+# Neubot is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Neubot is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Neubot.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+''' Global variables '''
+
+from .runtime.random_blocks import RandomBlocks
+
+import os
+import sys
+
+#
+# ROOTDIR is the directory that contains the `neubot` directory,
+# which, in turn, contains all Neubot sources.  When Neubot is
+# a py2exe executable, ROOTDIR is `$ROOTDIR\\library.zip` so we
+# need to trim it.  Note that frozen is an attribute of system
+# when we are a py2exe executable only.
+#
+# The following is magic to compute the absolute root directory
+# and has been suggested by Alessio Palmero.  Here is how it
+# works::
+#     __file__ -> $ROOTDIR/neubot/globals.py -> $ROOTDIR
+#
+ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if hasattr(sys, 'frozen'):
+    ROOTDIR = os.path.dirname(ROOTDIR)
+
+#
+# BASEDIR is the directory that contains ROOTDIR.  This directory
+# is interesting for systems where Neubot performs autoupdates, namely
+# MacOS and Win32.  In those systems, ROOTDIR is a directory named
+# after the current version number in numeric representation (see
+# utils_version.py for more info).  While BASEDIR is typically named
+# ``neubot`` and contains most recent versions.
+#
+BASEDIR = os.path.dirname(ROOTDIR)
+
+#
+# LOCALSTATEDIR is the directory that contains Neubot database.
+# We use a directory and not just a file because sqlite3 must
+# be able to create -journal files when writing into the database.
+# Hence, the directory must be writable by the Neubot user.
+#
+# On POSIX systems, we follow BSD convention and put database in
+# ``/var/neubot``.  Unless we're on a Linux system, where FHS
+# mandates to create that kind of directories under ``/var/lib``.
+#
+# On Windows, we put the database in the roaming application data
+# folder.  The exact location varies depending on the version of
+# Windows and is ``C:\Users\foo\AppData\Roaming`` on Windows 7 for
+# user ``foo``.
+#
+if os.name == 'posix':
+    LOCALSTATEDIR = '@LOCALSTATEDIR@'
+    if LOCALSTATEDIR.startswith('@'):
+        LOCALSTATEDIR = '/var'
+        if sys.platform.startswith('linux'):
+            LOCALSTATEDIR += '/lib'
+    LOCALSTATEDIR += '/neubot'
+elif os.name == 'nt':
+    LOCALSTATEDIR = os.sep.join([os.environ['APPDATA'], 'neubot'])
+else:
+    raise RuntimeError('system not supported')
+
+RANDOMBLOCKS = RandomBlocks(ROOTDIR)
+
+#
+# XXX Create and discard the first block at the very
+# beginning, so we are sure that we can fetch all the
+# needed files in the common case, i.e. when we
+# startup as root.
+#
+RANDOMBLOCKS.get_block()
