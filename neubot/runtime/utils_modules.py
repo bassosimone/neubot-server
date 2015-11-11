@@ -21,20 +21,12 @@
 
 """ Utils for loading tests as modules """
 
-#
-# Python3-ready: yes
-#
-
 import logging
 import os
 import sys
 
-from . import utils_hier
-
-def modprobe(filt, context, message):
+def modprobe(rootdir, filt, context, message):
     """ Probe all modules """
-
-    rootdir = utils_hier.ROOTDIR
 
     for name in os.listdir(rootdir):
         pathname = os.sep.join([rootdir, name])
@@ -59,7 +51,7 @@ def modprobe(filt, context, message):
             logging.debug("utils_modules: skip '%s' (filt: %s)", name, filt)
             continue
 
-        modname = "%s.neubot_module" % name
+        modname = "neubot.%s.neubot_module" % name
 
         try:
             __import__(modname)
@@ -89,4 +81,4 @@ def modprobe(filt, context, message):
                             name, exc_info=1)
             continue
 
-        logging.debug("utils_modules: load '%s' context '%s'", name, context)
+        logging.info("Loaded module '%s' for '%s' context", name, context)
