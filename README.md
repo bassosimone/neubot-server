@@ -1,5 +1,6 @@
 # Neubot server
-[![Build Status](https://travis-ci.org/neubot/neubot-server.svg?branch=issue-52)](https://travis-ci.org/neubot/neubot-serveri)
+[![Build Status](https://travis-ci.org/neubot/neubot-server.svg?branch=issue-52)](https://travis-ci.org/neubot/neubot-server)
+
 This is the server of Neubot that typically runs on M-Lab servers.
 
 Neubot is a research project on network neutrality of the Nexa
