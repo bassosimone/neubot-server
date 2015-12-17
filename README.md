@@ -35,7 +35,7 @@ the server running:
 ```BASH
 $ sudo bin/neubot-server-dev
 ```
-All the loaded modules will be propted.
+All the loaded modules will be printed.
 
 ### Options
 
