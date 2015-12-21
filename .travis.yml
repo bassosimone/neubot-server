@@ -2,8 +2,20 @@ language: python
 python:
   - "2.6"
   - "2.7"
-  - "3.2"
-  - "3.3"
   - "3.4"
   - "3.5"
-script: sudo bin/neubot-server-dev 
+install:
+  - pip install coveralls
+script:
+  # "unittest discover" is not implemented by Python 2.6, so we initially
+  # decided to use unittest2. However, when running tests through unittest2 we
+  # had the issue that coveralls was also measuring the coverage of standard
+  # library modules. So, we decided for simplicity to avoid unittes2 and only
+  # measure the coverage for Python >= 2.7.
+  - if [ $TRAVIS_PYTHON_VERSION == 2.6 ]; then
+      python neubot/runtime/test_*.py;
+    else
+      coverage run --omit=neubot/runtime/third_party/*
+          -m unittest discover neubot/runtime/;
+    fi
+after_success: coveralls
