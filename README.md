@@ -50,17 +50,4 @@ Accepts the following options:
 * `-v` Makes the command more verbose.
 
 
-### Known issues
-
-You problably do not have web100 installed. In that case this warning won't
-block the execution of neubot:
-
-```
-WARNING: web100: no information available
-Traceback (most recent call last):
-  File "/home/davide/nexa/neubot-server/neubot/web100.py", line 134, in web100_init
-```
-
-
-
 For more info: <http://www.neubot.org/>.
