@@ -2,27 +2,40 @@
 
 This is the server of Neubot that typically runs on M-Lab servers.
 
-Neubot is a research project on network neutrality of the Nexa
-Center for Internet & Society at Politecnico di Torino (DAUIN). The
-project is based on a lightweight free software program that interested
-users can download and install on their computers. The program runs in
-the background and periodically performs transmission tests with
-test servers, hosted by the distributed Measurement Lab platform,
-and (in future) with other instances of the program itself.
-Transmission tests probe the Internet using various application
-level protocols and test results are saved both locally and on the
-test servers. The results dataset contains samples from various
-Providers and is published on the web, allowing anyone to analyze
-the data for research purposes.
+For more info on Neubot in general, see <https://neubot.nexacenter.org/>.
 
-As a collection Neubot is Copyright (c) 2010-2015 Nexa Center for
-Internet & Society, Politecnico di Torino (DAUIN) <http://nexa.polito.it/>.
+## How to start neubot-server
 
-Each file is copyrighted by the individual contributor.
+Currently neubot-server only works on Linux systems. It should also work on
+BSD systems, but this was not tested. It does not work on Windows.
 
-Neubot collects your Internet address along with the results, and
-that is personal data under the European law.  For more details
-regarding our privacy policy, please refer to the file PRIVACY, in
-this directory.
+In order to start neubot-server you need `root` privileges. They are needed to
+bind privileged ports and to assign to user `nobody` read and write permissions
+of neubot-server work directory (`/var/lib/neubot`). After ports are bound and
+permissions are assigned, neubot-server drops privilegeds and runs as the non
+privileged `nobody` user.
 
-For more info: <http://www.neubot.org/>.
+Assuming you are in the root directory of neubot-server, you can simply start
+the server by running:
+
+```BASH
+$ sudo bin/neubot-server-dev
+```
+In its default configuration, neubot-server output is quite terse; it will only
+print the loaded modules implementing one test each. Shortly afterwards, the
+server will become a daemon. You can change both verbosity and daemon behavior
+by specifying command line options, as follows.
+
+### Options
+
+```BASH
+sudo bin/neubot-server-dev [-dv]
+```
+
+Accepts the following options:
+
+* `-d ` Do not demonize neubot-server.
+
+* `-v` Makes the command more verbose.
+
+
