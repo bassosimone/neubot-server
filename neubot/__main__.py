@@ -153,7 +153,8 @@ def main(args):
     utils_modules.modprobe(ROOTDIR + "/neubot", None, "server", {
         "http_server": HTTP_SERVER,
         "negotiate_server": NEGOTIATE_SERVER,
-        "configuration": conf
+        "configuration": conf,
+        "poller": POLLER
     })
 
     #

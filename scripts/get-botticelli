@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+rm -rf -- botticelli
+git clone https://github.com/bassosimone/botticelli
+cd botticelli
+GOARCH=amd64 GOOS=linux go build
+cd ..
+cp ./botticelli/botticelli ./bin/
