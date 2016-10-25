@@ -48,5 +48,5 @@ if [ -z "`get_slice_ipv6`" ]; then
     ADDRESS="0.0.0.0"
 fi
 
-$DEBUG /usr/bin/python /home/mlab_neubot/neubot/neubot/main/__init__.py \
-    server -A $ADDRESS -D server.datadir=$DATADIR
+$DEBUG /home/mlab_neubot/neubot/bin/neubot-server-dev \
+    -A $ADDRESS -D server.datadir=$DATADIR
