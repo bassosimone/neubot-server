@@ -88,6 +88,6 @@ def mod_load(context, message):
         coroutine_lazy(message["poller"])
 
     else:
-        logging.warning("dash: unknown context: %s", context)
+        logging.warning("botticelli: unknown context: %s", context)
 
     logging.debug("botticelli: init for context '%s'... complete", context)
