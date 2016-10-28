@@ -94,7 +94,7 @@ def main_development(args):
     """ Development version of main """
     CONFIG["unpriv_user"] = os.environ["USER"]
     SETTINGS["server.datadir"] = os.getcwd()
-    run(args, (8080, 9773), "./neubot.pid")
+    run(args, (8080, 9773), os.getcwd() + "/neubot.pid")
 
 def run(args, ports, pidfile):
     """ Function that implements main """
