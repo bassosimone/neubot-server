@@ -20,6 +20,7 @@ BOTTICELLI = os.sep.join([
     os.path.dirname(os.path.dirname(os.path.dirname(
                     os.path.abspath(__file__)))),
     "bin",
+    "linux_386",
     "botticelli"
 ])
 
