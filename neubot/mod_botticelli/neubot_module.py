@@ -8,7 +8,7 @@
     Botticelli is a Neubot and NDT server written in Go meant to
     possibly replace this implementation and available at
 
-        <https://github.com/bassosimone/botticelli>
+        <https://github.com/neubot/botticelli>
 """
 
 import logging
@@ -27,7 +27,7 @@ def coroutine(poller):
     """ Coroutine that checks whether botticelli is available, runs it and
         monitors the running process, possibly restarting it """
 
-    logging.debug("botticell-path: %s", BOTTICELLI)
+    logging.debug("botticelli-path: %s", BOTTICELLI)
 
     res = None
     try:
@@ -52,7 +52,7 @@ def coroutine(poller):
         """ Periodically check whether botticelli is running """
 
         ret = process.poll()
-        if not ret:
+        if ret is None:
             poller.sched(5.0, check_botticelli)
             return
         logging.warning("fatal: '%s' terminated: %s", BOTTICELLI, ret)
@@ -65,29 +65,12 @@ def coroutine(poller):
 
     poller.sched(5.0, check_botticelli)
 
-def coroutine_check(poller):
-    """ Make sure we're not running as root and then call coroutine """
-
-    uid, euid, suid = os.getresuid()
-    if uid == 0 or euid == 0 or suid == 0:
-        raise RuntimeError("./bin/botticelli MUST NOT run as root")
-
-    logging.info("botticelli uid: %d / %d / %d", uid, euid, suid)
-
-    gid, egid, sgid = os.getresgid()
-    if gid == 0 or egid == 0 or sgid == 0:
-        raise RuntimeError("./bin/botticelli MUST NOT run as root")
-
-    logging.info("botticelli gid: %d / %d / %d", gid, egid, sgid)
-
-    coroutine(poller)
-
-def coroutine_check_lazy(poller):
+def coroutine_lazy(poller):
     """ Schedule coroutine to run in five seconds """
 
     def call_coroutine():
         """ Really call the corutine """
-        coroutine_check(poller)
+        coroutine(poller)
 
     poller.sched(5.0, call_coroutine)
 
@@ -96,7 +79,7 @@ def mod_load(context, message):
     logging.debug("botticelli: init for context '%s'... in progress", context)
 
     if context == "server":
-        coroutine_check_lazy(message["poller"])
+        coroutine_lazy(message["poller"])
 
     else:
         logging.warning("dash: unknown context: %s", context)
