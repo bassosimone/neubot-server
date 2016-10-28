@@ -52,5 +52,8 @@ fi
 # if it is not running then botticelli will not start.
 $DEBUG sudo service rsyslog start
 
+# Make sure that the unprivileged user can access the botticelli binary
+$DEBUG chmod go+rx /home/mlab_neubot
+
 $DEBUG /home/mlab_neubot/neubot/bin/neubot-server \
     -A $ADDRESS -D server.datadir=$DATADIR
