@@ -48,5 +48,9 @@ if [ -z "`get_slice_ipv6`" ]; then
     ADDRESS="0.0.0.0"
 fi
 
+# Syslog must be running otherwise we will not have logs and most importantly
+# if it is not running then botticelli will not start.
+$DEBUG sudo service rsyslog start
+
 $DEBUG /home/mlab_neubot/neubot/bin/neubot-server \
     -A $ADDRESS -D server.datadir=$DATADIR
