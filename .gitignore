@@ -1,3 +1,6 @@
 M-Lab/GeoIP.dat
 *.swp
 *.pyc
+/bin/botticelli
+/pkg
+/src

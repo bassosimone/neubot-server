@@ -258,7 +258,13 @@ def chuser(passwd):
         raise RuntimeError('utils_posix: cannot drop group privileges')
 
     logging.debug('utils_posix: set minimal supplementary groups')
-    os.setgroups([passwd.pw_gid])
+    try:
+        os.setgroups([passwd.pw_gid])
+    except OSError as error:
+        if error.args[0] == errno.EPERM:
+            logging.info('utils_posix: setgroups failed: you are not root')
+        else:
+            raise
 
     logging.debug('utils_posix: change uid to %d', passwd.pw_uid)
     if hasattr(os, 'setresuid'):

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env python
 
 #
 # Copyright (c) 2015
@@ -21,9 +21,15 @@
 # along with Neubot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-BASEDIR=$(cd $(dirname $(dirname $0)) && pwd -P)
-if [ $? -ne 0 ]; then
-    echo "$0: cannot determine toplevel directory" 1>&2
-    exit 1
-fi
-PYTHONPATH="$BASEDIR" exec $BASEDIR/bin/neubot-server "$@"
+""" Neubot server script """
+
+import sys
+import os
+
+if __name__ == "__main__":
+    sys.path.insert(0, os.path.dirname(os.path.dirname(
+            os.path.abspath(__file__))))
+
+from neubot.__main__ import main_development as main
+
+main(sys.argv)
