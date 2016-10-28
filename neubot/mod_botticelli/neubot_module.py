@@ -63,6 +63,12 @@ def coroutine(poller):
 
         poller.sched(0.0, call_again)
 
+    def cleanup():
+        """ Function called when the poller exits """
+        process.terminate()
+        process.wait()
+
+    poller.atexit(cleanup)
     poller.sched(5.0, check_botticelli)
 
 def coroutine_lazy(poller):

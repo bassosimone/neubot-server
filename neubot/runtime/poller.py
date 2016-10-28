@@ -56,6 +56,11 @@ class Poller(sched.scheduler):
         self._readset = {}
         self._writeset = {}
         self._check_timeout()
+        self._atexit = []
+
+    def atexit(self, func):
+        ''' Tasks to run at exit '''
+        self._atexit.append(func)
 
     def sched(self, delta, func, *args):
         ''' Schedule task '''
@@ -159,6 +164,11 @@ class Poller(sched.scheduler):
                 break  # overriden semantic: break out of poller loop NOW
             except:
                 logging.error('poller: unhandled exception', exc_info=1)
+        for func in self._atexit:
+            try:
+                func()
+            except:
+                pass
 
     def _poll(self, timeout):
         ''' Poll for readability and writability '''
