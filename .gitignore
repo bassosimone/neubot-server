@@ -2,5 +2,6 @@ M-Lab/GeoIP.dat
 *.swp
 *.pyc
 /.vagrant/
-/botticelli
 /bin/botticelli
+/pkg
+/src
