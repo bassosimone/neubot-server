@@ -27,9 +27,6 @@ import logging
 import os
 import signal
 
-if __name__ == "__main__":
-    sys.path.insert(0, ".")
-
 from .runtime.http_server import HTTP_SERVER
 from .runtime.poller import POLLER
 
@@ -82,6 +79,26 @@ def main(args):
     if os.getuid() != 0:
         sys.exit('FATAL: you must be root')
 
+    #
+    # Historically Neubot runs on port 9773 and
+    # 8080 but we would like to switch to port 80
+    # in the long term period, because it's rare
+    # that they filter it.
+    #
+    ports = (80, 8080, 9773)
+    pidfile = "/var/run/neubot.pid"
+
+    run(args, ports, pidfile)
+
+def main_development(args):
+    """ Development version of main """
+    CONFIG["unpriv_user"] = os.environ["USER"]
+    SETTINGS["server.datadir"] = os.getcwd()
+    run(args, (8080, 9773), "./neubot.pid")
+
+def run(args, ports, pidfile):
+    """ Function that implements main """
+
     try:
         options, arguments = getopt.getopt(args[1:], 'A:b:D:dv')
     except getopt.error:
@@ -126,13 +143,6 @@ def main(args):
         HTTP_SERVER.register_child(NEGOTIATE_SERVER, '/negotiate/')
         HTTP_SERVER.register_child(NEGOTIATE_SERVER, '/collect/')
 
-    #
-    # Historically Neubot runs on port 9773 and
-    # 8080 but we would like to switch to port 80
-    # in the long term period, because it's rare
-    # that they filter it.
-    #
-    ports = (80, 8080, 9773)
     for port in ports:
         HTTP_SERVER.listen((address, port))
 
@@ -160,7 +170,7 @@ def main(args):
     #
     if conf["server.daemonize"]:
         log.redirect()
-        utils_posix.daemonize(pidfile='/var/run/neubot.pid')
+        utils_posix.daemonize(pidfile=pidfile)
 
     sigterm_handler = lambda signo, frame: POLLER.break_loop()
     signal.signal(signal.SIGTERM, sigterm_handler)
@@ -170,7 +180,4 @@ def main(args):
     POLLER.loop()
 
     logging.info('Neubot server -- shutting down')
-    utils_posix.remove_pidfile('/var/run/neubot.pid')
-
-if __name__ == "__main__":
-    main(sys.argv)
+    utils_posix.remove_pidfile(pidfile)

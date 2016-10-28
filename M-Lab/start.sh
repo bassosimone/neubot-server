@@ -48,5 +48,5 @@ if [ -z "`get_slice_ipv6`" ]; then
     ADDRESS="0.0.0.0"
 fi
 
-$DEBUG /home/mlab_neubot/neubot/bin/neubot-server-dev \
+$DEBUG /home/mlab_neubot/neubot/bin/neubot-server \
     -A $ADDRESS -D server.datadir=$DATADIR
