@@ -41,7 +41,7 @@ fi
 # $DATADIR are not owned by _neubot:_neubot, therefore neubot cannot
 # save the experiments results inside $DATADIR.
 #
-find $DATADIR -exec chown _neubot:_neubot {} \;
+find $DATADIR -type d -exec chown _neubot:_neubot {} \;
 
 ADDRESS="::"
 if [ -z "`get_slice_ipv6`" ]; then
