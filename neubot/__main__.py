@@ -54,6 +54,7 @@ SETTINGS = {
 
 USAGE = '''\
 usage: neubot server [-dv] [-A address] [-b backend] [-D macro=value]
+                     [-u user]
 
 valid backends:
   mlab   Saves results as compressed json files (this is the default)
@@ -100,7 +101,7 @@ def run(args, ports, pidfile):
     """ Function that implements main """
 
     try:
-        options, arguments = getopt.getopt(args[1:], 'A:b:D:dv')
+        options, arguments = getopt.getopt(args[1:], 'A:b:D:du:v')
     except getopt.error:
         sys.exit(USAGE)
     if arguments:
@@ -119,6 +120,8 @@ def run(args, ports, pidfile):
             SETTINGS[name] = value
         elif name == '-d':
             SETTINGS['server.daemonize'] = 0
+        elif name == '-u':
+            CONFIG["unpriv_user"] = value
         elif name == '-v':
             log.set_verbose()
 
