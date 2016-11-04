@@ -52,6 +52,10 @@ fi
 # if it is not running then botticelli will not start.
 $DEBUG sudo service rsyslog start
 
+# When I deploy manually this service is not started and this prevents mlab
+# from being able to automatically downloading the results.
+$DEBUG sudo service rsyncd start || exit 0
+
 # Make sure that the unprivileged user can access the botticelli binary
 $DEBUG chmod go+rx /home/mlab_neubot
 
