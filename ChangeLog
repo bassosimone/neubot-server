@@ -1,3 +1,6 @@
+neubot-server 0.6.0.3 [2016-11-04]
+	* force rsyncd to go up (fixes manual deploy)
+
 neubot-server 0.6.0.2 [2016-11-04]
 	* fix bind ivp4 issue in m-lab/start.sh
 
