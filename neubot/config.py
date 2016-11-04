@@ -35,7 +35,7 @@ CONFIG = {
     "bittorrent.port": 6881,
     "bittorrent.watchdog": 300,
     "bittorrent.max_message": 1 << 18,
-    "negotiate.parallelism": 7,
+    "negotiate.parallelism": 2,
     "negotiate.min_thresh": 32,
     "negotiate.max_thresh": 64,
     "prefer_ipv6": 0,

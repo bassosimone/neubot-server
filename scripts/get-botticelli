@@ -1,3 +1,35 @@
 #!/bin/sh
+
+GOVENDOR=`which govendor`
+if [ -z "$GOVENDOR" ]; then
+    echo "FATAL: govendor not in your PATH" 1>&2
+    echo "" 1>&2
+    echo "To install govendor run something like this:" 1>&2
+    echo "" 1>&2
+    echo '    GOPATH=$HOME go get -u -v github.com/kardianos/govendor' 1>&2
+    echo "" 1>&2
+    echo "Note: this will add the following paths to your system" 1>&2
+    echo "" 1>&2
+    echo '    $HOME/bin/govendor                       Govendor binary' 1>&2
+    echo '    $HOME/pkg/                               Go static libs' 1>&2
+    echo '    $HOME/src/github.com/kardianos/govendor  Govendor sources' 1>&2
+    echo "" 1>&2
+    echo "If you don't like this, choose another GOPATH." 1>&2
+    echo "" 1>&2
+    echo 'Make sure, in any case, $GOPATH/bin is inside of your PATH' 1>&2
+    exit 1
+fi
+
 set -e
-GOPATH=`pwd` go get -u -v github.com/neubot/botticelli
+
+#
+# Note, invoke me like `GOOS=linux GOARCH=386 ./scripts/get-botticelli` to
+# cross-compile the botticelli suitable to run on measurement-lab.
+#
+BOTTICELLI=./bin/botticelli
+if [ "$GOOS" = "linux" -a "$GOARCH" = "386" ]; then
+    BOTTICELLI=./bin/linux_386/botticelli
+fi
+
+echo "- $GOVENDOR build -v -o $BOTTICELLI"
+$GOVENDOR build -v -o $BOTTICELLI

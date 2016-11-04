@@ -1,3 +1,18 @@
+neubot-server 0.6.0.1 [2016-11-04]
+	* Updated to botticelli v0.0.5 and bernini v0.0.2
+	* Traceable build of botticelli
+	* Several robustness fixes for running on mlab
+
+neubot-server 0.6.0.0 [2016-10-28]
+	* Add support for running botticelli
+
+neubot-server 0.5.0.1 [2016-10-25]
+	* Make sure we can start the server on mlab
+
+neubot-server 0.5.0.0 [2016-02-03]
+	* Separated neubot-server from neubot
+	* Using neubot-runtime repository
+
 Neubot 0.4.16.9 [2013-10-24]
 	* Makefile: update to make sources only releases
 	* gc scripts/update_apt: not needed anymore in the sources repo

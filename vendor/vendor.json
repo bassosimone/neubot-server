@@ -1,0 +1,63 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "tKbxXRlfVTdOKBreYZ+7C9Nrs3g=",
+			"path": "github.com/neubot/bernini",
+			"revision": "20365d7fb60ead3ef5ae4ec42cdff47dc9d142f5",
+			"revisionTime": "2016-11-04T09:41:37Z",
+			"version": "v0.0.2",
+			"versionExact": "v0.0.2"
+		},
+		{
+			"checksumSHA1": "Z+S+FT8X7NlcvLDTT4SHfA5eVM8=",
+			"path": "github.com/neubot/botticelli",
+			"revision": "e64face4670807b7e6da26b4996c9146e755bb64",
+			"revisionTime": "2016-11-04T10:04:11Z",
+			"version": "v0.0.5",
+			"versionExact": "v0.0.5"
+		},
+		{
+			"checksumSHA1": "urQ8b+RFhFOyCtyNP3U9C3f3Utg=",
+			"path": "github.com/neubot/botticelli/common",
+			"revision": "e64face4670807b7e6da26b4996c9146e755bb64",
+			"revisionTime": "2016-11-04T10:04:11Z",
+			"version": "v0.0.5",
+			"versionExact": "v0.0.5"
+		},
+		{
+			"checksumSHA1": "EA7CxiM70embASlwPeDSfIT8RRY=",
+			"path": "github.com/neubot/botticelli/common/negotiate",
+			"revision": "e64face4670807b7e6da26b4996c9146e755bb64",
+			"revisionTime": "2016-11-04T10:04:11Z",
+			"version": "v0.0.5",
+			"versionExact": "v0.0.5"
+		},
+		{
+			"checksumSHA1": "Y9c4NwdJXx0gMATo3mFrKql9Img=",
+			"path": "github.com/neubot/botticelli/nettests/dash",
+			"revision": "e64face4670807b7e6da26b4996c9146e755bb64",
+			"revisionTime": "2016-11-04T10:04:11Z",
+			"version": "v0.0.5",
+			"versionExact": "v0.0.5"
+		},
+		{
+			"checksumSHA1": "2U1Mv7ImFp9ovqSDh+gaqa4vaz0=",
+			"path": "github.com/neubot/botticelli/nettests/ndt",
+			"revision": "e64face4670807b7e6da26b4996c9146e755bb64",
+			"revisionTime": "2016-11-04T10:04:11Z",
+			"version": "v0.0.5",
+			"versionExact": "v0.0.5"
+		},
+		{
+			"checksumSHA1": "jxOixJZqXUKlND9yFSsNCSzfP3w=",
+			"path": "github.com/neubot/botticelli/nettests/speedtest",
+			"revision": "e64face4670807b7e6da26b4996c9146e755bb64",
+			"revisionTime": "2016-11-04T10:04:11Z",
+			"version": "v0.0.5",
+			"versionExact": "v0.0.5"
+		}
+	],
+	"rootPath": "github.com/neubot/neubot-server"
+}
