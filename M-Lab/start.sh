@@ -43,9 +43,9 @@ fi
 #
 find $DATADIR -type d -exec chown _neubot:_neubot {} \;
 
-ADDRESS="::"
+ADDRESS_OPTION=""
 if [ -z "`get_slice_ipv6`" ]; then
-    ADDRESS="0.0.0.0"
+    ADDRESS_OPTION="-A 0.0.0.0"
 fi
 
 # Syslog must be running otherwise we will not have logs and most importantly
@@ -56,4 +56,4 @@ $DEBUG sudo service rsyslog start
 $DEBUG chmod go+rx /home/mlab_neubot
 
 $DEBUG /home/mlab_neubot/neubot/bin/neubot-server -u _neubot \
-    -A $ADDRESS -D server.datadir=$DATADIR
+    $ADDRESS_OPTION -D server.datadir=$DATADIR
