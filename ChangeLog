@@ -1,3 +1,12 @@
+neubot-server 0.6.0.4 [2016-11-07]
+	* fix ports we expect open in a ipv4+ipv6 environment
+
+neubot-server 0.6.0.3 [2016-11-04]
+	* force rsyncd to go up (fixes manual deploy)
+
+neubot-server 0.6.0.2 [2016-11-04]
+	* fix bind ivp4 issue in m-lab/start.sh
+
 neubot-server 0.6.0.1 [2016-11-04]
 	* Updated to botticelli v0.0.5 and bernini v0.0.2
 	* Traceable build of botticelli

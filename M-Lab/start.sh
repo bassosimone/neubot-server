@@ -43,17 +43,21 @@ fi
 #
 find $DATADIR -type d -exec chown _neubot:_neubot {} \;
 
-ADDRESS="::"
+ADDRESS_OPTION=""
 if [ -z "`get_slice_ipv6`" ]; then
-    ADDRESS="0.0.0.0"
+    ADDRESS_OPTION="-A 0.0.0.0"
 fi
 
 # Syslog must be running otherwise we will not have logs and most importantly
 # if it is not running then botticelli will not start.
 $DEBUG sudo service rsyslog start
 
+# When I deploy manually this service is not started and this prevents mlab
+# from being able to automatically downloading the results.
+$DEBUG sudo service rsyncd start || exit 0
+
 # Make sure that the unprivileged user can access the botticelli binary
 $DEBUG chmod go+rx /home/mlab_neubot
 
 $DEBUG /home/mlab_neubot/neubot/bin/neubot-server -u _neubot \
-    -A $ADDRESS -D server.datadir=$DATADIR
+    $ADDRESS_OPTION -D server.datadir=$DATADIR
