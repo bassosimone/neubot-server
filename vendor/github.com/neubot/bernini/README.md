@@ -81,6 +81,13 @@ if err != nil {
     log.Panic("IoWriteString failed")
 }
 
+conn, err = bernini.IoAccept(
+        listener // obtained with net.Listen()
+)
+if err != nil {
+    log.Panic("accept() failed or timed out")
+}
+
 // Initialize the logger flags by cleaning up the format
 bernini.InitLogger()
 
