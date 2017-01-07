@@ -71,6 +71,6 @@ Merge the master branch into mlab:
 
 Rebuild:
 
-    GOOS=linux GOARCH=386 ./script/get-botticelli
+    GOOS=linux GOARCH=386 ./scripts/get-botticelli
 
 Commit the modified botticelli binary.
