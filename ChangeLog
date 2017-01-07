@@ -1,3 +1,9 @@
+neubot-server 0.6.0.5 [2017-01-07]
+	* README.md: mention botticelli and how to update it
+	* Update bernini and botticelli
+	* Explain how to cross compile botticelli for mlab
+	* README.md: fix typo
+
 neubot-server 0.6.0.4 [2016-11-07]
 	* fix ports we expect open in a ipv4+ipv6 environment
 
