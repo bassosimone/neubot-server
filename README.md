@@ -58,3 +58,19 @@ Finally, update botticelli and bernini (dependency of botticelli):
         github.com/neubot/botticelli/...
 
 You should see changed files in vendor/. Commit them and you are done.
+
+## Cross compiling botticelli for mlab
+
+Move to the mlab branch:
+
+    git checkout mlab
+
+Merge the master branch into mlab:
+
+    git merge --no-ff master
+
+Rebuild:
+
+    GOOS=linux GOARCH=386 ./script/get-botticelli
+
+Commit the modified botticelli binary.
