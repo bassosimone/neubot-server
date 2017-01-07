@@ -74,3 +74,8 @@ Rebuild:
     GOOS=linux GOARCH=386 ./scripts/get-botticelli
 
 Commit the modified botticelli binary.
+
+## How to deploy on mlab
+
+See [neubot/mlab-neubot-support](
+https://github.com/neubot/mlab-neubot-support).
