@@ -1,6 +1,9 @@
 # Neubot server
 
-This is the server of Neubot that typically runs on M-Lab servers.
+This is the server of Neubot that typically runs on M-Lab servers. It is
+partly written in Python and partly written in Go. The Go code runs a custom
+NDT server and is based on the [neubot/botticelli](
+github.com/neubot/botticelli) library.
 
 For more info on Neubot in general, see <https://neubot.nexacenter.org/>.
 
@@ -38,4 +41,20 @@ Accepts the following options:
 
 * `-v` Makes the command more verbose.
 
+## Updating botticelli
 
+First, make sure you have set the `GOPATH` environment variable. I usually
+set it to my home directory, but your mileage may vary:
+
+    export GOPATH=$HOME
+
+Then fetch and compile the govendor tool:
+
+    go get -u -v github.com/kardianos/govendor
+
+Finally, update botticelli and bernini (dependency of botticelli):
+
+    $GOPATH/bin/govendor update github.com/neubot/bernini/... \
+        github.com/neubot/botticelli/...
+
+You should see changed files in vendor/. Commit them and you are done.
