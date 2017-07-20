@@ -167,7 +167,7 @@ class HttpStream(Stream):
         ''' We've got a line... what do we do? '''
         if self.state == FIRSTLINE:
             line = line.strip()
-            logging.debug("< %s", line)
+            logging.debug("< %s", line.strip())
             vector = line.split(None, 2)
             if len(vector) == 3:
                 if line.startswith("HTTP"):
@@ -186,7 +186,7 @@ class HttpStream(Stream):
                 raise RuntimeError("Invalid first line")
         elif self.state == HEADER:
             if line.strip():
-                logging.debug("< %s", line)
+                logging.debug("< %s", line.strip())
                 # not handling mime folding
                 index = line.find(":")
                 if index >= 0:

@@ -26,6 +26,23 @@
 # Adapted from neubot/raw_srvr_glue.py
 
 from .server_smpl import DASHServerSmpl
+from ..runtime import utils
+from ..runtime import utils_net
+from .. import web100
+
+def save_web100_snap(server_record):
+    ''' Save web100 snap into server record using context '''
+    if not server_record["web100_dirname"]:
+        return
+    server_record["data"].append({
+        'iteration': server_record["iteration"], # zero is "before transfer"
+        'ticks': utils.ticks(),
+        'timestamp': utils.timestamp(),
+        'web100_snap': web100.web100_snap(
+            web100.WEB100_HEADER,
+            server_record['web100_dirname']
+        ),
+    })
 
 class DASHServerGlue(DASHServerSmpl):
     """ Glue for DASH on the server side """
@@ -44,4 +61,18 @@ class DASHServerGlue(DASHServerSmpl):
         if auth not in self.negotiator.peers:
             return False
 
-        return DASHServerSmpl.got_request_headers(self, stream, request)
+        result = DASHServerSmpl.got_request_headers(self, stream, request)
+        if not result:
+            return result
+
+        server_record = self.negotiator.peers[auth]
+        if not server_record["web100_dirname"]:
+            spec = '%s %s' % (utils_net.format_epnt_web100(stream.myname),
+                              utils_net.format_epnt_web100(stream.peername))
+            server_record["web100_dirname"] = web100.web100_find_dirname(
+                  web100.WEB100_HEADER, spec)
+
+        save_web100_snap(server_record)
+        server_record["iteration"] += 1  # Must be after we've saved the snap
+
+        return True

@@ -34,6 +34,8 @@ from ..negotiate_server_module import NegotiateServerModule
 from ..runtime import utils
 from .. import backend
 
+from .server_glue import save_web100_snap
+
 class DASHNegotiateServer(NegotiateServerModule):
     """ Negotiator for MPEG DASH test """
 
@@ -56,14 +58,18 @@ class DASHNegotiateServer(NegotiateServerModule):
         if sha256 in self.peers:
             raise RuntimeError("dash: multiple unchokes: %s", sha256)
 
-        self.peers[sha256] = []
+        self.peers[sha256] = {
+            "iteration": 0,
+            "web100_dirname": "",
+            "data": [],
+        }
         stream.atclose(self._update_peers)
 
         logging.debug("dash: add sha256: %s", sha256)
 
         return {
                 "authorization": sha256,
-                "port": 8080,
+                "port": 8080, # XXX is this used?
 
                 # For now just accept the proposal from the client
                 "dash_rates": request_body["dash_rates"],
@@ -80,6 +86,8 @@ class DASHNegotiateServer(NegotiateServerModule):
         # Note: no more than one collect per session
         result = self.peers.pop(sha256)
 
+        save_web100_snap(result)
+
         logging.debug("dash: del sha256 (OK): %s", sha256)
 
         server_timestamp = utils.timestamp()
@@ -88,19 +96,10 @@ class DASHNegotiateServer(NegotiateServerModule):
                       "srvr_schema_version": 3,
                       "srvr_timestamp": server_timestamp,
                       "client": request_body,
-                      "server": result,
+                      "server": result["data"],
                      })
 
-        #
-        # Return back, at a minimum, the server timestamp.
-        # TODO Also gather and return Web100 stats.
-        #
-        for index in range(len(request_body)):
-            if index <= len(result):
-                result.append({})
-            result[index]["timestamp"] = server_timestamp
-
-        return result
+        return result["data"]
 
     def _update_peers(self, stream, ignored):
         """ Invoked when a session has been closed """
