@@ -1,3 +1,6 @@
+neubot-server 0.6.1.0 [2017-07-20]
+	* Save web100 snapshots during DASH test
+
 neubot-server 0.6.0.5 [2017-01-07]
 	* README.md: mention botticelli and how to update it
 	* Update bernini and botticelli
