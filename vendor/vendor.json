@@ -11,52 +11,58 @@
 			"versionExact": "v0.0.2"
 		},
 		{
-			"checksumSHA1": "7VYnqXO5XDSTl3sRVTHXK4Q/DVQ=",
+			"checksumSHA1": "jEJB11JzjL4AbCHfvQTzcdLG3HM=",
 			"path": "github.com/neubot/botticelli",
-			"revision": "6cbdcdae07abee226a9a642ef999ec7597905906",
-			"revisionTime": "2017-01-07T14:28:59Z",
+			"revision": "cc3dc5f25940ae086db23218f07492c36661c71c",
+			"revisionTime": "2019-03-25T15:26:42Z",
 			"version": "v0.0.5",
 			"versionExact": "v0.0.5"
 		},
 		{
 			"checksumSHA1": "RI95Rx41jRfa2GQDde6R5MxviK4=",
 			"path": "github.com/neubot/botticelli/common",
-			"revision": "6cbdcdae07abee226a9a642ef999ec7597905906",
-			"revisionTime": "2017-01-07T14:28:59Z",
+			"revision": "cc3dc5f25940ae086db23218f07492c36661c71c",
+			"revisionTime": "2019-03-25T15:26:42Z",
 			"version": "v0.0.5",
 			"versionExact": "v0.0.5"
 		},
 		{
 			"checksumSHA1": "EA7CxiM70embASlwPeDSfIT8RRY=",
 			"path": "github.com/neubot/botticelli/common/negotiate",
-			"revision": "6cbdcdae07abee226a9a642ef999ec7597905906",
-			"revisionTime": "2017-01-07T14:28:59Z",
+			"revision": "cc3dc5f25940ae086db23218f07492c36661c71c",
+			"revisionTime": "2019-03-25T15:26:42Z",
 			"version": "v0.0.5",
 			"versionExact": "v0.0.5"
 		},
 		{
 			"checksumSHA1": "Y9c4NwdJXx0gMATo3mFrKql9Img=",
 			"path": "github.com/neubot/botticelli/nettests/dash",
-			"revision": "6cbdcdae07abee226a9a642ef999ec7597905906",
-			"revisionTime": "2017-01-07T14:28:59Z",
+			"revision": "cc3dc5f25940ae086db23218f07492c36661c71c",
+			"revisionTime": "2019-03-25T15:26:42Z",
 			"version": "v0.0.5",
 			"versionExact": "v0.0.5"
 		},
 		{
-			"checksumSHA1": "qJlNROgngvDvn84CxabcR+9IVT4=",
+			"checksumSHA1": "LjPImbWBK3B4QHHi3hLlRE286/A=",
 			"path": "github.com/neubot/botticelli/nettests/ndt",
-			"revision": "6cbdcdae07abee226a9a642ef999ec7597905906",
-			"revisionTime": "2017-01-07T14:28:59Z",
+			"revision": "cc3dc5f25940ae086db23218f07492c36661c71c",
+			"revisionTime": "2019-03-25T15:26:42Z",
 			"version": "v0.0.5",
 			"versionExact": "v0.0.5"
 		},
 		{
 			"checksumSHA1": "jxOixJZqXUKlND9yFSsNCSzfP3w=",
 			"path": "github.com/neubot/botticelli/nettests/speedtest",
-			"revision": "6cbdcdae07abee226a9a642ef999ec7597905906",
-			"revisionTime": "2017-01-07T14:28:59Z",
+			"revision": "cc3dc5f25940ae086db23218f07492c36661c71c",
+			"revisionTime": "2019-03-25T15:26:42Z",
 			"version": "v0.0.5",
 			"versionExact": "v0.0.5"
+		},
+		{
+			"checksumSHA1": "CzkgSSvFbFzUtLAWjhgfOHGcjvI=",
+			"path": "github.com/neubot/neubot-server",
+			"revision": "bf4e77b467630e3e322321206775d58e6656e496",
+			"revisionTime": "2017-07-20T14:58:59Z"
 		}
 	],
 	"rootPath": "github.com/neubot/neubot-server"
