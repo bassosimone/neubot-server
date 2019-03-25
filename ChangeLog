@@ -1,3 +1,6 @@
+neubot-server 0.6.2.1 [2019-03-25]
+	* Make sure we use the correct botticelli port.
+
 neubot-server 0.6.2.0 [2019-03-25]
 	* Use a botticelli with different ports to mitigate hammering
 	  from unknown users of m-lab servers.
