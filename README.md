@@ -1,4 +1,5 @@
 # Neubot server
+[![Build Status](https://travis-ci.org/neubot/neubot-server.svg?branch=issue-52)](https://travis-ci.org/neubot/neubot-server) [![Coverage Status](https://coveralls.io/repos/neubot/neubot-runtime/badge.svg?branch=master)](https://coveralls.io/r/neubot/neubot-runtime?branch=master)
 
 This is the server of Neubot that typically runs on M-Lab servers. It is
 partly written in Python and partly written in Go. The Go code runs a custom
